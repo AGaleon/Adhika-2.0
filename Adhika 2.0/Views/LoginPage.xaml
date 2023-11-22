@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Adhika_Final_Build.Views.LoginPage"
+             Title="LoginPage">
+    <StackLayout Margin="0,50">
+        <!-- Logo and Title -->
+        <ImageButton x:Name="logLogo" Source="logo.png" HeightRequest="200" WidthRequest="200" BackgroundColor="Transparent" />
+        <Label x:Name="loginLabel" Text="Login" Grid.ColumnSpan="2" FontSize="20" HorizontalOptions="Center" Margin="10" BackgroundColor="White" TextColor="#114D97" FontAttributes="Bold" />
+        <Rectangle x:Name="_tabloginIndicator" Grid.Column="0" Grid.ColumnSpan="2" Margin="50,0" BackgroundColor="#114D97" HeightRequest="4" VerticalOptions="End"></Rectangle>
+        <!-- Email Entry -->
+        <Frame Padding="0" HeightRequest="50" Margin="50,50,50,0" HasShadow="True" BorderColor="White">
+            <StackLayout VerticalOptions="Center" Margin="20,0,20,0">
+                <Frame Padding="0,-10" BorderColor="Transparent">
+                    <Entry Placeholder="Email Address" HorizontalTextAlignment="Start" x:Name="txtEmail" FontAttributes="Bold" VerticalOptions="Center" HeightRequest="40" />
+                </Frame>
+            </StackLayout>
+        </Frame>
+        <!-- Password Entry -->
+        <Frame Padding="0" HeightRequest="50" Margin="50,20,50,0" HasShadow="True" BorderColor="White">
+            <StackLayout VerticalOptions="Center" Margin="20,0,20,0">
+                <Frame Padding="0,-10" BorderColor="Transparent">
+                    <Entry Placeholder="Password" HorizontalTextAlignment="Start" IsPassword="True" x:Name="txtPassword" FontAttributes="Bold" VerticalOptions="Center" HeightRequest="40" />
+                </Frame>
+            </StackLayout>
+        </Frame>
+        <!-- Login Button -->
+        <Button Padding="0" HeightRequest="50" Margin="50,20,50,0" Clicked="btnLogin_Click" BackgroundColor="#114D97" x:Name="btnLogin" Text="LOGIN" BorderColor="White" />
+        <!-- Forgot Password Button -->
+        <Button Padding="0" HeightRequest="50" Margin="50,10,50,0" BackgroundColor="Transparent" Text="Forgot Password?" TextColor="#114D97" />
+    </StackLayout>
+</ContentPage>
