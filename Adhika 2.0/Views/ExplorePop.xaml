@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+             x:Class="Adhika.ExplorePop"
+                  BackgroundColor="#80000000" 
+             >
+    <Grid HeightRequest="200"  WidthRequest="250" BackgroundColor="Transparent" Padding="10">
+        <Frame BorderColor="Transparent" BackgroundColor="#022b5d" Margin="-10" Opacity="0.7"></Frame>
+        <Grid ColumnDefinitions="*,*,*" RowDefinitions="60,*" ColumnSpacing="10">
+            <Label Text="Explore" FontSize="24" TextColor="White" Grid.ColumnSpan="3" HorizontalOptions="Center"></Label>
+            <StackLayout  Grid.Column="0" Grid.Row="1" >
+                <Button HeightRequest="70" WidthRequest="70" Clicked="readnow_Clicked"  x:Name="readnow" BackgroundColor="White"></Button>
+                <Label Text="Read Now" HorizontalTextAlignment="Center" TextColor="White" ></Label>
+            </StackLayout>
+            <StackLayout  Grid.Column="1" Grid.Row="1" >
+                <Button x:Name="Quiz"  Clicked="Quiz_Clicked" HeightRequest="70" WidthRequest="70" BackgroundColor="White"></Button>
+                <Label Text="Quiz" HorizontalTextAlignment="Center" TextColor="White"  ></Label>
+            </StackLayout>
+            <StackLayout  Grid.Column="2" Grid.Row="1" >
+                <Button x:Name="Lumi"  Clicked="Lumi_Clicked" HeightRequest="70" WidthRequest="70" BackgroundColor="White"></Button>
+                <Label Text="Watch" HorizontalTextAlignment="Center" TextColor="White"  ></Label>
+            </StackLayout>
+        </Grid>
+    </Grid>
+</mopups:PopupPage>

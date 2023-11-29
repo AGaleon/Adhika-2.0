@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Adhika.Pdfview"
+                xmlns:mopups ="clr-namespace:Mopups.Pages;assembly=Mopups"
+
+             Appearing="ContentPage_Appearing"
+>
+
+
+    <Grid RowDefinitions="*">
+        <WebView x:Name="webView" Source="https://drive.google.com/file/d/18CdTGhQSZQvbcS7FTCWeG4-_2b2waQ68/view" Margin="0,100" HeightRequest="225"  BackgroundColor="Wheat">
+        </WebView>
+        <WebView x:Name="webView1" Source="https://drive.google.com/file/d/18CdTGhQSZQvbcS7FTCWeG4-_2b2waQ68/view" BackgroundColor="Wheat">
+        </WebView>
+        <StackLayout BackgroundColor="DimGray" HeightRequest="60" VerticalOptions="Start" >
+            <Button Clicked="Button_Clicked" Grid.Row="1" Text="DONE" ZIndex="1" HeightRequest="40" WidthRequest="50" Padding="0" BackgroundColor="#022b5d" TextColor="White"  VerticalOptions="Start" HorizontalOptions="End"  Margin="10"         ></Button>
+        </StackLayout>
+    </Grid>
+</mopups:PopupPage>

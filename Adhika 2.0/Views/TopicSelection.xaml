@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="#80000000"
+             xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups" 
+             x:Class="Adhika_2._0.Views.TopicSelection" Appearing="PopupPage_Appearing"
+                  >
+
+    <Grid  HeightRequest="550" Margin="40" Padding="0" RowDefinitions="50,*">
+
+        <Frame Grid.Column="0" Margin="20,0,20,0" Padding="0,0,0,0" >
+            <SearchBar></SearchBar>
+        </Frame>
+        <Frame  Grid.Row="1" BackgroundColor="Transparent" BorderColor="Transparent" Padding="10" Margin="0,0,0,0" >
+            <Frame Padding="0,0,0,0" BackgroundColor="Transparent"     BorderColor="Transparent"  >
+                <Grid RowDefinitions="460,40" >
+                    <ListView x:Name="TopicsList" ItemSelected="TopicsList_ItemSelected"  HasUnevenRows="True" BackgroundColor="Transparent" SeparatorVisibility="None" VerticalOptions="Start" HeightRequest="400" Margin="5">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout BackgroundColor="Transparent"    >
+                                        <Frame Padding="5" Margin="5"  BackgroundColor="White" HeightRequest="70">
+                                            <Grid ColumnDefinitions="60,*,20 " ColumnSpacing="10">
+                                                <Frame Padding="0" CornerRadius="30" WidthRequest="60" HeightRequest="60" >
+                                                    <Grid>
+                                                        <Image BackgroundColor="Red" Source="{Binding TopicImage}" Aspect="AspectFill" ></Image>
+                                                        <Rectangle Opacity="0.8" Aspect="Fill" IsVisible="{Binding TopicImage}"></Rectangle>
+                                                    </Grid>
+                                                </Frame>
+                                                <StackLayout Grid.Column="1" Grid.ColumnSpan="2" BackgroundColor="Transparent" ZIndex="1">
+                                                    <Label Text="{Binding TopicTitle}" FontAttributes="Bold" FontFamily="" TextColor="#022b5d" FontSize="20" />
+                                                    <Label Text="{Binding TopicDescription}" FontSize="13" TextColor="Gray"  FontAttributes="Bold" FontFamily="" />
+                                                </StackLayout>
+                                            </Grid>
+                                        </Frame>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Frame>
+        </Frame>
+        <Button Grid.Row="1" Clicked="Button_Clicked" VerticalOptions="End" HeightRequest="40"  TextColor="#022b5d" FontAttributes="Bold" FontFamily="" BackgroundColor="Wheat" Margin="20,0,20,0" Text="Select Topic"></Button>
+    </Grid>
+
+
+</mopups:PopupPage>

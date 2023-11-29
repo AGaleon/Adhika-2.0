@@ -1,115 +1,181 @@
+using Adhika_2._0;
+using Adhika_2._0.Models;
+using Adhika_2._0.Views;
 using Adhika_Final_Build.Models;
+using Mopups.Services;
 using MySqlConnector;
 using System.Collections.ObjectModel;
+using System.Data;
 
 namespace Adhika_Final_Build.Views;
 
 public partial class LoginPage : ContentPage
 {
+   
     string connectionString = "Server=mysql-155140-0.cloudclusters.net;Port=10001;Database=Adhika;Uid=admin;Password=UA6fLM7T;SslMode=None;";
     public LoginPage()
 	{
 		InitializeComponent();
 
 	}
-    private async void btnLogin_Click(object sender, EventArgs e)
+    public async Task<ObservableCollection<StoryData>> GetStoriesForStudentAsync(string lrn, int grade, bool isAdmin)
     {
-        string email = txtEmail.Text; // Assuming txtEmail is the name of your email entry control
-        string password = txtPassword.Text; // Assuming txtPassword is the name of your password entry control
-        // Authenticate user and retrieve UserData
-        (StudentInfo studentInfo, ObservableCollection<StudentUserdata> userData) = AuthenticateAndGetUserData(email, password);
+        DataTable dt = new DataTable();
 
-        if (studentInfo != null && userData != null)
+        using (var connection = new MySqlConnection(connectionString))
         {
-            // Authentication successful, do something with the data
-            // For example, display a welcome message
+            await connection.OpenAsync();
 
-            // Access properties like studentInfo.Lrn, studentInfo.Email, userData.Points, etc.
-
-            // Example: Display a welcome message using DisplayAlert
-            await DisplayAlert("Welcome", $"Welcome, {studentInfo.FName} {studentInfo.LName}!", "OK");
-        }
-        else
-        {
-            // Authentication failed or no matching UserData found
-            // Handle the failure, for example, display an error message
-            await DisplayAlert("Error", "Invalid email or password. Please try again.", "OK");
-        }
-    }
-
-    public (StudentInfo, ObservableCollection<StudentUserdata>) AuthenticateAndGetUserData(string email, string password)
-    {
-        using (MySqlConnection connection = new MySqlConnection(connectionString))
-        {
-            connection.Open();
-
-            // Authentication query
-            string authQuery = "SELECT * FROM StudentInfo WHERE Email = @Email AND Password = @Password";
-
-            using (MySqlCommand authCmd = new MySqlCommand(authQuery, connection))
+            using (var command = new MySqlCommand())
             {
-                authCmd.Parameters.AddWithValue("@Email", email);
-                authCmd.Parameters.AddWithValue("@Password", password);
+                command.Connection = connection;
 
-                using (MySqlDataReader authReader = authCmd.ExecuteReader())
+                // Build your SQL query
+                command.CommandText = @"
+SELECT
+    Topic.TopicTitle,
+    Story.StoryID,
+    Story.StoryTitle,
+    Story.Descriptions,
+    Story.StoryTopic,
+    Story.StoryReadingUrl,
+    Story.StoryVideoUrl,
+    Story.QuizData,
+    COALESCE(StudentUserdata.Points, 0) AS Points,
+    COALESCE(StudentInfo.Lrn, @LRN) AS StudentLRN,
+    CASE
+        WHEN StudentUserdata.Lrn IS NOT NULL THEN 0
+        ELSE 1
+    END AS Locked,
+    StoryAssets.ImageData
+FROM
+    Topic
+JOIN
+    Story ON Topic.TopicTitle = Story.StoryTopic
+LEFT JOIN (
+    SELECT Stories, MAX(Points) AS Points, Lrn
+    FROM StudentUserdata
+    GROUP BY Stories, Lrn
+) StudentUserdata ON Story.StoryTitle = StudentUserdata.Stories
+LEFT JOIN StudentInfo ON StudentUserdata.Lrn = StudentInfo.Lrn
+LEFT JOIN StoryAssets ON Story.StoryID = StoryAssets.StoryID
+WHERE
+    Topic.TopicTitle = (
+        SELECT TopicTitle
+        FROM Topic
+        WHERE Topic.Grade = @Grade OR Topic.Grade IS NULL
+        LIMIT 1
+    )
+    AND (StudentInfo.Lrn = @LRN OR StudentInfo.Lrn IS NULL);
+";
+
+                // Add parameters
+                command.Parameters.AddWithValue("@LRN", lrn);
+                command.Parameters.AddWithValue("@Grade", grade);
+
+                using (var reader = await command.ExecuteReaderAsync())
                 {
-                    if (authReader.Read())
-                    {
-                        // If authentication is successful, retrieve UserData using a new connection
-                        string lrn = authReader["Lrn"].ToString();
-                        StudentInfo studentInfo = new StudentInfo
-                        {
-                            LName = authReader["LName"].ToString(),
-                            FName = authReader["FName"].ToString(),
-                            MName = authReader["MName"].ToString(),
-                            Email = authReader["Email"].ToString(),
-                            Lrn = lrn,
-                            IsAdmin = Convert.ToBoolean(authReader["IsAdmin"]),
-                            Password = authReader["Password"].ToString(),
-                            Grade = Convert.ToInt32(authReader["Grade"])
-                        };
-
-                        // Use a new connection for UserData query
-                        using (MySqlConnection userDataConnection = new MySqlConnection(connectionString))
-                        {
-                            userDataConnection.Open();
-
-                            // UserData query
-                            string userDataQuery = "SELECT Lrn, Points, Stories FROM StudentUserdata WHERE Lrn = @Lrn";
-
-                            using (MySqlCommand userDataCmd = new MySqlCommand(userDataQuery, userDataConnection))
-                            {
-                                userDataCmd.Parameters.AddWithValue("@Lrn", lrn);
-
-                                using (MySqlDataReader userDataReader = userDataCmd.ExecuteReader())
-                                {
-                                    ObservableCollection<StudentUserdata> userDataCollection = new ObservableCollection<StudentUserdata>();
-
-                                    while (userDataReader.Read())
-                                    {
-                                        // If UserData is found, construct and add to the ObservableCollection
-                                        StudentUserdata userData = new StudentUserdata
-                                        {
-                                            Lrn = userDataReader["Lrn"].ToString(),
-                                            Points = Convert.ToInt32(userDataReader["Points"]),
-                                            Stories = userDataReader["Stories"].ToString()
-                                        };
-
-                                        userDataCollection.Add(userData);
-                                    }
-
-                                    return (studentInfo, userDataCollection);
-                                }
-                            }
-                        }
-                    }
+                    dt.Load(reader);
                 }
             }
         }
 
-        // Return null if authentication fails or no matching UserData is found
-        return (null, null);
+        var stories = new ObservableCollection<StoryData>();
+
+        foreach (DataRow row in dt.Rows)
+        {
+            
+           
+
+            var story = new StoryData
+            {
+                TopicTitle = row["TopicTitle"].ToString(),
+                StoryID = Convert.ToInt32(row["StoryID"]),
+                StoryTitle = row["StoryTitle"].ToString(),
+                Descriptions = row["Descriptions"].ToString(),
+                StoryTopic = row["StoryTopic"].ToString(),
+                StoryReadingUrl = row["StoryReadingUrl"].ToString(),
+                StoryVideoUrl = row["StoryVideoUrl"].ToString(),
+                QuizData = row["QuizData"].ToString(),
+                Points = Convert.ToInt32(row["Points"]),
+                StudentLRN = row["StudentLRN"].ToString(),
+                IsLocked = Convert.ToBoolean(row["Locked"]),
+                isAdminmode = isAdmin
+            };
+
+           
+
+            stories.Add(story);
+        }
+
+        return stories;
     }
 
-   
+    private async void btnLogin_Click(object sender, EventArgs e)
+    {
+        StudentInfo studentInfo = AuthenticateUser(txtEmail.Text, txtPassword.Text);
+        
+        if (studentInfo != null)
+        {
+            // Login successful, display welcome message
+            await DisplayAlert("Welcome", $"Welcome, {studentInfo.FName} {studentInfo.LName}!", "OK");
+            var data = await GetStoriesForStudentAsync(studentInfo.Lrn, studentInfo.Grade, studentInfo.IsAdmin);
+            await MopupService.Instance.PushAsync(new MainPage(data,studentInfo));
+        }
+        else
+        {
+            // Login failed, display error message
+            await DisplayAlert("Login Failed", "Invalid email or password", "OK");
+        }
+    }
+
+    public StudentInfo AuthenticateUser(string email, string password)
+    {
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            connection.Open();
+
+            using (var command = new MySqlCommand())
+            {
+                command.Connection = connection;
+
+                // Build your SQL query
+                command.CommandText = @"
+                    SELECT *
+                    FROM StudentInfo
+                    WHERE Email = @Email AND Password = @Password;
+                ";
+
+                // Add parameters
+                command.Parameters.AddWithValue("@Email", email);
+                command.Parameters.AddWithValue("@Password", password);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    // Check if any rows were returned
+                    if (reader.Read())
+                    {
+                        // Map the data to the StudentInfo object
+                        var studentInfo = new StudentInfo
+                        {
+                            Lrn = reader["Lrn"].ToString(),
+                            LName = reader["LName"].ToString(),
+                            FName = reader["FName"].ToString(),
+                            MName = reader["MName"].ToString(),
+                            IsAdmin = reader["IsAdmin"].ToString() == "True",
+                            Grade = Convert.ToInt32( reader["Grade"]),
+                        };
+
+                        return studentInfo;
+                    }
+                    else
+                    {
+                        return null; // Return null if login is not successful
+                    }
+                }
+            }
+        }
+    }
+
+
 }

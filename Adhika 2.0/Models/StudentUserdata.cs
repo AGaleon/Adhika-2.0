@@ -10,9 +10,8 @@ namespace Adhika_Final_Build.Models
     {
 
         public string Lrn { get; set; }
-
         public int Points { get; set; }
-
         public string Stories { get; set; }
+        public string Topic { get; set; }
     }
 }

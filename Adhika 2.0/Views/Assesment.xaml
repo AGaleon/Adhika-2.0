@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+             x:Class="Adhika.Assesment" BackgroundColor="#006cc6"
+             Title="Assesment">
+    <Grid>
+        <Image Aspect="Fill" Source="assesmentbg" Opacity="0.1"></Image>
+        <StackLayout>
+            <Grid ColumnDefinitions="50,*,50" Margin="10" HeightRequest="30" VerticalOptions="Start">
+                <Button Text="cancel" BackgroundColor="Transparent"  HeightRequest="30" TextColor="Red" WidthRequest="60" Padding="0"></Button>
+                <Label Text="TOPIC" HorizontalOptions="Center" Grid.Column="1" FontFamily="" FontSize="20" FontAttributes="Bold" TextColor="White" ></Label>
+            </Grid>
+            <HorizontalStackLayout  >
+                <Label Text="Question: "  TextColor="Wheat" FontSize="30" FontAttributes="Bold" FontFamily=""  Margin="50,30,50,20"></Label>
+                <Label Text="1" x:Name="countq"  TextColor="White" FontSize="30" FontAttributes="Bold" FontFamily=""  Margin="0,30,0,20"></Label>
+                <Label Text="/10"  TextColor="White" FontSize="30" FontAttributes="Bold" FontFamily=""  Margin="0,30,0,20"></Label>
+            </HorizontalStackLayout>
+            <Frame CornerRadius="10 " HeightRequest="20" Margin="50,0,50,0" BorderColor="Transparent" Padding="0">
+                <Rectangle x:Name="progress" BackgroundColor="Wheat" WidthRequest="1" HorizontalOptions="Start" ></Rectangle>
+            </Frame>
+            <StackLayout Margin="50,20,50,0" Spacing="20">
+                <Grid  MinimumHeightRequest="250" BackgroundColor="Transparent" >
+                    <Label x:Name="Question" IsVisible="False" Text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. " FontSize="18" TextColor="White"></Label>
+                    <Editor  x:Name="AQuestion" Placeholder="Question Here" VerticalTextAlignment="Center"  FontSize="18" HorizontalTextAlignment="Center"/>
+                </Grid>
+                <StackLayout Margin="10,0,10,20" VerticalOptions="End">
+                    <StackLayout x:Name="Quizing" IsVisible="False" Spacing="10" Margin="0,10" >
+                        <Frame Padding="0" HeightRequest="40" BackgroundColor="Transparent" BorderColor="White">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Choice1_tapped"/>
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Label x:Name="Choice1" Text="QUESTION" FontAttributes="Bold" TextColor="White" FontFamily="" Margin="10,5,10,5" FontSize="20"></Label>
+                                <CheckBox x:Name="CChoice1"  CheckedChanged="CChoice1_CheckedChanged" HorizontalOptions="End" Color="White" RadioButtonGroup.GroupName="q"  ></CheckBox>
+                            </Grid>
+                        </Frame>
+                        <Frame Padding="0" HeightRequest="40" BackgroundColor="Transparent" BorderColor="White">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Choice2_tapped"/>
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Label x:Name="Choice2" Text="QUESTION" FontAttributes="Bold" TextColor="White" FontFamily="" Margin="10,5,10,5" FontSize="20"></Label>
+                                <CheckBox x:Name="CChoice2" CheckedChanged="CChoice2_CheckedChanged" HorizontalOptions="End" Color="White" RadioButtonGroup.GroupName="q"  ></CheckBox>
+                            </Grid>
+                        </Frame>
+                        <Frame Padding="0" HeightRequest="40" BackgroundColor="Transparent" BorderColor="White">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Choice3_tapped"/>
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Label x:Name="Choice3" Text="QUESTION" FontAttributes="Bold" TextColor="White" FontFamily="" Margin="10,5,10,5" FontSize="20"></Label>
+                                <CheckBox x:Name="CChoice3" CheckedChanged="CChoice3_CheckedChanged" HorizontalOptions="End" Color="White" RadioButtonGroup.GroupName="q"  ></CheckBox>
+                            </Grid>
+                        </Frame>
+                        <Frame Padding="0" HeightRequest="40" BackgroundColor="Transparent" BorderColor="White">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Choice4_tapped"/>
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Label x:Name="Choice4" Text="QUESTION" FontAttributes="Bold" TextColor="White" FontFamily="" Margin="10,5,10,5" FontSize="20"></Label>
+                                <CheckBox x:Name="CChoice4" CheckedChanged="CChoice4_CheckedChanged" HorizontalOptions="End" Color="White" RadioButtonGroup.GroupName="q"  ></CheckBox>
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout x:Name="Addquiz" Spacing="10" Margin="0,10">
+                        <Frame Padding="0,0,0,-10" HeightRequest="40" BackgroundColor="Transparent" BorderColor="White">
+                            <Grid>
+                                <Entry x:Name="AChoice1" Placeholder="Choice #1" FontAttributes="Bold" TextColor="White" FontFamily="" Margin="10,5,10,5" FontSize="20"></Entry>
+                            </Grid>
+                        </Frame>
+                        <Frame Padding="0,0,0,-10" HeightRequest="40" BackgroundColor="Transparent" BorderColor="White">
+                            <Grid>
+                                <Entry x:Name="AChoice2" Placeholder="Choice #2" FontAttributes="Bold" TextColor="White" FontFamily="" Margin="10,5,10,5" FontSize="20"></Entry>
+                            </Grid>
+                        </Frame>
+                        <Frame Padding="0,0,0,-10" HeightRequest="40" BackgroundColor="Transparent" BorderColor="White">
+                            <Grid>
+                                <Entry x:Name="AChoice3" Placeholder="Choice #3" FontAttributes="Bold" TextColor="White" FontFamily="" Margin="10,5,10,5" FontSize="20"></Entry>
+                            </Grid>
+                        </Frame>
+                        <Frame Padding="0,0,0,-10" HeightRequest="40" BackgroundColor="Transparent" BorderColor="White">
+                            <Grid>
+                                <Entry x:Name="AChoice4" Placeholder="Choice #4" FontAttributes="Bold" TextColor="White" FontFamily="" Margin="10,5,10,5" FontSize="20"></Entry>
+                            </Grid>
+                        </Frame>
+                        <Frame  Padding="0,0,0,-10" HeightRequest="40" Margin="0,10,0,0" BackgroundColor="Green" BorderColor="White">
+                            <Grid>
+                                <Entry x:Name="Aanswer" Placeholder="Correct Answer" FontAttributes="Bold" TextColor="White" FontFamily="" Margin="10,5,10,5" FontSize="20"></Entry>
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+            <Button HeightRequest="40" WidthRequest="100" Text="Next" Clicked="Next_Clicked"  x:Name="Next" Margin="30,0,30,30" BackgroundColor="#000375"></Button>
+        </StackLayout>
+        <Label Text="Admin mode:"></Label>
+    </Grid>
+</mopups:PopupPage>

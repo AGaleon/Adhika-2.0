@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+             x:Class="Adhika_2._0.MainPage" Appearing="PopupPage_Appearing"
+             Title="MainPage">
+    <StackLayout x:Name="_home" IsVisible="true" BackgroundColor="LightBlue">
+        <!-- Logout Label -->
+        <Grid>
+            <Label Text="Logout" FontSize="15" ZIndex="1" x:Name="logout" VerticalOptions="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" FontAttributes="Bold" Margin="20" TextColor="Wheat" HeightRequest="50" WidthRequest="50">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="logout_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
+            <StackLayout BackgroundColor="Black"></StackLayout>
+            <Image x:Name="bg_item" Aspect="AspectFill" Opacity="0.2"></Image>
+            <StackLayout>
+                <!-- Header and Navigation -->
+                <HorizontalStackLayout Margin="10,10,10,50" HorizontalOptions="End">
+                    <!-- Search Button -->
+                    <HorizontalStackLayout Spacing="10" HorizontalOptions="End">
+                        <StackLayout>
+                            <ImageButton BackgroundColor="Transparent" Source="search" Margin="5,15,0,0" HeightRequest="25" WidthRequest="30"></ImageButton>
+                            <Label Text="Search" HorizontalOptions="Center" TextColor="White" FontAttributes="Bold" FontFamily="" FontSize="10"></Label>
+                        </StackLayout>
+                        <!-- Grade Level Button -->
+                        <Grid x:Name="Gradesel">
+                            <StackLayout>
+                                <ImageButton BackgroundColor="Transparent" Source="change" Margin="5,15,0,0" HeightRequest="25" WidthRequest="30"></ImageButton>
+                                <Label Text="Grade Level" HorizontalOptions="Center" TextColor="White" FontAttributes="Bold" FontFamily="" FontSize="10"></Label>
+                            </StackLayout>
+                            <StackLayout BackgroundColor="Transparent">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="changeGrade"></TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </Grid>
+                        <!-- Topics Button -->
+                        <Grid>
+                            <StackLayout>
+                                <ImageButton BackgroundColor="Transparent" Source="change" Margin="5,15,0,0" HeightRequest="25" WidthRequest="30"></ImageButton>
+                                <Label Text="Topics" HorizontalOptions="Center" TextColor="White" FontAttributes="Bold" FontFamily="" FontSize="10"></Label>
+                            </StackLayout>
+                            <StackLayout BackgroundColor="Transparent">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="changeTopic"></TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </Grid>
+                        <!-- Logo Button -->
+                        <ImageButton BackgroundColor="Transparent" Source="logo" Padding="0" Margin="5" HeightRequest="50" WidthRequest="50" x:Name="MainmenuLogo" Clicked="MainmenuLogo_Clicked"></ImageButton>
+                    </HorizontalStackLayout>
+                </HorizontalStackLayout>
+                <!-- Page Header -->
+                <Label Text="111" Margin="30,0,30,0" FontSize="30" FontFamily="" FontAttributes="Bold" x:Name="header_" HorizontalTextAlignment="Center" HorizontalOptions="Center" TextColor="White"></Label>
+                <Label Text="" Margin="10,10,0,0"></Label>
+                <!-- CarouselView -->
+                <Grid RowDefinitions="*" Margin="0,0,0,0" RowSpacing="0" ColumnDefinitions="75,*,85" ColumnSpacing="10">
+                    <CarouselView x:Name="carouselView" ItemsSource="{Binding storydataItemsSource}"   PeekAreaInsets="30" Grid.Row="0" HeightRequest="500"  Grid.Column="0" Grid.ColumnSpan="3" Loop="True" CurrentItemChanged="carouselView_CurrentItemChanged"  HorizontalOptions="FillAndExpand">
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <SwipeView>
+                                    <SwipeView.TopItems>
+                                        <!-- Delete Story Swipe Item (Visible for Admin) -->
+                                        <SwipeItemView IsVisible="{Binding isAdminmode}" Invoked="SwipeItemView_InvokedDeleteSory">
+                                            <Grid BackgroundColor="Transparent" HeightRequest="40">
+                                                <RoundRectangle CornerRadius="10,10,0,0" Fill="red"></RoundRectangle>
+                                                <StackLayout Spacing="3" VerticalOptions="CenterAndExpand">
+                                                    <Label Text="Delete" FontAttributes="Bold" FontFamily="" VerticalOptions="Center" TextColor="White" HorizontalOptions="Center"></Label>
+                                                </StackLayout>
+                                            </Grid>
+                                        </SwipeItemView>
+                                    </SwipeView.TopItems>
+                                    <!-- Story Frame -->
+                                    <Frame Padding="1" BorderColor="Gray" HasShadow="True" CornerRadius="15" WidthRequest="290" HeightRequest="400" x:Name="Itemsframe">
+                                        <Frame Padding="0" CornerRadius="15">
+                                            <Grid Margin="0" RowDefinitions="*,155">
+
+                                                <Image Aspect="Fill" Opacity="0.8" Grid.RowSpan="2" IsVisible="{Binding IsLocked}" ZIndex="1" Source="locked.png" ></Image>
+                                                <!-- Image -->
+                                                <Grid Grid.RowSpan="2" IsVisible="false" ZIndex="1" VerticalOptions="FillAndExpand">
+                                                    <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="black" Opacity="0.7"></StackLayout>
+                                                    <ImageButton HeightRequest="50" WidthRequest="50" BackgroundColor="Black"></ImageButton>
+                                                </Grid>
+                                                <Frame Padding="0" Grid.RowSpan="2">
+                                                    <Image Source="{Binding ImageStory}" Aspect="AspectFill" BackgroundColor="Wheat"/>
+                                                </Frame>
+                                                <!-- Story Details -->
+                                                <Grid Grid.Row="1" RowDefinitions="*,60">
+                                                    <StackLayout BackgroundColor="Transparent" ZIndex="1">
+                                                        <!-- Story Title -->
+                                                        <HorizontalStackLayout Spacing="5" Margin="10,10,10,0">
+                                                            <Image HeightRequest="20" WidthRequest="20" BackgroundColor="Transparent" Source="book"></Image>
+                                                            <Label Text="{Binding StoryTitle}" FontAttributes="Bold" FontFamily="" FontSize="20" HorizontalOptions="StartAndExpand" WidthRequest="250" TextColor="White"/>
+                                                        </HorizontalStackLayout>
+                                                        <!-- Story Descriptions -->
+                                                        <Label Text="{Binding Descriptions}" MaxLines="3" HorizontalOptions="Start" MaximumWidthRequest="250" Margin="10,0,10,0" TextColor="White"/>
+                                                    </StackLayout>
+                                                    <!-- Explore Button -->
+                                                    <StackLayout BackgroundColor="#022b5d" Opacity="0.6" Grid.RowSpan="2"></StackLayout>
+                                                    <Frame Margin="10,10,10,10" Padding="10" VerticalOptions="End" Grid.Row="1">
+                                                        <Frame.GestureRecognizers>
+                                                            <TapGestureRecognizer Tapped="ReadNow_tapped"></TapGestureRecognizer>
+                                                        </Frame.GestureRecognizers>
+                                                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center" VerticalOptions="End">
+                                                            <Image BackgroundColor="Transparent" Source="openbook" HeightRequest="20" WidthRequest="20"></Image>
+                                                            <Label Text="Explore" FontSize="15" FontAttributes="Bold" HorizontalTextAlignment="Start"></Label>
+                                                        </HorizontalStackLayout>
+                                                    </Frame>
+                                                </Grid>
+                                            </Grid>
+                                        </Frame>
+                                    </Frame>
+                                </SwipeView>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                </Grid>
+                <!-- Bottom Navigation -->
+                <Frame Margin="10,20,10,20" HeightRequest="70" Padding="5" CornerRadius="20" BackgroundColor="Transparent" BorderColor="Transparent">
+                    <Frame Padding="0" CornerRadius="20">
+                        <Grid ColumnDefinitions="*,*,*">
+                            <!-- Home Button -->
+                            <Button Text="Home" VerticalOptions="FillAndExpand" Padding="0,20,0,0" Grid.Column="0" CornerRadius="0" BackgroundColor="#022b5d"></Button>
+                            <Image Grid.Column="0" HeightRequest="20" HorizontalOptions="Center" Margin="0,10,0,0" VerticalOptions="Start" >
+                                <Image.Source>
+                                    <FontImageSource FontFamily="Icons_" Glyph="&#xE804;" Size="30" Color="White"></FontImageSource>
+                                </Image.Source>
+                            </Image>
+                            <!-- About Us Button -->
+                            <Button Text="About Us" Grid.Column="1" CornerRadius="0" Padding="0,20,0,0" BackgroundColor="#022b5d"></Button>
+                            <Image Grid.Column="1" HeightRequest="20" HorizontalOptions="Center" Margin="0,10,0,0" VerticalOptions="Start" >
+                                <Image.Source>
+                                    <FontImageSource FontFamily="Icons_" Glyph="&#xE805;" Size="30" Color="White"></FontImageSource>
+                                </Image.Source>
+                            </Image>
+                            <!-- Settings Button -->
+                            <Button Text="Settings" Grid.Column="2" CornerRadius="0" Padding="0,20,0,0" BackgroundColor="#022b5d"></Button>
+                            <Image Grid.Column="2" HeightRequest="20" HorizontalOptions="Center" Margin="0,10,0,0" VerticalOptions="Start" >
+                                <Image.Source>
+                                    <FontImageSource FontFamily="Icons_" Glyph="&#xE803;" Size="30" Color="White"></FontImageSource>
+                                </Image.Source>
+                            </Image>
+                        </Grid>
+                    </Frame>
+                </Frame>
+            </StackLayout>
+        </Grid>
+    </StackLayout>
+
+</mopups:PopupPage>

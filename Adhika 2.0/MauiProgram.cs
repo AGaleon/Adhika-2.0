@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using Mopups.Hosting;
+using Syncfusion.Maui.Core.Hosting;
 
 namespace Adhika_2._0;
 
@@ -9,14 +11,15 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
+            .ConfigureMopups()
+            .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
-
+		builder.ConfigureSyncfusionCore();
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
 		return builder.Build();
