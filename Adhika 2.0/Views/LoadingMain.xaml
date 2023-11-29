@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+             x:Class="Adhika_2._0.Views.LoadingMain" Appearing="ContentPage_Appearing" BackgroundColor="LightBlue"
+             Title="LoadingMain">
+    <Grid>
+        <Frame x:Name="FIVE" BackgroundColor="#0096DF" HeightRequest="500" BorderColor="#0096DF" WidthRequest="500" CornerRadius="370" Opacity="0.6" ></Frame>
+        <Frame x:Name="FOUR" BackgroundColor="#1CC4E7" HeightRequest="400" BorderColor="#1CC4E7"  WidthRequest="400" CornerRadius="370" Opacity="0.5" ></Frame>
+        <Frame x:Name="THREE" BackgroundColor="#89D7EE" HeightRequest="300"  BorderColor="#89D7EE"  WidthRequest="300" CornerRadius="370" Opacity="0.4"></Frame>
+        <Frame x:Name="TWO" BackgroundColor="#D3ECF0"  HeightRequest="200" BorderColor ="#D3ECF0"  WidthRequest="200" CornerRadius="370" Opacity="0.3"></Frame>
+        <ImageButton x:Name="LOGO"  Source="logo.png" HeightRequest="200" WidthRequest="200" BackgroundColor="Transparent"  ></ImageButton>
+    </Grid>
+</mopups:PopupPage>

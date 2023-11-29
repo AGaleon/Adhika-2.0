@@ -14,7 +14,7 @@ public partial class MainPage
 {
     public Pagemodel ViewModel { get; }
     bool isTopicLoaded = false;
-    ObservableCollection<StoryData> StoryDatas = new ObservableCollection<StoryData>();
+
     ObservableCollection<Topic> preloadedTopic = new ObservableCollection<Topic>();
     StudentInfo _studentInfo = new StudentInfo();
     string connectionString = "Server=mysql-155140-0.cloudclusters.net;Port=10001;Database=Adhika;Uid=admin;Password=UA6fLM7T;SslMode=None;";
@@ -27,18 +27,16 @@ public partial class MainPage
         _studentInfo = studentInfo;
         ViewModel = new Pagemodel();
         BindingContext = ViewModel;
-        StoryDatas = storyDatas_;
+        storyDatas = storyDatas_;
         TopicSelection.Data += changedTopicstory;
         header_.Text = storyDatas_[0].TopicTitle;
-        foreach (var item in storyDatas_)
-        {
-            item.ImageStory = GetImageForStory(item.StoryID);
-            ViewModel.AddNewItem(item);
-        }
+        
+        ViewModel.storydataItemsSource = storyDatas;
     }
 
     private void changedTopicstory(object sender, ObservableCollection<StoryData> e)
     {
+        header_.Text = e[0].TopicTitle;
         ViewModel.storydataItemsSource = e;
     }
 
@@ -100,42 +98,7 @@ public partial class MainPage
         isTopicLoaded = true;
         return topics;
     }
-    public ImageSource GetImageForStory(int storyId)
-    {
-        using (var connection = new MySqlConnection(connectionString))
-        {
-            connection.Open();
-
-            using (var command = new MySqlCommand())
-            {
-                command.Connection = connection;
-
-                // Build your SQL query
-                command.CommandText = "SELECT ImageData FROM StoryAssets WHERE StoryId = @StoryId";
-                command.Parameters.AddWithValue("@StoryId", storyId);
-
-                // Execute the query
-                using (var reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        // Check for null value
-                        if (reader["ImageData"] != DBNull.Value)
-                        {
-                            // Retrieve the image data from the database
-                            var imageData = (byte[])reader["ImageData"];
-
-                            // Create an ImageSource from the stream
-                            return ImageSource.FromStream(() => new MemoryStream(imageData));
-                        }
-                    }
-                }
-            }
-        }
-
-        // If no image is found, return null or some default image
-        return null;
-    }
+    
 
 
     private void logout_Tapped(object sender, EventArgs e)
@@ -166,17 +129,20 @@ public partial class MainPage
     }
     private async void ReadNow_tapped(object sender, EventArgs e)
     {
-        StoryData tounlocked = new StoryData();
-
-       for (int i = 0; i < 10; i++)
+        if (!Selectedstory_.IsLocked)
         {
-            if (ViewModel.storydataItemsSource[i] == Selectedstory_)
+            StoryData tounlocked = new StoryData();
+
+            for (int i = 0; i < 10; i++)
             {
-              tounlocked =   ViewModel.storydataItemsSource[i+1];
-                break;
+                if (ViewModel.storydataItemsSource[i] == Selectedstory_)
+                {
+                    tounlocked = ViewModel.storydataItemsSource[i + 1];
+                    break;
+                }
             }
+            await MopupService.Instance.PushAsync(new ExplorePop(Selectedstory_, tounlocked));
         }
-        await MopupService.Instance.PushAsync(new ExplorePop(Selectedstory_,tounlocked));
     }
     
     private void SwipeItemView_InvokedDeleteSory(object sender, EventArgs e)

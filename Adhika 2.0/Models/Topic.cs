@@ -16,7 +16,7 @@ namespace Adhika_Final_Build.Models
 
         public string TopicDescription { get; set; }
 
-        public bool IsUnlocked { get; set; }
+        public bool locked { get; set; }
 
         public ImageSource TopicImage { get; set; }
         public bool Cleared { get;  set; }

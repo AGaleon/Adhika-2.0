@@ -1,6 +1,5 @@
 using Adhika.Models;
 using Adhika_2._0.Models;
-using Java.Net;
 using Microsoft.Maui.Layouts;
 using Mopups.Services;
 using MySqlConnector;
@@ -19,9 +18,10 @@ public partial class Assesment
 	List<quizItems> quiz=new List<quizItems>();
 	int count = 0;
     StoryData unlocked = new StoryData();
-	public Assesment( bool qz , string jsn , StoryData unlocked)
+	public Assesment( bool qz , string jsn , StoryData unlocked_)
 	{
 		InitializeComponent();
+        unlocked = unlocked_;
         if (qz)
         {
             quizing_ = qz ;
@@ -171,8 +171,8 @@ public partial class Assesment
                         connection.Open();
 
                         string insertDataQuery = $@"
-                    INSERT INTO StudentUserdata ( Lrn, Points, Passed, Stories, Topic)
-                    VALUES  '{unlocked.StudentLRN}', {0}, {0}, {unlocked.StoryTitle}, '{unlocked.TopicTitle}')";
+INSERT INTO StudentUserdata (Lrn, Points, Passed, Stories, Topic)
+VALUES ('{unlocked.StudentLRN}', 0, 0, '{unlocked.StoryTitle}', '{unlocked.TopicTitle}')";
 
 
                         using (MySqlCommand command = new MySqlCommand(insertDataQuery, connection))

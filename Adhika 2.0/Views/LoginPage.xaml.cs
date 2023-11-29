@@ -18,9 +18,46 @@ public partial class LoginPage : ContentPage
 		InitializeComponent();
 
 	}
+    public async Task<ImageSource> GetImageForStoryAsync(int storyId)
+    {
+        using (var connection = new MySqlConnection("Server=mysql-155140-0.cloudclusters.net;Port=10001;Database=AdhikaStoryAssests;Uid=admin;Password=UA6fLM7T;SslMode=None;"))
+        {
+            await connection.OpenAsync();
+
+            using (var command = new MySqlCommand())
+            {
+                command.Connection = connection;
+
+                // Build your SQL query
+                command.CommandText = "SELECT ImageData FROM StoryAssets WHERE StoryId = @StoryId";
+                command.Parameters.AddWithValue("@StoryId", storyId);
+
+                // Execute the query
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        // Check for null value
+                        if (reader["ImageData"] != DBNull.Value)
+                        {
+                            // Retrieve the image data from the database
+                            var imageData = (byte[])reader["ImageData"];
+
+                            // Create an ImageSource from the stream
+                            return ImageSource.FromStream(() => new MemoryStream(imageData));
+                        }
+                    }
+                }
+            }
+        }
+
+        // If no image is found, return null or some default image
+        return null;
+    }
+
     public async Task<ObservableCollection<StoryData>> GetStoriesForStudentAsync(string lrn, int grade, bool isAdmin)
     {
-        DataTable dt = new DataTable();
+        var stories = new ObservableCollection<StoryData>();
 
         using (var connection = new MySqlConnection(connectionString))
         {
@@ -46,8 +83,7 @@ SELECT
     CASE
         WHEN StudentUserdata.Lrn IS NOT NULL THEN 0
         ELSE 1
-    END AS Locked,
-    StoryAssets.ImageData
+    END AS Locked
 FROM
     Topic
 JOIN
@@ -58,7 +94,6 @@ LEFT JOIN (
     GROUP BY Stories, Lrn
 ) StudentUserdata ON Story.StoryTitle = StudentUserdata.Stories
 LEFT JOIN StudentInfo ON StudentUserdata.Lrn = StudentInfo.Lrn
-LEFT JOIN StoryAssets ON Story.StoryID = StoryAssets.StoryID
 WHERE
     Topic.TopicTitle = (
         SELECT TopicTitle
@@ -75,51 +110,48 @@ WHERE
 
                 using (var reader = await command.ExecuteReaderAsync())
                 {
-                    dt.Load(reader);
+                    while (await reader.ReadAsync())
+                    {
+                        var story = new StoryData
+                        {
+                            TopicTitle = reader["TopicTitle"].ToString(),
+                            StoryID = Convert.ToInt32(reader["StoryID"]),
+                            StoryTitle = reader["StoryTitle"].ToString(),
+                            Descriptions = reader["Descriptions"].ToString(),
+                            StoryTopic = reader["StoryTopic"].ToString(),
+                            StoryReadingUrl = reader["StoryReadingUrl"].ToString(),
+                            StoryVideoUrl = reader["StoryVideoUrl"].ToString(),
+                            QuizData = reader["QuizData"].ToString(),
+                            Points = Convert.ToInt32(reader["Points"]),
+                            StudentLRN = reader["StudentLRN"].ToString(),
+                            IsLocked = Convert.ToBoolean(reader["Locked"]),
+                            isAdminmode = isAdmin
+                        };
+
+                        stories.Add(story);
+                    }
                 }
             }
-        }
-
-        var stories = new ObservableCollection<StoryData>();
-
-        foreach (DataRow row in dt.Rows)
-        {
-            
-           
-
-            var story = new StoryData
-            {
-                TopicTitle = row["TopicTitle"].ToString(),
-                StoryID = Convert.ToInt32(row["StoryID"]),
-                StoryTitle = row["StoryTitle"].ToString(),
-                Descriptions = row["Descriptions"].ToString(),
-                StoryTopic = row["StoryTopic"].ToString(),
-                StoryReadingUrl = row["StoryReadingUrl"].ToString(),
-                StoryVideoUrl = row["StoryVideoUrl"].ToString(),
-                QuizData = row["QuizData"].ToString(),
-                Points = Convert.ToInt32(row["Points"]),
-                StudentLRN = row["StudentLRN"].ToString(),
-                IsLocked = Convert.ToBoolean(row["Locked"]),
-                isAdminmode = isAdmin
-            };
-
-           
-
-            stories.Add(story);
         }
 
         return stories;
     }
 
+
     private async void btnLogin_Click(object sender, EventArgs e)
     {
         StudentInfo studentInfo = AuthenticateUser(txtEmail.Text, txtPassword.Text);
-        
         if (studentInfo != null)
         {
             // Login successful, display welcome message
             await DisplayAlert("Welcome", $"Welcome, {studentInfo.FName} {studentInfo.LName}!", "OK");
+            await MopupService.Instance.PushAsync(new LoadingMain());
             var data = await GetStoriesForStudentAsync(studentInfo.Lrn, studentInfo.Grade, studentInfo.IsAdmin);
+            for (int i = 0; i < data.Count; i++)
+            {
+                data[i].ImageStory =await GetImageForStoryAsync(data[i].StoryID);
+            }
+            await MopupService.Instance.PopAsync();
             await MopupService.Instance.PushAsync(new MainPage(data,studentInfo));
         }
         else

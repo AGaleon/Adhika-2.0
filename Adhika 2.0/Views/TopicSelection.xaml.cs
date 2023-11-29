@@ -1,5 +1,6 @@
 using Adhika_2._0.Models;
 using Adhika_Final_Build.Models;
+using Mopups.Services;
 using MySqlConnector;
 using System.Collections.ObjectModel;
 
@@ -16,6 +17,25 @@ public partial class TopicSelection
 	{
 		InitializeComponent();
        _studentInfo = studentInfo;
+        for (int i = 0; i < topics.Count; i++)
+        {
+            if (topics[i].Cleared == false)
+            {
+                try
+                {
+                    topics[i + 1].locked = true;
+                }
+                catch (Exception)
+                {
+
+                    
+                }
+            }
+            else
+            {
+                topics[i + 1].locked = false;
+            }
+        }
         TopicsList.ItemsSource = topics;
     }
     public static event EventHandler<ObservableCollection<StoryData>> Data;
@@ -35,11 +55,54 @@ public partial class TopicSelection
 
     private async void Button_Clicked(object sender, EventArgs e)
     {
+        _ = MopupService.Instance.PushAsync(new LoadingAnim());
         ObservableCollection<StoryData> getstories = await GetStoriesForStudentAsync(_studentInfo.Lrn, selected);
+       
+        for (int i = 0; i < getstories.Count; i++)
+        {
+            getstories[i].ImageStory = await GetImageForStoryAsync(getstories[i].StoryID);
+        }
+        _ = MopupService.Instance.PopAsync();
         Data?.Invoke(this, getstories);
-
     }
-    public async Task<ObservableCollection<StoryData>> GetStoriesForStudentAsync(string lrn ,string SelectedTopic)
+    public async Task<ImageSource> GetImageForStoryAsync(int storyId)
+    {
+        using (var connection = new MySqlConnection("Server=mysql-155140-0.cloudclusters.net;Port=10001;Database=AdhikaStoryAssests;Uid=admin;Password=UA6fLM7T;SslMode=None;"))
+        {
+            await connection.OpenAsync();
+
+            using (var command = new MySqlCommand())
+            {
+                command.Connection = connection;
+
+                // Build your SQL query
+                command.CommandText = "SELECT ImageData FROM StoryAssets WHERE StoryId = @StoryId";
+                command.Parameters.AddWithValue("@StoryId", storyId);
+
+                // Execute the query
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        // Check for null value
+                        if (reader["ImageData"] != DBNull.Value)
+                        {
+                            // Retrieve the image data from the database
+                            var imageData = (byte[])reader["ImageData"];
+
+                            // Create an ImageSource from the stream
+                            return ImageSource.FromStream(() => new MemoryStream(imageData));
+                        }
+                    }
+                }
+            }
+        }
+
+        // If no image is found, return null or some default image
+        return null;
+    }
+
+    public async Task<ObservableCollection<StoryData>> GetStoriesForStudentAsync(string lrn, string selectedTopic)
     {
         using (var connection = new MySqlConnection(connectionString))
         {
@@ -51,7 +114,7 @@ public partial class TopicSelection
 
                 // Build your SQL query
                 command.CommandText = @"
-            SELECT
+SELECT
     Topic.TopicTitle,
     Story.StoryID,
     Story.StoryTitle,
@@ -69,8 +132,7 @@ public partial class TopicSelection
     CASE
         WHEN StudentInfo.IsAdmin = 1 THEN 1
         ELSE 0
-    END AS IsAdmin,
-    StoryAssets.ImageData
+    END AS IsAdmin
 FROM
     Topic
 JOIN
@@ -81,7 +143,6 @@ LEFT JOIN (
     GROUP BY Stories, Lrn
 ) StudentUserdata ON Story.StoryTitle = StudentUserdata.Stories
 LEFT JOIN StudentInfo ON StudentUserdata.Lrn = StudentInfo.Lrn
-LEFT JOIN StoryAssets ON Story.StoryID = StoryAssets.StoryID
 WHERE
     Topic.TopicTitle = @SelectedTopic
     AND (StudentInfo.Lrn = @LRN OR StudentInfo.Lrn IS NULL);
@@ -89,28 +150,18 @@ WHERE
 
                 // Add parameters
                 command.Parameters.AddWithValue("@LRN", lrn);
-                command.Parameters.AddWithValue("@SelectedTopic", SelectedTopic);
+                command.Parameters.AddWithValue("@SelectedTopic", selectedTopic);
+
                 using (var reader = await command.ExecuteReaderAsync())
                 {
                     var stories = new ObservableCollection<StoryData>();
 
                     while (await reader.ReadAsync())
                     {
-                        byte[] imageData = null;
-                        try
-                        {
-                             imageData = (byte[])reader["ImageData"];
-                        }
-                        catch (Exception)
-                        {
-                            isLoaded = true;
-                            return null;
-                        }
                         var story = new StoryData
                         {
                             TopicTitle = reader["TopicTitle"].ToString(),
                             StoryID = Convert.ToInt32(reader["StoryID"]),
-                            
                             StoryTitle = reader["StoryTitle"].ToString(),
                             Descriptions = reader["Descriptions"].ToString(),
                             StoryTopic = reader["StoryTopic"].ToString(),
@@ -122,16 +173,14 @@ WHERE
                             IsLocked = Convert.ToBoolean(reader["Locked"]),
                             isAdminmode = Convert.ToBoolean(reader["IsAdmin"])
                         };
-                        if (imageData != null)
-                        {
-                            story.ImageStory = ImageSource.FromStream(() => new MemoryStream(imageData));
-                        }
+
                         stories.Add(story);
                     }
-                   isLoaded = true;
+
                     return stories;
                 }
             }
         }
     }
+
 }

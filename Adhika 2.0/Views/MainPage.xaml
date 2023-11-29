@@ -76,7 +76,7 @@
                                         <Frame Padding="0" CornerRadius="15">
                                             <Grid Margin="0" RowDefinitions="*,155">
 
-                                                <Image Aspect="Fill" Opacity="0.8" Grid.RowSpan="2" IsVisible="{Binding IsLocked}" ZIndex="1" Source="locked.png" ></Image>
+                                                <Image Aspect="Fill" Opacity="0.8" Grid.RowSpan="2" IsVisible="{Binding IsLocked}" ZIndex="1" Source="lock.png" ></Image>
                                                 <!-- Image -->
                                                 <Grid Grid.RowSpan="2" IsVisible="false" ZIndex="1" VerticalOptions="FillAndExpand">
                                                     <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="black" Opacity="0.7"></StackLayout>
