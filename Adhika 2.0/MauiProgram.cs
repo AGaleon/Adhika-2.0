@@ -14,7 +14,8 @@ public static class MauiProgram
             .ConfigureMopups()
             .ConfigureFonts(fonts =>
 			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("fontello.ttf", "Icons_");
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 		builder.ConfigureSyncfusionCore();

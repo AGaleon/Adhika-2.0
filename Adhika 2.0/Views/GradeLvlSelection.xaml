@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Adhika.GradeLvlSelection"  BackgroundColor="#80000000"
+             xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups" CloseWhenBackgroundIsClicked="False"
+             Title="GradeLvlSelection">
+    <Grid BackgroundColor="Transparent" Padding="0"   HeightRequest="620" WidthRequest="350"  >
+        <StackLayout x:Name="loading" IsVisible="false"  HeightRequest="100">
+            <HorizontalStackLayout x:Name="all"  Spacing="-20" Margin="100,0,0,0" HorizontalOptions="Center" BackgroundColor="Transparent" WidthRequest="300">
+                <Label Text="L" FontSize="35" FontAttributes="Bold" FontFamily="" TextColor="White" VerticalOptions="Center"></Label>
+                <Image x:Name="logo" Margin="10" HeightRequest="60" Source="logo"></Image>
+                <Label  Text="ADING..." FontSize="35" FontAttributes="Bold" FontFamily="" VerticalOptions="Center" TextColor="White"></Label>
+            </HorizontalStackLayout>
+        </StackLayout>
+        <StackLayout IsVisible="true  "  VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent" HeightRequest="570" WidthRequest="300" x:Name="gradeSelection" >
+            <Grid ColumnDefinitions="*,*" HeightRequest="550" RowDefinitions="*,*" RowSpacing="5" ColumnSpacing="5">
+                <Grid Grid.Column="0" Grid.Row="0" >
+                    <Frame BackgroundColor="Transparent" ZIndex="1">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"    ></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Image HeightRequest="35" WidthRequest="35" Source="selected.png" x:Name="g7s" IsVisible="false" ZIndex="1" VerticalOptions="Start" HorizontalOptions="End" ></Image>
+                    <Frame VerticalOptions="FillAndExpand" BackgroundColor="Green" Opacity="0.7" ></Frame>
+                    <Frame HeightRequest="200" WidthRequest="130" Margin="0,10,0,0" VerticalOptions="Start" Padding="0">
+                        <Image  BackgroundColor="Transparent" Source="grade7" Aspect="AspectFill" ></Image>
+                    </Frame>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="-10" Margin="10">
+                        <Label  Text="7" FontAttributes="Bold" TextColor="Black" FontFamily="" HorizontalOptions="Center" FontSize="25"></Label>
+                        <Label  Text="Grade" FontSize="20"  TextColor="Black"  FontAttributes="Bold" FontFamily=""></Label>
+                    </StackLayout>
+                </Grid>
+                <Grid   Grid.Column="1" Grid.Row="0"   >
+                    <Frame BackgroundColor="Transparent" ZIndex="1">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_2"    ></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Image HeightRequest="35" WidthRequest="35" Source="selected.png" x:Name="g8s"  IsVisible="false" ZIndex="1" VerticalOptions="Start" HorizontalOptions="End" ></Image>
+                    <Frame VerticalOptions="FillAndExpand" BackgroundColor="Yellow" Opacity="0.7" ></Frame>
+                    <Frame HeightRequest="200" WidthRequest="130" Margin="0,10,0,0" VerticalOptions="Start" Padding="0">
+                        <Image  BackgroundColor="Transparent" Source="grade8" Aspect="AspectFill" ></Image>
+                    </Frame>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="-10" Margin="10">
+                        <Label  Text="8" FontAttributes="Bold" TextColor="Black" FontFamily="" HorizontalOptions="Center" FontSize="25"></Label>
+                        <Label  Text="Grade" FontSize="20"  TextColor="Black"  FontAttributes="Bold" FontFamily=""></Label>
+                    </StackLayout>
+                </Grid>
+                <Grid Grid.Column="0"  Grid.Row="1"  >
+                    <Frame BackgroundColor="Transparent" ZIndex="1">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_3"    ></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Image HeightRequest="35" WidthRequest="35" Source="selected.png" x:Name="g9s" IsVisible="false" ZIndex="1" VerticalOptions="Start" HorizontalOptions="End" ></Image>
+                    <Frame VerticalOptions="FillAndExpand" BackgroundColor="Red" Opacity="0.7"   ></Frame>
+                    <Frame HeightRequest="200" WidthRequest="130" Margin="0,10,0,0" VerticalOptions="Start" Padding="0">
+                        <Image  BackgroundColor="Transparent" Source="grade9"  Aspect="AspectFill"  ></Image>
+                    </Frame>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="-10" Margin="10">
+                        <Label  Text="9" FontAttributes="Bold" TextColor="Black" FontFamily="" HorizontalOptions="Center" FontSize="25"></Label>
+                        <Label  Text="Grade" FontSize="20"  TextColor="Black"  FontAttributes="Bold" FontFamily=""></Label>
+                    </StackLayout>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="1"  >
+                    <Frame BackgroundColor="Transparent" ZIndex="1">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_4"    ></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Image HeightRequest="35" WidthRequest="35" Source="selected.png" x:Name="g10s" IsVisible="false" ZIndex="1" VerticalOptions="Start" HorizontalOptions="End" ></Image>
+                    <Frame VerticalOptions="FillAndExpand" BackgroundColor="Blue" Opacity="0.7"></Frame>
+                    <Frame HeightRequest="200" WidthRequest="130" Margin="0,10,0,0" VerticalOptions="Start" Padding="0">
+                        <Image  BackgroundColor="Transparent" Source="grade10" Aspect="AspectFill"  ></Image>
+                    </Frame>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="-10" Margin="10">
+                        <Label  Text="10" FontAttributes="Bold" TextColor="Black" FontFamily="" HorizontalOptions="Center" FontSize="25"></Label>
+                        <Label  Text="Grade" FontSize="20"  TextColor="Black"  FontAttributes="Bold" FontFamily=""></Label>
+                    </StackLayout>
+                </Grid>
+            </Grid>
+        </StackLayout>
+    </Grid>
+</mopups:PopupPage>

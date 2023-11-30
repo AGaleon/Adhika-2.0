@@ -163,6 +163,7 @@ WHERE
             }
             await MopupService.Instance.PopAsync();
             await MopupService.Instance.PushAsync(new MainPage(data,studentInfo));
+            txtEmail.Text = ""; txtPassword.Text = "";
         }
         else
         {

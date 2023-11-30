@@ -19,7 +19,7 @@
             </StackLayout>
             <StackLayout  Grid.Column="2" Grid.Row="1" >
                 <ImageButton x:Name="Lumi"  Clicked="Lumi_Clicked" HeightRequest="70" WidthRequest="70"    CornerRadius="10" Source="play" BackgroundColor="White"></ImageButton>
-                <Label Text="Watch" HorizontalTextAlignment="Center" TextColor="White"  ></Label>
+                <Label Text="Interactive Activities" HorizontalTextAlignment="Center" TextColor="White"  ></Label>
             </StackLayout>
         </Grid>
     </Grid>

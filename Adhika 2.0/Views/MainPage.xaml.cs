@@ -29,14 +29,166 @@ public partial class MainPage
         ViewModel = new Pagemodel();
         BindingContext = ViewModel;
         storyDatas = storyDatas_;
+        GradeLvlSelection.SelectedG += selectedchange;
         TopicSelection.Data += changedTopicstory;
         AddTopic.TopicGrade += updatedgrade;
         AddStory.newvalue += updatess;
         header_.Text = storyDatas_[0].TopicTitle;
         isAdmin = storyDatas_[0].isAdminmode;
         ViewModel.storydataItemsSource = storyDatas;
+
+        Gradesel.IsVisible = isAdmin;
+ 
     }
 
+    private async void selectedchange(object sender, string e)
+    {
+        isTopicLoaded = false;
+        _ = MopupService.Instance.PushAsync( new LoadingAnim());
+        var change = await GetStoriesForStudentAsync(_studentInfo.Lrn, int.Parse(e), _studentInfo.IsAdmin);
+        if (change.Count != 0)
+        {
+            for (int i = 0; i < change.Count; i++)
+            {
+                change[i].ImageStory = await GetImageForStoryAsync(change[i].StoryID);
+            }
+            ViewModel.storydataItemsSource = change;
+            header_.Text = ViewModel.storydataItemsSource[0].TopicTitle;
+        }
+        else
+        {
+            header_.Text = "No Available Topic Yet";
+            ViewModel.storydataItemsSource = new ObservableCollection<StoryData>();
+        }
+        getPreloadedTopics(e, _studentInfo.Lrn);
+        await  MopupService.Instance.PopAsync();
+    }
+    public async Task<ObservableCollection<StoryData>> GetStoriesForStudentAsync(string lrn, int grade, bool isAdmin)
+    {
+        var stories = new ObservableCollection<StoryData>();
+
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            await connection.OpenAsync();
+
+            using (var command = new MySqlCommand())
+            {
+                command.Connection = connection;
+
+                // Build your SQL query
+                command.CommandText = @"
+WITH RankedStories AS (
+  SELECT
+    S.StoryID,
+    T.TopicTitle,
+    S.Descriptions,
+    S.QuizData,
+    S.StoryReadingUrl,
+    S.StoryTitle,
+    S.StoryTopic,
+    S.StoryVideoUrl,
+    COALESCE(SU.Points, 0) AS Points,
+    CASE WHEN SU.Stories IS NOT NULL THEN true ELSE false END AS Unlocked,
+    ROW_NUMBER() OVER (PARTITION BY S.StoryID ORDER BY COALESCE(SU.Points, 0) DESC) AS RowNum
+  FROM
+    Topic T
+    JOIN Story S ON T.TopicTitle = S.StoryTopic
+    LEFT JOIN StudentUserdata SU ON S.StoryTitle = SU.Stories AND SU.Lrn = @Lrn
+  WHERE
+    T.TopicTitle = (SELECT TopicTitle FROM Topic WHERE Grade = @Grade LIMIT 1)
+    AND T.Grade = @Grade
+)
+SELECT
+  StoryID,
+  TopicTitle,
+  Descriptions,
+  QuizData,
+  StoryReadingUrl,
+  StoryTitle,
+  StoryTopic,
+  StoryVideoUrl,
+  Points,
+  Unlocked
+FROM
+  RankedStories
+WHERE
+  RowNum = 1
+";
+
+                // Add parameters
+                command.Parameters.AddWithValue("@LRN", lrn);
+                //command.Parameters.AddWithValue("@Topic", topic);
+                command.Parameters.AddWithValue("@Grade", grade);
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    int count = 0;
+                    while (await reader.ReadAsync())
+                    {
+                        var story = new StoryData
+                        {
+                            TopicTitle = reader["TopicTitle"].ToString(),
+                            StoryID = Convert.ToInt32(reader["StoryID"]),
+                            StoryTitle = reader["StoryTitle"].ToString(),
+                            Descriptions = reader["Descriptions"].ToString(),
+                            StoryTopic = reader["StoryTopic"].ToString(),
+                            StoryReadingUrl = reader["StoryReadingUrl"].ToString(),
+                            StoryVideoUrl = reader["StoryVideoUrl"].ToString(),
+                            QuizData = reader["QuizData"].ToString(),
+                            Points = Convert.ToInt32(reader["Points"]),
+                            IsLocked = !Convert.ToBoolean(reader["Unlocked"]),
+                            isAdminmode = isAdmin
+                        };
+                        if (count == 0)
+                        {
+                            story.IsLocked = false;
+                        }
+                        count++;
+                        stories.Add(story);
+
+                    }
+                }
+            }
+        }
+
+        return stories;
+    }
+    public async Task<ImageSource> GetImageForStoryAsync(int storyId)
+    {
+        using (var connection = new MySqlConnection("Server=mysql-155140-0.cloudclusters.net;Port=10001;Database=AdhikaStoryAssests;Uid=admin;Password=UA6fLM7T;SslMode=None;"))
+        {
+            await connection.OpenAsync();
+
+            using (var command = new MySqlCommand())
+            {
+                command.Connection = connection;
+
+                // Build your SQL query
+                command.CommandText = "SELECT ImageData FROM StoryAssets WHERE StoryId = @StoryId";
+                command.Parameters.AddWithValue("@StoryId", storyId);
+
+                // Execute the query
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        // Check for null value
+                        if (reader["ImageData"] != DBNull.Value)
+                        {
+                            // Retrieve the image data from the database
+                            var imageData = (byte[])reader["ImageData"];
+
+                            // Create an ImageSource from the stream
+                            return ImageSource.FromStream(() => new MemoryStream(imageData));
+                        }
+                    }
+                }
+            }
+        }
+
+        // If no image is found, return null or some default image
+        return null;
+    }
     private void updatess(object sender, StoryData e)
     {
         var a = e;
@@ -116,15 +268,24 @@ public partial class MainPage
     
 
 
-    private void logout_Tapped(object sender, EventArgs e)
+    private async void logout_Tapped(object sender, EventArgs e)
     {
-        // Handle the logout event
+        bool result = await DisplayAlert("Logout Confirmation", "Are you sure you want to log out?", "Yes", "No");
+
+        if (result)
+        {
+            // User clicked "Yes", perform logout
+            // You can add your logout logic here, such as clearing authentication tokens, navigating to login page, etc.
+            // For demonstration purposes, I'm using the App.Current.MainPage.Navigation.PopToRootAsync() method
+            await MopupService.Instance.PopAsync();
+        }
+      
     }
 
     // Event handler for the grade level grid tap event
-    private void changeGrade(object sender, EventArgs e)
+    private async void changeGrade(object sender, EventArgs e)
     {
-        // Handle the grade level change event
+      await  MopupService.Instance.PushAsync(new GradeLvlSelection());
     }
 
     // Event handler for the topics grid tap event
@@ -137,6 +298,28 @@ public partial class MainPage
         
     }
 
+    [Obsolete]
+    protected override bool OnBackButtonPressed()
+    {
+        // Display exit confirmation when the back button is pressed
+        Device.BeginInvokeOnMainThread(async () =>
+        {
+            bool result = await DisplayAlert("Exit Confirmation", "Are you sure you want to exit the app?", "Yes", "No");
+
+            if (result)
+            {
+                // User clicked "Yes", exit the app
+                // Note: Exiting the app might not be allowed on all platforms
+                // On some platforms, you might navigate to the main page or minimize the app instead
+                // For demonstration purposes, I'm using the App.Current.MainPage.Navigation.PopToRootAsync() method
+                await App.Current.MainPage.Navigation.PopToRootAsync();
+            }
+            // If user clicked "No", do nothing
+        });
+
+        // Return true to indicate that the back button press has been handled
+        return true;
+    }
     // Event handler for the logo button click event
     private async void MainmenuLogo_Clicked(object sender, EventArgs e)
     {
