@@ -143,7 +143,7 @@ WITH RankedStories AS (
     JOIN Story S ON T.TopicTitle = S.StoryTopic
     LEFT JOIN StudentUserdata SU ON S.StoryTitle = SU.Stories AND SU.Lrn = @Lrn
   WHERE
-    T.TopicTitle = (SELECT TopicTitle FROM Topic WHERE Grade = @Grade LIMIT 1)
+    T.TopicTitle = @Topic
     AND T.Grade = @Grade
 )
 SELECT
