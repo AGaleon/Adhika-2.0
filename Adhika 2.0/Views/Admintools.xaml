@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Adhika.Admintools"
                xmlns:mopups ="clr-namespace:Mopups.Pages;assembly=Mopups"
-                 BackgroundColor="Coral"
+                 BackgroundColor="Transparent"
                   Disappearing="PopupPage_Disappearing"
              Title="Admintools" CloseWhenBackgroundIsClicked="True">
     <VerticalStackLayout WidthRequest="70" BackgroundColor="Transparent" HorizontalOptions="End" HeightRequest="240" Margin="0,70,0,0" VerticalOptions="Start" >
