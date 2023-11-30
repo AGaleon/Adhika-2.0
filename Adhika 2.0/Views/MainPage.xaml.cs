@@ -148,13 +148,13 @@ public partial class MainPage
     }
     private async void ReadNow_tapped(object sender, EventArgs e)
     {
-        if (!Selectedstory_.IsLocked)
+        if (!currentitem.IsLocked)
         {
             StoryData tounlocked = new StoryData();
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < ViewModel.storydataItemsSource.Count; i++)
             {
-                if (ViewModel.storydataItemsSource[i] == Selectedstory_)
+                if (ViewModel.storydataItemsSource[i].StoryTitle == currentitem.StoryTitle)
                 {
                     try
                     {
@@ -167,7 +167,7 @@ public partial class MainPage
                     break;
                 }
             }
-            await MopupService.Instance.PushAsync(new ExplorePop(Selectedstory_, tounlocked));
+            await MopupService.Instance.PushAsync(new ExplorePop(currentitem, tounlocked));
         }
     }
     
