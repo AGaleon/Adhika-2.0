@@ -158,7 +158,9 @@ public partial class MainPage
                 {
                     try
                     {
+                        
                         tounlocked = ViewModel.storydataItemsSource[i + 1];
+                        tounlocked.StudentLRN = _studentInfo.Lrn;
                     }
                     catch (Exception)
                     {

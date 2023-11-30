@@ -71,7 +71,8 @@ public partial class LoginPage : ContentPage
 
                 // Build your SQL query
                 command.CommandText = @"
-SELECT
+WITH RankedStories AS (
+  SELECT
     S.StoryID,
     T.TopicTitle,
     S.Descriptions,
@@ -81,20 +82,31 @@ SELECT
     S.StoryTopic,
     S.StoryVideoUrl,
     COALESCE(SU.Points, 0) AS Points,
-    CASE WHEN SU.Stories IS NOT NULL THEN true ELSE false END AS Unlocked
-FROM
+    CASE WHEN SU.Stories IS NOT NULL THEN true ELSE false END AS Unlocked,
+    ROW_NUMBER() OVER (PARTITION BY S.StoryID ORDER BY COALESCE(SU.Points, 0) DESC) AS RowNum
+  FROM
     Topic T
-JOIN
-    Story S ON T.TopicTitle = S.StoryTopic
-LEFT JOIN StudentUserdata SU ON S.StoryTitle = SU.Stories AND SU.Lrn = @Lrn
-   WHERE
-    T.TopicTitle = (
-        SELECT TopicTitle
-        FROM Topic
-        WHERE Grade = @Grade
-        LIMIT 1
-    )
+    JOIN Story S ON T.TopicTitle = S.StoryTopic
+    LEFT JOIN StudentUserdata SU ON S.StoryTitle = SU.Stories AND SU.Lrn = @Lrn
+  WHERE
+    T.TopicTitle = (SELECT TopicTitle FROM Topic WHERE Grade = @Grade LIMIT 1)
     AND T.Grade = @Grade
+)
+SELECT
+  StoryID,
+  TopicTitle,
+  Descriptions,
+  QuizData,
+  StoryReadingUrl,
+  StoryTitle,
+  StoryTopic,
+  StoryVideoUrl,
+  Points,
+  Unlocked
+FROM
+  RankedStories
+WHERE
+  RowNum = 1
 ";
 
                 // Add parameters

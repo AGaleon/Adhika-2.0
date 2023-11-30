@@ -172,7 +172,7 @@ public partial class Assesment
 
                         string insertDataQuery = $@"
 INSERT INTO StudentUserdata (Lrn, Points, Passed, Stories, Topic)
-VALUES ('{unlocked.StudentLRN}', '{corrects.ToString()}', 'true', '{unlocked.StoryTitle}', '{unlocked.TopicTitle}')";
+VALUES ('{unlocked.StudentLRN}', '{corrects.ToString()}', '1', '{unlocked.StoryTitle}', '{unlocked.TopicTitle}')";
 
 
                         using (MySqlCommand command = new MySqlCommand(insertDataQuery, connection))
