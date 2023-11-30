@@ -21,7 +21,6 @@ public partial class MainPage
     StoryData Selectedstory_ = new StoryData();
     private bool isLoadingImages = false;
     private bool isAdmin;
-
     ObservableCollection<StoryData> storyDatas { get; set; } = new ObservableCollection<StoryData>();
     public MainPage(ObservableCollection<StoryData> storyDatas_ , StudentInfo studentInfo)
 	{
@@ -157,7 +156,14 @@ public partial class MainPage
             {
                 if (ViewModel.storydataItemsSource[i] == Selectedstory_)
                 {
-                    tounlocked = ViewModel.storydataItemsSource[i + 1];
+                    try
+                    {
+                        tounlocked = ViewModel.storydataItemsSource[i + 1];
+                    }
+                    catch (Exception)
+                    {
+
+                    }
                     break;
                 }
             }
@@ -165,27 +171,46 @@ public partial class MainPage
         }
     }
     
-    private void SwipeItemView_InvokedDeleteSory(object sender, EventArgs e)
-    {
-        // Handle the logo button click event
-    }
     // Event handler for the carousel view current item changed event
-    private async void carouselView_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
-    {
-       
-        if (storyDatas != null)
-        {
-            StoryData stories_ = (StoryData)carouselView.CurrentItem;
-            try
-            {
-                Selectedstory_ = stories_;
-                bg_item.Source = stories_.ImageStory;
-              
-            }
-            catch (System.Exception)
-            {
-                bg_item.Source = "";
+   
+    string storyConnectionString = "Server=mysql-155140-0.cloudclusters.net;Port=10001;Database=Adhika;Uid=admin;Password=UA6fLM7T;SslMode=None;";
+    private string storyAssetsConnectionString = "Server=mysql-155140-0.cloudclusters.net;Port=10001;Database=AdhikaStoryAssests;Uid=admin;Password=UA6fLM7T;SslMode=None;";
 
+    public bool DeleteStoryWithAssets(int storyId)
+    {
+        using (MySqlConnection storyConnection = new MySqlConnection(storyConnectionString))
+        using (MySqlConnection storyAssetsConnection = new MySqlConnection(storyAssetsConnectionString))
+        {
+            storyConnection.Open();
+            storyAssetsConnection.Open();
+
+            // Delete from StoryAssets table
+            using (MySqlCommand command = new MySqlCommand())
+            {
+                command.Connection = storyAssetsConnection;
+                command.CommandText = "DELETE FROM StoryAssets WHERE StoryId = @StoryId;";
+                command.Parameters.AddWithValue("@StoryId", storyId);
+
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    // Delete from Story table
+                    using (MySqlCommand storyCommand = new MySqlCommand())
+                    {
+                        storyCommand.Connection = storyConnection;
+                        storyCommand.CommandText = "DELETE FROM Story WHERE StoryId = @StoryId;";
+                        storyCommand.Parameters.AddWithValue("@StoryId", storyId);
+
+                        int storyRowsAffected = storyCommand.ExecuteNonQuery();
+
+                        // Return true if at least one row was affected
+                        return storyRowsAffected > 0;
+                    }
+                }
+
+                // Return false if no rows were affected in StoryAssets
+                return false;
             }
         }
     }
@@ -200,5 +225,42 @@ public partial class MainPage
         preloadedTopic = await GetTopicsWithClearedStatusAsync(grade, lrn);
 
     }
- 
+
+    private void SwipeItemView_Invoked(object sender, EventArgs e)
+    {
+        if (sender is SwipeItemView swipeItem)
+        {
+            if (swipeItem.BindingContext is StoryData item)
+            {
+
+                DeleteStoryWithAssets(item.StoryID);
+                ViewModel.DeleteItem(item);
+
+            }
+        }
+    }
+    StoryData currentitem = null;
+    private void carouselView_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
+    {
+
+        if (_home.IsVisible && storyDatas != null)
+        {
+            StoryData stories_ = (StoryData)carouselView.CurrentItem;
+            currentitem = stories_;
+            try
+            {
+                bg_item.Source = stories_.ImageStory;
+            }
+            catch (Exception)
+            {
+                bg_item.Source = "";
+
+            }
+        }
+    }
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+        DeleteStoryWithAssets(currentitem.StoryID);
+        ViewModel.DeleteItem(currentitem);
+    }
 }

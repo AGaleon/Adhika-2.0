@@ -62,12 +62,15 @@
                                 <SwipeView>
                                     <SwipeView.TopItems>
                                         <!-- Delete Story Swipe Item (Visible for Admin) -->
-                                        <SwipeItemView IsVisible="{Binding isAdminmode}" Invoked="SwipeItemView_InvokedDeleteSory">
+                                        <SwipeItemView IsVisible="{Binding isAdminmode}" Invoked="SwipeItemView_Invoked">
                                             <Grid BackgroundColor="Transparent" HeightRequest="40">
                                                 <RoundRectangle CornerRadius="10,10,0,0" Fill="red"></RoundRectangle>
                                                 <StackLayout Spacing="3" VerticalOptions="CenterAndExpand">
                                                     <Label Text="Delete" FontAttributes="Bold" FontFamily="" VerticalOptions="Center" TextColor="White" HorizontalOptions="Center"></Label>
                                                 </StackLayout>
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+                                                </Grid.GestureRecognizers>
                                             </Grid>
                                         </SwipeItemView>
                                     </SwipeView.TopItems>
