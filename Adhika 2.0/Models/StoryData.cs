@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Adhika_2._0.Models
 {
     public class StoryData
-    {
+    {//a
         public string TopicTitle { get; set; }
         public int StoryID { get; set; }
         public string StoryTitle { get; set; }
