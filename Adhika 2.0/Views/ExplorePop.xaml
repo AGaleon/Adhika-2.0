@@ -10,15 +10,15 @@
         <Grid ColumnDefinitions="*,*,*" RowDefinitions="60,*" ColumnSpacing="10">
             <Label Text="Explore" FontSize="24" TextColor="White" Grid.ColumnSpan="3" HorizontalOptions="Center"></Label>
             <StackLayout  Grid.Column="0" Grid.Row="1" >
-                <Button HeightRequest="70" WidthRequest="70" Clicked="readnow_Clicked"  x:Name="readnow" BackgroundColor="White"></Button>
+                <ImageButton HeightRequest="70" WidthRequest="70" Clicked="readnow_Clicked" CornerRadius="10" Source="bookview" x:Name="readnow" BackgroundColor="White"></ImageButton>
                 <Label Text="Read Now" HorizontalTextAlignment="Center" TextColor="White" ></Label>
             </StackLayout>
             <StackLayout  Grid.Column="1" Grid.Row="1" >
-                <Button x:Name="Quiz"  Clicked="Quiz_Clicked" HeightRequest="70" WidthRequest="70" BackgroundColor="White"></Button>
+                <ImageButton x:Name="Quiz"  Clicked="Quiz_Clicked" HeightRequest="70" WidthRequest="70"  CornerRadius="10" Source="quiz" BackgroundColor="White"></ImageButton>
                 <Label Text="Quiz" HorizontalTextAlignment="Center" TextColor="White"  ></Label>
             </StackLayout>
             <StackLayout  Grid.Column="2" Grid.Row="1" >
-                <Button x:Name="Lumi"  Clicked="Lumi_Clicked" HeightRequest="70" WidthRequest="70" BackgroundColor="White"></Button>
+                <ImageButton x:Name="Lumi"  Clicked="Lumi_Clicked" HeightRequest="70" WidthRequest="70"    CornerRadius="10" Source="play" BackgroundColor="White"></ImageButton>
                 <Label Text="Watch" HorizontalTextAlignment="Center" TextColor="White"  ></Label>
             </StackLayout>
         </Grid>

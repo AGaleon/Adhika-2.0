@@ -39,7 +39,7 @@
                         <Grid>
                             <StackLayout>
                                 <ImageButton BackgroundColor="Transparent" Source="change" Margin="5,15,0,0" HeightRequest="25" WidthRequest="30"></ImageButton>
-                                <Label Text="Topics" HorizontalOptions="Center" TextColor="White" FontAttributes="Bold" FontFamily="" FontSize="10"></Label>
+                                <Label Text="Category" HorizontalOptions="Center" TextColor="White" FontAttributes="Bold" FontFamily="" FontSize="10"></Label>
                             </StackLayout>
                             <StackLayout BackgroundColor="Transparent">
                                 <StackLayout.GestureRecognizers>

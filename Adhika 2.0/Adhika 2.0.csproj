@@ -49,9 +49,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\bookview.png" />
 	  <None Remove="Resources\Images\Loading.png" />
 	  <None Remove="Resources\Images\lock.png" />
 	  <None Remove="Resources\Images\locked.png" />
+	  <None Remove="Resources\Images\play.png" />
+	  <None Remove="Resources\Images\quiz.png" />
 	</ItemGroup>
 
 	<ItemGroup>
