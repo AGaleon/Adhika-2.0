@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopup:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mopup="clr-namespace:Mopups.Pages;assembly=Mopups"
+             x:Class="Adhika_2._0.Views.RegisterUser" BackgroundColor="#80000000"
+             Title="RegisterUser">
+    <Frame HeightRequest="600" WidthRequest="360" Padding="0">
+        <Grid VerticalOptions="Center" HorizontalOptions="Center"  Padding="0">
+
+            <StackLayout x:Name="_frmregister" IsVisible="true">
+                <Label Text="Register" TextColor="#114D97" FontSize="50" Margin="50,10" ></Label>
+                <Grid Margin="0,30,0,0 " ColumnDefinitions="*,*" ColumnSpacing="10">
+                    <Frame Padding="0,10,0,10" HeightRequest="50"  HasShadow="True" >
+                        <StackLayout Grid.Column="0" VerticalOptions="Center" Margin=" 8,0,8,0" >
+                            <Frame Padding="0,-10" BorderColor="Transparent" >
+                                <Picker Title="Select Grade Level" x:Name="pckLevel" FontFamily="" FontAttributes="Bold" TitleColor="#D3D3D3" SelectedIndexChanged="pckLevel_SelectedIndexChanged"  >
+
+                                </Picker>
+                            </Frame>
+                        </StackLayout>
+                    </Frame>
+                    <Frame Grid.Column="1" Padding="0" HeightRequest="50"  HasShadow="True" >
+                        <StackLayout VerticalOptions="Center" Margin=" 20,0,20,0">
+                            <Frame Padding="0,-10" BorderColor="Transparent">
+                                <Entry Placeholder="Student No."  PlaceholderColor="#D3D3D3" HorizontalTextAlignment="Start" TextChanged="txtStudId_TextChanged"     x:Name="txtStudId" FontAttributes="Bold" FontFamily="" VerticalOptions="Center" HeightRequest="40"></Entry>
+                            </Frame>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+                <Grid ColumnDefinitions="*,*,70" Margin="0,20,0,0" ColumnSpacing="5">
+                    <Frame Padding="0" HeightRequest="50" Grid.Column="0" Margin="0" HorizontalOptions="FillAndExpand" HasShadow="True" >
+                        <StackLayout VerticalOptions="Center" Margin=" 10,0,10,0" >
+                            <Frame Padding="0,-10" BorderColor="Transparent">
+                                <Entry Placeholder="Lastname" x:Name="txtLastname" TextChanged="txtLastname_TextChanged" PlaceholderColor="#D3D3D3" HorizontalTextAlignment="Start" FontAttributes="Bold" FontFamily="" VerticalOptions="Center" HeightRequest="40"></Entry>
+                            </Frame>
+                        </StackLayout>
+                    </Frame>
+                    <Frame Padding="0" HeightRequest="50" Grid.Column="1" Margin="0" HorizontalOptions="FillAndExpand" HasShadow="True" >
+                        <StackLayout VerticalOptions="Center" Margin=" 10,0,10,0">
+                            <Frame Padding="0,-10" BorderColor="Transparent">
+                                <Entry Placeholder="Firstname" x:Name="txtFirstname" TextChanged="txtFirstname_TextChanged" PlaceholderColor="#D3D3D3" HorizontalTextAlignment="Start" FontAttributes="Bold" FontFamily="" VerticalOptions="Center" HeightRequest="40"></Entry>
+                            </Frame>
+                        </StackLayout>
+                    </Frame>
+                    <Frame Padding="0" HeightRequest="50" Grid.Column="2" Margin="0" HorizontalOptions="FillAndExpand" HasShadow="True" >
+                        <StackLayout VerticalOptions="Center" Margin=" 10,0,10,0">
+                            <Frame Padding="0,-10" BorderColor="Transparent">
+                                <Entry Placeholder="MI  " x:Name="txtMiddlename" TextChanged="txtMiddlename_TextChanged" HorizontalTextAlignment="Start" PlaceholderColor="#D3D3D3" FontAttributes="Bold" FontFamily="" VerticalOptions="Center" HeightRequest="40"></Entry>
+                            </Frame>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+                <Frame Padding="0" HeightRequest="50" Margin="0,20,0,0 " HasShadow="True" >
+                    <StackLayout VerticalOptions="Center" Margin=" 20,0,20,0">
+                        <Frame Padding="0,-10" BorderColor="Transparent">
+                            <Entry Placeholder="Email Address" x:Name="txtEmailReg" TextChanged="txtEmailReg_TextChanged" HorizontalTextAlignment="Start" PlaceholderColor="#D3D3D3"  FontAttributes="Bold" FontFamily="" VerticalOptions="Center" HeightRequest="40"></Entry>
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="0" HeightRequest="50" Margin="0,20,0,0" HasShadow="True">
+                    <StackLayout VerticalOptions="Center" Margin=" 20,0,20,0">
+                        <Frame Padding="0,-20" BorderColor="Transparent">
+                            <Grid ColumnDefinitions="*,40">
+                                <Entry Placeholder="Password" x:Name="txtPassReg" IsPassword="True" TextChanged="txtPassReg_TextChanged" HorizontalTextAlignment="Start" PlaceholderColor="#D3D3D3" FontAttributes="Bold" FontFamily="" VerticalOptions="Center" HeightRequest="40"></Entry>
+                                <ImageButton BackgroundColor="Transparent" Source="eyeclosed"   x:Name="showpas" Clicked="showpas_Clicked"  HeightRequest="25" Grid.Column="1"  WidthRequest="25"></ImageButton>
+                            </Grid>
+
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="0" HeightRequest="50" Margin="0,20,0,0" HasShadow="True" >
+                    <StackLayout VerticalOptions="Center" Margin=" 20,0,20,0">
+                        <Frame Padding="0,-20" BorderColor="Transparent">
+                            <Grid ColumnDefinitions="*,40">
+                                <Entry Placeholder="Confirm Password" x:Name="txtConfirmPassReg" TextChanged="txtConfirmPassReg_TextChanged" IsPassword="True" HorizontalTextAlignment="Start" FontAttributes="Bold" PlaceholderColor="#D3D3D3" FontFamily="" VerticalOptions="Center" HeightRequest="40"></Entry>
+                                <ImageButton BackgroundColor="Transparent" Source="eyeclosed" x:Name="showpass" Clicked="showpass_Clicked" HeightRequest="25" Grid.Column="1" WidthRequest="25"></ImageButton>
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+                <Button Padding="0" HeightRequest="50" Margin="0,20,0,0" BackgroundColor="#114D97" Text="Register" x:Name="btn_register" Clicked="btn_register_Clicked" BorderColor="White"></Button>
+            </StackLayout>
+        </Grid>
+    </Frame>
+</mopup:PopupPage>

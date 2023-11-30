@@ -110,6 +110,7 @@ WHERE
 
                 using (var reader = await command.ExecuteReaderAsync())
                 {
+                    int count = 0;
                     while (await reader.ReadAsync())
                     {
                         var story = new StoryData
@@ -127,7 +128,11 @@ WHERE
                             IsLocked = Convert.ToBoolean(reader["Locked"]),
                             isAdminmode = isAdmin
                         };
-
+                        if (count == 0)
+                        {
+                            story.IsLocked = false;
+                        }
+                        count++;
                         stories.Add(story);
                     }
                 }

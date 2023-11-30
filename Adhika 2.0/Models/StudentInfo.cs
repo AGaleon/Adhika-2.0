@@ -8,6 +8,7 @@ namespace Adhika_Final_Build.Models
 {
     public class StudentInfo
     {
+        public int Id { get; set; }
         public string LName { get; set; }
         public string FName { get; set; }
 

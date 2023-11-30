@@ -155,7 +155,7 @@ WHERE
                 using (var reader = await command.ExecuteReaderAsync())
                 {
                     var stories = new ObservableCollection<StoryData>();
-
+                    int count = 0;
                     while (await reader.ReadAsync())
                     {
                         var story = new StoryData
@@ -173,7 +173,11 @@ WHERE
                             IsLocked = Convert.ToBoolean(reader["Locked"]),
                             isAdminmode = Convert.ToBoolean(reader["IsAdmin"])
                         };
-
+                        if (count == 0)
+                        {
+                            story.IsLocked = false;
+                        }
+                       count++;
                         stories.Add(story);
                     }
 
