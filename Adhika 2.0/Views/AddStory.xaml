@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mopups ="clr-namespace:Mopups.Pages;assembly=Mopups"
+             x:Class="Adhika.AddStory" BackgroundColor="#80000000"
+             Title="AddStory" CloseWhenBackgroundIsClicked="False">
+    <Grid>
+        <Image Aspect="Fill" Source="bgradient" Opacity="0.7"></Image>
+        <Button HeightRequest="50" WidthRequest="70" Margin="30"  Text="Next" CornerRadius="20" HorizontalOptions="End" VerticalOptions="End" x:Name="Next" Clicked="Next_Clicked" ></Button>
+        <Button HeightRequest="50" WidthRequest="70" Margin="30"  Text="Back" CornerRadius="20" HorizontalOptions="Start" IsVisible="false" VerticalOptions="End" x:Name="back" Clicked="back_Clicked" ></Button>
+        <Label Text="Select Grade Level" HorizontalOptions="Center" TextColor="Wheat" FontSize="20" Margin="50,10" x:Name="index" ZIndex="1"></Label>
+        <Button HeightRequest="50" Text="Cancel" VerticalOptions="Start" HorizontalOptions="End" FontSize="15" BackgroundColor="Transparent" x:Name="cancel" Clicked="cancel_Clicked" TextColor="Red"></Button>
+        <StackLayout  BackgroundColor="Transparent" HeightRequest="570" WidthRequest="300" x:Name="gradeSelection" >
+            <Grid ColumnDefinitions="*,*" HeightRequest="550" RowDefinitions="*,*" RowSpacing="5" ColumnSpacing="5">
+                <Grid Grid.Column="0" Grid.Row="0" >
+                    <Frame BackgroundColor="Transparent" ZIndex="1">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"    ></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Image HeightRequest="35" WidthRequest="35" Source="selected.png" x:Name="g7s" IsVisible="false" ZIndex="1" VerticalOptions="Start" HorizontalOptions="End" ></Image>
+                    <Frame VerticalOptions="FillAndExpand" BackgroundColor="Green" Opacity="0.7" ></Frame>
+                    <Frame HeightRequest="200" WidthRequest="130" Margin="0,10,0,0" VerticalOptions="Start" Padding="0">
+                        <Image  BackgroundColor="Transparent" Source="grade7" Aspect="AspectFill" ></Image>
+                    </Frame>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="-10" Margin="10">
+                        <Label  Text="7" FontAttributes="Bold" TextColor="Black" FontFamily="" HorizontalOptions="Center" FontSize="25"></Label>
+                        <Label  Text="Grade" FontSize="20"  TextColor="Black"  FontAttributes="Bold" FontFamily=""></Label>
+                    </StackLayout>
+                </Grid>
+                <Grid   Grid.Column="1" Grid.Row="0"   >
+                    <Frame BackgroundColor="Transparent" ZIndex="1">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_2"    ></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Image HeightRequest="35" WidthRequest="35" Source="selected.png" x:Name="g8s"  IsVisible="false" ZIndex="1" VerticalOptions="Start" HorizontalOptions="End" ></Image>
+                    <Frame VerticalOptions="FillAndExpand" BackgroundColor="Yellow" Opacity="0.7" ></Frame>
+                    <Frame HeightRequest="200" WidthRequest="130" Margin="0,10,0,0" VerticalOptions="Start" Padding="0">
+                        <Image  BackgroundColor="Transparent" Source="grade8" Aspect="AspectFill" ></Image>
+                    </Frame>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="-10" Margin="10">
+                        <Label  Text="8" FontAttributes="Bold" TextColor="Black" FontFamily="" HorizontalOptions="Center" FontSize="25"></Label>
+                        <Label  Text="Grade" FontSize="20"  TextColor="Black"  FontAttributes="Bold" FontFamily=""></Label>
+                    </StackLayout>
+                </Grid>
+                <Grid Grid.Column="0"  Grid.Row="1"  >
+                    <Frame BackgroundColor="Transparent" ZIndex="1">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_3"    ></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Image HeightRequest="35" WidthRequest="35" Source="selected.png" x:Name="g9s" IsVisible="false" ZIndex="1" VerticalOptions="Start" HorizontalOptions="End" ></Image>
+                    <Frame VerticalOptions="FillAndExpand" BackgroundColor="Red" Opacity="0.7"   ></Frame>
+                    <Frame HeightRequest="200" WidthRequest="130" Margin="0,10,0,0" VerticalOptions="Start" Padding="0">
+                        <Image  BackgroundColor="Transparent" Source="grade9"  Aspect="AspectFill"  ></Image>
+                    </Frame>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="-10" Margin="10">
+                        <Label  Text="9" FontAttributes="Bold" TextColor="Black" FontFamily="" HorizontalOptions="Center" FontSize="25"></Label>
+                        <Label  Text="Grade" FontSize="20"  TextColor="Black"  FontAttributes="Bold" FontFamily=""></Label>
+                    </StackLayout>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="1"  >
+                    <Frame BackgroundColor="Transparent" ZIndex="1">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_4"    ></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Image HeightRequest="35" WidthRequest="35" Source="selected.png" x:Name="g10s" IsVisible="false" ZIndex="1" VerticalOptions="Start" HorizontalOptions="End" ></Image>
+                    <Frame VerticalOptions="FillAndExpand" BackgroundColor="Blue" Opacity="0.7"></Frame>
+                    <Frame HeightRequest="200" WidthRequest="130" Margin="0,10,0,0" VerticalOptions="Start" Padding="0">
+                        <Image  BackgroundColor="Transparent" Source="grade10" Aspect="AspectFill"  ></Image>
+                    </Frame>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="-10" Margin="10">
+                        <Label  Text="10" FontAttributes="Bold" TextColor="Black" FontFamily="" HorizontalOptions="Center" FontSize="25"></Label>
+                        <Label  Text="Grade" FontSize="20"  TextColor="Black"  FontAttributes="Bold" FontFamily=""></Label>
+                    </StackLayout>
+                </Grid>
+            </Grid>
+        </StackLayout>
+        <StackLayout IsVisible="false" BackgroundColor="Transparent" HeightRequest="570" WidthRequest="300"  x:Name="topicSelection" >
+            <Grid HeightRequest="550"  Padding="0" RowDefinitions="50,*">
+                <Label Grid.Column="0" Margin="20,0,20,0" FontSize="20" VerticalOptions="End" TextColor="White" Text="Topics" Padding="0,0,0,0" >
+                </Label>
+                <Frame  Grid.Row="1" BackgroundColor="Transparent" BorderColor="Transparent" Padding="10" Margin="0,0,0,0" >
+                    <Frame Padding="0,0,0,0" BackgroundColor="Transparent"     BorderColor="Transparent"  >
+                        <Grid RowDefinitions="460,40" >
+                            <ListView x:Name="TopicsList" ItemSelected="TopicsList_ItemSelected" HasUnevenRows="True" BackgroundColor="Transparent" SeparatorVisibility="None" VerticalOptions="Start" HeightRequest="400" Margin="5">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <StackLayout BackgroundColor="Transparent"    >
+                                                <Frame Padding="5" Margin="5"  BackgroundColor="White" HeightRequest="70">
+                                                    <Grid ColumnDefinitions="60,*,20 " ColumnSpacing="10">
+                                                        <Frame Padding="0" CornerRadius="30" WidthRequest="60" HeightRequest="60" >
+                                                            <Grid>
+                                                                <Image BackgroundColor="Transparent" Source="{Binding TopicImage}" Aspect="AspectFill" ></Image>
+                                                                
+                                                            </Grid>
+                                                        </Frame>
+                                                        <StackLayout Grid.Column="1" Grid.ColumnSpan="2" BackgroundColor="Transparent" ZIndex="1">
+                                                            <Label Text="{Binding TopicTitle}" FontAttributes="Bold" FontFamily="" TextColor="#022b5d" FontSize="20" />
+                                                            <Label Text="{Binding TopicDescription}" FontSize="13" TextColor="Gray"  FontAttributes="Bold" FontFamily="" />
+                                                        </StackLayout>
+
+                                                    </Grid>
+                                                </Frame>
+                                            </StackLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </Frame>
+                </Frame>
+            </Grid>
+        </StackLayout>
+        <StackLayout IsVisible="false" BackgroundColor="Transparent" HeightRequest="510" WidthRequest="300" VerticalOptions="Start" Margin="0,60" x:Name="SampleTab"    >
+            <Frame Padding="1" BorderColor="Gray" HeightRequest="400" WidthRequest="290" HasShadow="True" CornerRadius="15"   x:Name="Itemsframe">
+                <Frame Padding="0" CornerRadius="15">
+                    <Grid Margin="0"  RowDefinitions="*,155" >
+                        <Image x:Name="imageAddicon" Source="addimagetopic" HeightRequest="50" WidthRequest="50" ZIndex="1" Opacity="0.5" ></Image>
+                        <Frame Padding="0" Grid.RowSpan="2" BackgroundColor="Transparent" >
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="AddimageTapped"></TapGestureRecognizer>
+                            </Frame.GestureRecognizers>
+                            <Image x:Name="imageStory"  Aspect="Fill" ></Image>
+                        </Frame>
+                        <Grid Grid.Row="1">
+                            <Grid RowDefinitions="40,*,60" BackgroundColor="Transparent" ZIndex="1">
+                                <HorizontalStackLayout Grid.Row="0" Spacing="5" Margin="10,10,0,0">
+                                    <Image HeightRequest="20" WidthRequest="20" BackgroundColor="Transparent" Source="book"></Image>
+                                    <Label Text="Sample Title" x:Name="title_" FontAttributes="Bold" FontFamily="" FontSize="20" IsVisible="true" HorizontalOptions="Start"  TextColor="White">
+                                        <Label.GestureRecognizers >
+                                            <TapGestureRecognizer Tapped="TitleTap"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <Image HeightRequest="20" WidthRequest="20" BackgroundColor="Transparent" Source="itemtopicedit" Opacity="0.5">
+
+                                        <Image.GestureRecognizers >
+                                            <TapGestureRecognizer Tapped="TitleTap"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </HorizontalStackLayout>
+                                <Grid Grid.Row="1" ColumnDefinitions="*,40">
+                                    <HorizontalStackLayout Spacing="5">
+                                        <Label MaxLines="3" x:Name="Details" MaximumWidthRequest="250" IsVisible="true" Text="asdasdjsajhgdhjasdhjashjkdhjkasjhdasjhdjhasjhjhskadjha as d sad da sd asd asd  asd2 sad as asd1 sad ..."  HorizontalOptions="Start" Margin="10,0,0,0" TextColor="White">
+                                            <Label.GestureRecognizers >
+                                                <TapGestureRecognizer Tapped="DetailTap"/>
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Image HeightRequest="20" WidthRequest="20" Grid.Column="1" BackgroundColor="Transparent" Source="itemtopicedit" Opacity="0.5">
+                                            <Image.GestureRecognizers >
+                                                <TapGestureRecognizer Tapped="DetailTap"/>
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                    </HorizontalStackLayout>
+                                </Grid>
+                                <Frame Grid.Row="2"  Padding="10" HeightRequest="40" Margin="10,10,10,10" >
+                                    <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                                        <Image BackgroundColor="Transparent" Source="openbook" HeightRequest="20" WidthRequest="20"></Image>
+                                        <Label Text="Explore" FontSize="15" FontAttributes="Bold"  HorizontalTextAlignment="Start"></Label>
+                                    </HorizontalStackLayout>
+                                </Frame>
+                            </Grid>
+                            <StackLayout  BackgroundColor="#022b5d" Opacity="0.6"></StackLayout>
+                        </Grid>
+                    </Grid>
+                </Frame>
+            </Frame>
+            
+        </StackLayout>
+        <StackLayout IsVisible="false" Spacing="0" BackgroundColor="Transparent" ZIndex="1" x:Name="links" VerticalOptions="End" Margin="0,0,0,120" >
+            <Label Text="Paste PDF Url from GDRIVE" HorizontalOptions="Center" FontSize="15" Margin="0,5,0,5" FontAttributes="Bold" FontFamily="" TextColor="Black" ></Label>
+            <Entry TextChanged="PdfUrl_TextChanged" x:Name="PdfUrl" Placeholder="Url Here" FontAttributes="Bold"  FontFamily="" HorizontalTextAlignment="Center"></Entry>
+            <Button Text="Preview Pdf" Clicked="btnPreviewPdf_Clicked" Padding="2" x:Name="btnPreviewPdf" IsVisible="false" HorizontalOptions="Center" BackgroundColor="Transparent" HeightRequest="35" FontSize="15" FontFamily="" TextColor="Black" ></Button>
+            <Button Text="Assign Quiz"  BackgroundColor="White" TextColor="#022b5d" HeightRequest="35" Padding="2" FontSize="Body" FontAttributes="Bold" FontFamily=""  x:Name="assignquiz" Clicked="assignquiz_Clicked"/>
+            <Label Text="Paste Lumi Url from Lumi" HorizontalOptions="Center" FontSize="15" Margin="0,10,0,10" FontAttributes="Bold" FontFamily="" TextColor="Black" ></Label>
+            <Entry TextChanged="LumiUrl_TextChanged" x:Name="LumiUrl" Placeholder="Url Here" FontAttributes="Bold"  FontFamily="" HorizontalTextAlignment="Center"></Entry>
+            <Button Text="Preview Lumi" Clicked="btnPreviewlumi_Clicked"     x:Name="btnPreviewlumi" IsVisible="false" HeightRequest="35" Padding="2" HorizontalOptions="Center" BackgroundColor="Transparent" FontSize="15" Margin="0,0,0,0" FontFamily="" TextColor="Black" ></Button>
+        </StackLayout>
+    </Grid>
+</mopups:PopupPage>

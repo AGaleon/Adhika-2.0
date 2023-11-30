@@ -20,6 +20,8 @@ public partial class MainPage
     string connectionString = "Server=mysql-155140-0.cloudclusters.net;Port=10001;Database=Adhika;Uid=admin;Password=UA6fLM7T;SslMode=None;";
     StoryData Selectedstory_ = new StoryData();
     private bool isLoadingImages = false;
+    private bool isAdmin;
+
     ObservableCollection<StoryData> storyDatas { get; set; } = new ObservableCollection<StoryData>();
     public MainPage(ObservableCollection<StoryData> storyDatas_ , StudentInfo studentInfo)
 	{
@@ -29,9 +31,23 @@ public partial class MainPage
         BindingContext = ViewModel;
         storyDatas = storyDatas_;
         TopicSelection.Data += changedTopicstory;
+        AddTopic.TopicGrade += updatedgrade;
+        AddStory.newvalue += updatess;
         header_.Text = storyDatas_[0].TopicTitle;
-        
+        isAdmin = storyDatas_[0].isAdminmode;
         ViewModel.storydataItemsSource = storyDatas;
+    }
+
+    private void updatess(object sender, StoryData e)
+    {
+        var a = e;
+        a.isAdminmode = isAdmin;
+        ViewModel.AddNewItem(a);
+    }
+
+    private void updatedgrade(object sender, string e)
+    {
+        getPreloadedTopics(_studentInfo.Grade.ToString(), _studentInfo.Lrn);
     }
 
     private void changedTopicstory(object sender, ObservableCollection<StoryData> e)
@@ -113,19 +129,23 @@ public partial class MainPage
     }
 
     // Event handler for the topics grid tap event
-    private void changeTopic(object sender, EventArgs e)
+    private async void changeTopic(object sender, EventArgs e)
     {
-        while (!isTopicLoaded)
+        if (isTopicLoaded)
         {
-
+           await MopupService.Instance.PushAsync(new TopicSelection(preloadedTopic, _studentInfo, header_.Text));
         }
-        MopupService.Instance.PushAsync(new TopicSelection(preloadedTopic,_studentInfo, header_.Text));
+        
     }
 
     // Event handler for the logo button click event
-    private void MainmenuLogo_Clicked(object sender, EventArgs e)
+    private async void MainmenuLogo_Clicked(object sender, EventArgs e)
     {
-        // Handle the logo button click event
+        if (isAdmin)
+        {
+            _ = MainmenuLogo.ScaleTo(1.3, 500);
+            await MopupService.Instance.PushAsync(new Admintools(),true);
+        }
     }
     private async void ReadNow_tapped(object sender, EventArgs e)
     {
@@ -173,16 +193,12 @@ public partial class MainPage
     [Obsolete]
     private async void PopupPage_Appearing(object sender, EventArgs e)
     {
-
-
-
         getPreloadedTopics(_studentInfo.Grade.ToString(), _studentInfo.Lrn);
     }
-    async void getPreloadedTopics(string grade, string lrn)
+    public async void getPreloadedTopics(string grade, string lrn)
     {
-       
         preloadedTopic = await GetTopicsWithClearedStatusAsync(grade, lrn);
-       
+
     }
  
 }

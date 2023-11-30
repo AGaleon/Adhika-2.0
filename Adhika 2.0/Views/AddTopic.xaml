@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+             x:Class="Adhika.AddTopic" BackgroundColor="#80000000" 
+             >
+    <Grid HeightRequest="450" BackgroundColor="Transparent" RowDefinitions="50,*" WidthRequest="280">
+        <Grid Grid.RowSpan="2" ZIndex="1"  ColumnDefinitions="*,115,*" RowDefinitions="130,*" >
+            <Grid Grid.Column="1" ZIndex="1"  ColumnDefinitions="*,50" >
+                <Frame BackgroundColor="LightGreen" Grid.Column="1" BorderColor="Transparent" HeightRequest="30" Padding="0" WidthRequest="30" CornerRadius="15" VerticalOptions="End" Margin="0,0,0,10" >
+                    <Image Source="itemtopicedit" BackgroundColor="Transparent" Margin="7"  ZIndex="1"  Opacity="0.5"></Image>
+                </Frame>
+            </Grid>
+            <Frame BackgroundColor="White" Padding="0"  HeightRequest="130" WidthRequest="130" BorderColor="White" Grid.ColumnSpan="3" Grid.RowSpan="2" HorizontalOptions="Center" CornerRadius="65" VerticalOptions="Start">
+                <Frame HeightRequest="110" WidthRequest="110" CornerRadius="55" Padding="0" BorderColor="Transparent" BackgroundColor="Gray">
+                    <Grid>
+                        <Image x:Name="tempImage" Source="addimagetopic" Opacity="0.5" IsVisible="true" HeightRequest="50" VerticalOptions="Center" ></Image>
+                        <Image x:Name="topicImage" IsVisible=" false  " Source="hindu"    Aspect="AspectFill"></Image>
+                    </Grid>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="AddImage_Tapped"></TapGestureRecognizer>
+                    </Frame.GestureRecognizers>
+                </Frame>
+            </Frame>
+        </Grid>
+        <Frame Grid.Row="1">
+            <Grid RowDefinitions="80,*">
+                <StackLayout Grid.Row="1">
+                    <Picker Title="Select Grade Level" x:Name="pckLevel" FontFamily="" HorizontalTextAlignment="Center" FontAttributes="Bold" TitleColor="#D3D3D3"  Margin="0,-10,0,10" HorizontalOptions="Center" >
+                    </Picker>
+                    <HorizontalStackLayout Spacing="5" HorizontalOptions="Center" BackgroundColor="Transparent">
+                        <StackLayout>
+                            <Label Text="TOPIC TITLE" x:Name="lblTitle" FontFamily="" IsVisible="true" WidthRequest="200" FontSize="25" HorizontalTextAlignment="Center"  FontAttributes="Bold">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="lblTitleClicked">
+                                    </TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Entry x:Name="entTitle" IsVisible="false" TextChanged="entTitle_TextChanged" Completed="entTitle_Completed" Placeholder="TOPIC TITLE" FontFamily="" WidthRequest="200" FontSize="25" HorizontalTextAlignment="Center"  FontAttributes="Bold">
+                            </Entry>
+                        </StackLayout>
+                        <ImageButton BackgroundColor="Transparent" x:Name="topictitleimage" Source="itemtopicedit" Padding="4" Opacity="0.5" HeightRequest="35" WidthRequest="35"  Clicked="topictitleimage_Clicked"     ></ImageButton>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="5" HorizontalOptions="Center" Margin="0,0,0,0">
+                        <StackLayout>
+                            <Label x:Name="lblDescription" Text="(Short Descripstions)" IsVisible="true" WidthRequest="200" FontFamily="" FontSize="15" HorizontalTextAlignment="Center" FontAttributes="Italic">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="lblDescriptionClicked">
+                                    </TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Entry x:Name="entDescriptions" IsVisible="false" TextChanged="entDescriptions_TextChanged" Completed="entDescriptions_Completed" Placeholder="(Short Descripstions)" WidthRequest="200" FontFamily="" FontSize="15" HorizontalTextAlignment="Center" FontAttributes="Italic"></Entry>
+                        </StackLayout>
+                        <ImageButton BackgroundColor="Transparent" x:Name="topicDescriptionimage"  Clicked="topicDescriptionimage_Clicked" Source="itemtopicedit" Padding="4" HeightRequest="35" WidthRequest="35" Opacity="0.5" ></ImageButton>
+                    </HorizontalStackLayout>
+                    <StackLayout Spacing="10"  VerticalOptions="EndAndExpand">
+                        <Button CornerRadius="30" Text="Add Topic" BackgroundColor="#114d97" x:Name="btnSave" Clicked="btnSave_Clicked"></Button>
+                        <Button HeightRequest="30" BackgroundColor="Transparent" Text="Cancel" TextColor="Black" Padding="0"></Button>
+                    </StackLayout>
+                </StackLayout>
+            </Grid>    
+        </Frame>
+    </Grid>
+</Mopups:PopupPage>
