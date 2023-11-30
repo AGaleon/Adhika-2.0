@@ -55,7 +55,9 @@ public partial class LoginPage : ContentPage
         return null;
     }
 
-    public async Task<ObservableCollection<StoryData>> GetStoriesForStudentAsync(string lrn, int grade, bool isAdmin)
+    
+
+    public async Task<ObservableCollection<StoryData>> GetStoriesForStudentAsync( string lrn, int grade, bool isAdmin)
     {
         var stories = new ObservableCollection<StoryData>();
 
@@ -70,42 +72,34 @@ public partial class LoginPage : ContentPage
                 // Build your SQL query
                 command.CommandText = @"
 SELECT
-    Topic.TopicTitle,
-    Story.StoryID,
-    Story.StoryTitle,
-    Story.Descriptions,
-    Story.StoryTopic,
-    Story.StoryReadingUrl,
-    Story.StoryVideoUrl,
-    Story.QuizData,
-    COALESCE(StudentUserdata.Points, 0) AS Points,
-    COALESCE(StudentInfo.Lrn, @LRN) AS StudentLRN,
-    CASE
-        WHEN StudentUserdata.Lrn IS NOT NULL THEN 0
-        ELSE 1
-    END AS Locked
+    S.StoryID,
+    T.TopicTitle,
+    S.Descriptions,
+    S.QuizData,
+    S.StoryReadingUrl,
+    S.StoryTitle,
+    S.StoryTopic,
+    S.StoryVideoUrl,
+    COALESCE(SU.Points, 0) AS Points,
+    CASE WHEN SU.Stories IS NOT NULL THEN true ELSE false END AS Unlocked
 FROM
-    Topic
+    Topic T
 JOIN
-    Story ON Topic.TopicTitle = Story.StoryTopic
-LEFT JOIN (
-    SELECT Stories, MAX(Points) AS Points, Lrn
-    FROM StudentUserdata
-    GROUP BY Stories, Lrn
-) StudentUserdata ON Story.StoryTitle = StudentUserdata.Stories
-LEFT JOIN StudentInfo ON StudentUserdata.Lrn = StudentInfo.Lrn
-WHERE
-    Topic.TopicTitle = (
+    Story S ON T.TopicTitle = S.StoryTopic
+LEFT JOIN StudentUserdata SU ON S.StoryTitle = SU.Stories AND SU.Lrn = @Lrn
+   WHERE
+    T.TopicTitle = (
         SELECT TopicTitle
         FROM Topic
-        WHERE Topic.Grade = @Grade OR Topic.Grade IS NULL
+        WHERE Grade = @Grade
         LIMIT 1
     )
-    AND (StudentInfo.Lrn = @LRN OR StudentInfo.Lrn IS NULL);
+    AND T.Grade = @Grade
 ";
 
                 // Add parameters
                 command.Parameters.AddWithValue("@LRN", lrn);
+                //command.Parameters.AddWithValue("@Topic", topic);
                 command.Parameters.AddWithValue("@Grade", grade);
 
                 using (var reader = await command.ExecuteReaderAsync())
@@ -124,8 +118,7 @@ WHERE
                             StoryVideoUrl = reader["StoryVideoUrl"].ToString(),
                             QuizData = reader["QuizData"].ToString(),
                             Points = Convert.ToInt32(reader["Points"]),
-                            StudentLRN = reader["StudentLRN"].ToString(),
-                            IsLocked = Convert.ToBoolean(reader["Locked"]),
+                            IsLocked = !Convert.ToBoolean(reader["Unlocked"]),
                             isAdminmode = isAdmin
                         };
                         if (count == 0)
@@ -134,6 +127,7 @@ WHERE
                         }
                         count++;
                         stories.Add(story);
+                        
                     }
                 }
             }
@@ -141,7 +135,6 @@ WHERE
 
         return stories;
     }
-
 
     private async void btnLogin_Click(object sender, EventArgs e)
     {
@@ -151,7 +144,7 @@ WHERE
             // Login successful, display welcome message
             await DisplayAlert("Welcome", $"Welcome, {studentInfo.FName} {studentInfo.LName}!", "OK");
             await MopupService.Instance.PushAsync(new LoadingMain());
-            var data = await GetStoriesForStudentAsync(studentInfo.Lrn, studentInfo.Grade, studentInfo.IsAdmin);
+            var data = await GetStoriesForStudentAsync( studentInfo.Lrn, studentInfo.Grade, studentInfo.IsAdmin);
             for (int i = 0; i < data.Count; i++)
             {
                 data[i].ImageStory =await GetImageForStoryAsync(data[i].StoryID);
