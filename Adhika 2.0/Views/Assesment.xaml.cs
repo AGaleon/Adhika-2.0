@@ -164,7 +164,7 @@ public partial class Assesment
                 string connectionString = "Server=mysql-155140-0.cloudclusters.net;Port=10001;Database=Adhika;Uid=admin;Password=UA6fLM7T;SslMode=None;";
                 await DisplayAlert("Done", "Your Score is :" + corrects.ToString(), "OK");
                 await MopupService.Instance.PopAsync();
-                if (/*corrects > 6*/ true)///a
+                if (corrects > 6 )
                 {
                     using (MySqlConnection connection = new MySqlConnection(connectionString))
                     {
