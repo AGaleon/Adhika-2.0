@@ -299,7 +299,7 @@ public partial class RegisterUser
                 cmd.Parameters.AddWithValue("@FName", students.FName);
                 cmd.Parameters.AddWithValue("@MName", students.MName);
                 cmd.Parameters.AddWithValue("@Email", students.Email);
-                cmd.Parameters.AddWithValue("@Lrn", students.Id); // Assuming StudentId maps to Lrn
+                cmd.Parameters.AddWithValue("@Lrn", students.Lrn); // Assuming StudentId maps to Lrn
                 cmd.Parameters.AddWithValue("@IsAdmin", students.IsAdmin); // Assuming IsAdmin is a boolean property
                 cmd.Parameters.AddWithValue("@Password", students.Password);
                 cmd.Parameters.AddWithValue("@Grade", students.Grade);
