@@ -163,7 +163,7 @@ public partial class RegisterUser
             StudentInfo student = new StudentInfo();
 
             string[] getlvl = pckLevel.SelectedItem.ToString().Split(" ");
-            student.Id =Convert.ToInt32(txtStudId.Text);
+            student.Lrn = txtStudId.Text;
             student.Grade = int.Parse(getlvl[1]);
             student.FName = txtFirstname.Text;
             student.LName = txtLastname.Text;
