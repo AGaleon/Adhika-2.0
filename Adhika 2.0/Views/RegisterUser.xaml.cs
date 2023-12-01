@@ -235,7 +235,7 @@ public partial class RegisterUser
         }
     }
 
-    string connectionString = "Server=mysql-155140-0.cloudclusters.net;Port=10001;Database=Adhika;Uid=admin;Password=UA6fLM7T;SslMode=None;";
+    string connectionString = "Server=mysql-156307-0.cloudclusters.net;Port=19890;Database=Adhika;Uid=admin;Password=NymIxFjs;SslMode=None;";
     private bool ExistsInTable(string columnName, object value)
     {
         using (MySqlConnection connection = new MySqlConnection(connectionString))
