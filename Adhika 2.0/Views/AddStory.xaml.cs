@@ -28,7 +28,7 @@ public partial class AddStory
     {
 		InitializeComponent();
         
-        Assesment.topicquiz += topicquiz;
+        //Assesment.topicquiz += topicquiz;
         var maxLength = 90;
         FloatingTextbox.GetText += GetText_;
         FloatingTextbox.DataSent += OnDataSent;

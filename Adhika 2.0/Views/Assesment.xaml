@@ -32,7 +32,7 @@
                             </Frame.GestureRecognizers>
                             <Grid>
                                 <Label x:Name="Choice1" Text="QUESTION" FontAttributes="Bold" TextColor="White" FontFamily="" Margin="10,5,10,5" FontSize="20"></Label>
-                                <CheckBox x:Name="CChoice1"  CheckedChanged="CChoice1_CheckedChanged" HorizontalOptions="End" Color="White" RadioButtonGroup.GroupName="q"  ></CheckBox>
+                                <CheckBox x:Name="CChoice1"  CheckedChanged="CChoice1_CheckedChanged" HorizontalOptions="End" Color="White"    ></CheckBox>
                             </Grid>
                         </Frame>
                         <Frame Padding="0" HeightRequest="40" BackgroundColor="Transparent" BorderColor="White">
@@ -41,7 +41,7 @@
                             </Frame.GestureRecognizers>
                             <Grid>
                                 <Label x:Name="Choice2" Text="QUESTION" FontAttributes="Bold" TextColor="White" FontFamily="" Margin="10,5,10,5" FontSize="20"></Label>
-                                <CheckBox x:Name="CChoice2" CheckedChanged="CChoice2_CheckedChanged" HorizontalOptions="End" Color="White" RadioButtonGroup.GroupName="q"  ></CheckBox>
+                                <CheckBox x:Name="CChoice2" CheckedChanged="CChoice2_CheckedChanged" HorizontalOptions="End" Color="White"    ></CheckBox>
                             </Grid>
                         </Frame>
                         <Frame Padding="0" HeightRequest="40" BackgroundColor="Transparent" BorderColor="White">
@@ -50,7 +50,7 @@
                             </Frame.GestureRecognizers>
                             <Grid>
                                 <Label x:Name="Choice3" Text="QUESTION" FontAttributes="Bold" TextColor="White" FontFamily="" Margin="10,5,10,5" FontSize="20"></Label>
-                                <CheckBox x:Name="CChoice3" CheckedChanged="CChoice3_CheckedChanged" HorizontalOptions="End" Color="White" RadioButtonGroup.GroupName="q"  ></CheckBox>
+                                <CheckBox x:Name="CChoice3" CheckedChanged="CChoice3_CheckedChanged" HorizontalOptions="End" Color="White"    ></CheckBox>
                             </Grid>
                         </Frame>
                         <Frame Padding="0" HeightRequest="40" BackgroundColor="Transparent" BorderColor="White">
@@ -59,7 +59,7 @@
                             </Frame.GestureRecognizers>
                             <Grid>
                                 <Label x:Name="Choice4" Text="QUESTION" FontAttributes="Bold" TextColor="White" FontFamily="" Margin="10,5,10,5" FontSize="20"></Label>
-                                <CheckBox x:Name="CChoice4" CheckedChanged="CChoice4_CheckedChanged" HorizontalOptions="End" Color="White" RadioButtonGroup.GroupName="q"  ></CheckBox>
+                                <CheckBox x:Name="CChoice4" CheckedChanged="CChoice4_CheckedChanged" HorizontalOptions="End" Color="White"    ></CheckBox>
                             </Grid>
                         </Frame>
                     </StackLayout>
