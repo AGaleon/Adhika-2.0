@@ -17,25 +17,7 @@ public partial class TopicSelection
 	{
 		InitializeComponent();
        _studentInfo = studentInfo;
-        for (int i = 0; i < topics.Count; i++)
-        {
-            if (topics[i].Cleared == false)
-            {
-                try
-                {
-                    topics[i + 1].locked = true;
-                }
-                catch (Exception)
-                {
-
-                    
-                }
-            }
-            else
-            {
-                topics[i + 1].locked = false;
-            }
-        }
+      
         TopicsList.ItemsSource = topics;
     }
     public static event EventHandler<ObservableCollection<StoryData>> Data;
@@ -50,6 +32,7 @@ public partial class TopicSelection
         var sel = (Topic)e.SelectedItem;
 
         selected = sel.TopicTitle;
+        _studentInfo.Grade = sel.Grade;
            
     }
 
@@ -57,7 +40,7 @@ public partial class TopicSelection
     {
         _ = MopupService.Instance.PushAsync(new LoadingAnim());
         ObservableCollection<StoryData> getstories = await GetStoriesForStudentAsync(selected,  _studentInfo.Lrn, _studentInfo.Grade,_studentInfo.IsAdmin);
-
+        
         if (getstories.Count != 0)
         {
             for (int i = 0; i < getstories.Count; i++)
