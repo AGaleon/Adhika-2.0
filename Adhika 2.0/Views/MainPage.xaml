@@ -19,10 +19,6 @@
                 <HorizontalStackLayout Margin="10,10,10,50" HorizontalOptions="End">
                     <!-- Search Button -->
                     <HorizontalStackLayout Spacing="10" HorizontalOptions="End">
-                        <StackLayout>
-                            <ImageButton BackgroundColor="Transparent" Source="search" Margin="5,15,0,0" HeightRequest="25" WidthRequest="30"></ImageButton>
-                            <Label Text="Search" HorizontalOptions="Center" TextColor="White" FontAttributes="Bold" FontFamily="" FontSize="10"></Label>
-                        </StackLayout>
                         <!-- Grade Level Button -->
                         <Grid x:Name="Gradesel">
                             <StackLayout>

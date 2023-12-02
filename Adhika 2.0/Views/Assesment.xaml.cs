@@ -4,7 +4,6 @@ using Microsoft.Maui.Layouts;
 using Mopups.Services;
 using MySqlConnector;
 using Newtonsoft.Json;
-
 using System.Data;
 
 namespace Adhika;
@@ -26,6 +25,7 @@ public partial class Assesment
         {
             quizing_ = qz ;
             quiz = JsonConvert.DeserializeObject<List<quizItems>>(jsn);
+           quiz = RandomizeList(quiz);
             quizing(count,prevq);
             count = 1;
         }
@@ -33,7 +33,34 @@ public partial class Assesment
         {
             count = 1;
         }
-	}
+    }
+    public static List<quizItems> RandomizeList(List<quizItems> quizItemsList)
+    {
+        Random random = new Random();
+
+        // Shuffle the entire list
+        List<quizItems> randomizedList = quizItemsList.OrderBy(x => random.Next()).ToList();
+
+        // Randomize choices for each quiz item
+        foreach (var randomizedQuizItem in randomizedList)
+        {
+            // Create a list of choices and shuffle them
+            List<string> choices = new List<string> { randomizedQuizItem.choice1, randomizedQuizItem.choice2, randomizedQuizItem.choice3, randomizedQuizItem.choice4 };
+            choices = choices.OrderBy(x => random.Next()).ToList();
+
+            // Update quiz item with randomized choices
+            randomizedQuizItem.choice1 = choices[0];
+            randomizedQuizItem.choice2 = choices[1];
+            randomizedQuizItem.choice3 = choices[2];
+            randomizedQuizItem.choice4 = choices[3];
+        }
+
+        return randomizedList;
+    }
+
+  
+    private static Random random = new Random();
+   
     public static event EventHandler<string> topicquiz;
     private async void Next_Clicked(object sender, EventArgs e)
     {
