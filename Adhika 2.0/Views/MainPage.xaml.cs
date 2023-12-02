@@ -448,4 +448,9 @@ WHERE
         DeleteStoryWithAssets(currentitem.StoryID);
         ViewModel.DeleteItem(currentitem);
     }
+
+    private async void about_Clicked(object sender, EventArgs e)
+    {
+        await MopupService.Instance.PushAsync(new About());
+    }
 }

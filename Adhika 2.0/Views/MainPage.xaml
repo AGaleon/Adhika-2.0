@@ -127,7 +127,7 @@
                                 </Image.Source>
                             </Image>
                             <!-- About Us Button -->
-                            <Button Text="About Us" Grid.Column="1" CornerRadius="0" Padding="0,20,0,0" BackgroundColor="#022b5d"></Button>
+                            <Button Text="About Us" Grid.Column="1" CornerRadius="0" x:Name="about" Clicked="about_Clicked" Padding="0,20,0,0" BackgroundColor="#022b5d"></Button>
                             <Image Grid.Column="1" HeightRequest="20" HorizontalOptions="Center" Margin="0,10,0,0" VerticalOptions="Start" >
                                 <Image.Source>
                                     <FontImageSource FontFamily="Icons_" Glyph="&#xE805;" Size="30" Color="White"></FontImageSource>
