@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mopups ="clr-namespace:Mopups.Pages;assembly=Mopups"
+             x:Class="Adhika_2._0.Views.ForgotPass"
+             Title="ForgotPass">
+    <VerticalStackLayout>
+        <StackLayout>
+            <Button Text="Cancel"  BackgroundColor="Transparent" TextColor="IndianRed"  HeightRequest="50" WidthRequest="60" Padding="0" HorizontalOptions="Start"></Button>
+            <Image Source="logo" BackgroundColor="Transparent" HeightRequest="300"></Image>
+            <StackLayout x:Name="recoveryemail" >
+                <Label Text="Please enter your recovery email for password reset." HorizontalOptions="Center" FontSize="20" Margin="50,0" FontAttributes="Bold" FontFamily=""></Label>
+                <Frame Padding="0" HeightRequest="50" Margin="50,20,50,0" HasShadow="True" BorderColor="White">
+                    <StackLayout VerticalOptions="Center" Margin="20,0,20,0">
+                        <Frame Padding="0,-10" BorderColor="Transparent">
+                            <Entry Placeholder="Recovery Email" HorizontalTextAlignment="Start" IsPassword="False" x:Name="txtemailrecovery" FontAttributes="Bold" VerticalOptions="Center" HeightRequest="40" />
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+                <Button Text="Find Account" Margin="50,30" HeightRequest="50" x:Name="email" Clicked="email_Clicked"    ></Button>
+            </StackLayout>
+            <StackLayout x:Name="otpmode" IsVisible="false">
+                <Label Text="OTP Verification" HorizontalOptions="Center" FontSize="25" FontAttributes="Bold" FontFamily=""></Label>
+                <Label Text="Hello User," HorizontalOptions="Center" FontSize="20" x:Name="Username" Margin="10"></Label>
+                <Label Text="Forgot your password? We've sent a OTP to your registered email. Enter it below to reset:" Margin="30,5"></Label>
+                <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center" Margin="10">
+                    <Frame Padding="0" HeightRequest="55" WidthRequest="50">
+                        <Entry FontAttributes="Bold" FontSize="32" HorizontalOptions="Center" x:Name="otp1" MaxLength="1" TextChanged="OnEntryCompleted" HorizontalTextAlignment="Center"></Entry>
+                    </Frame>
+                    <Frame Padding="0" HeightRequest="55" WidthRequest="50">
+                        <Entry FontAttributes="Bold" FontSize="32" HorizontalOptions="Center" x:Name="otp2" MaxLength="1" TextChanged="OnEntryCompleted" HorizontalTextAlignment="Center"></Entry>
+                    </Frame>
+                    <Frame Padding="0" HeightRequest="55" WidthRequest="50">
+                        <Entry FontAttributes="Bold" FontSize="32" HorizontalOptions="Center" x:Name="otp3" MaxLength="1" TextChanged="OnEntryCompleted" HorizontalTextAlignment="Center"></Entry>
+                    </Frame>
+                    <Frame Padding="0" HeightRequest="55" WidthRequest="50">
+                        <Entry FontAttributes="Bold" FontSize="32" HorizontalOptions="Center" x:Name="otp4" MaxLength="1" TextChanged="OnEntryCompleted" HorizontalTextAlignment="Center"></Entry>
+                    </Frame>
+                </HorizontalStackLayout>
+                <Button Text="Submit" Margin="50,0" Clicked="Button_Clicked"    ></Button>
+            </StackLayout>
+            <StackLayout x:Name="Changepass" IsVisible="false">
+                <Label Text="Set New Password" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center"></Label>
+                <Frame Padding="0" HeightRequest="50" Margin="50,20,50,0" HasShadow="True" BorderColor="White">
+                    <StackLayout VerticalOptions="Center" Margin="20,0,20,0">
+                        <Frame Padding="0,-10" BorderColor="Transparent">
+                            <Entry Placeholder="New Password" HorizontalTextAlignment="Start" IsPassword="True" x:Name="txtNewPassword" FontAttributes="Bold" VerticalOptions="Center" HeightRequest="40" />
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="0" HeightRequest="50" Margin="50,20,50,0" HasShadow="True" BorderColor="White">
+                    <StackLayout VerticalOptions="Center" Margin="20,0,20,0">
+                        <Frame Padding="0,-10" BorderColor="Transparent">
+                            <Entry Placeholder="Confirm Password" HorizontalTextAlignment="Start" IsPassword="True" x:Name="txtConfirmPassword" FontAttributes="Bold" VerticalOptions="Center" HeightRequest="40" />
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+                <Button Text="Change Password" Margin="50,30" Clicked="Button_Clicked_1" HeightRequest="50"></Button>
+            </StackLayout>
+        </StackLayout>
+    </VerticalStackLayout>
+</mopups:PopupPage>

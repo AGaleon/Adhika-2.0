@@ -88,6 +88,9 @@
 	  <MauiXaml Update="Views\FloatingTextbox.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\ForgotPass.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\GradeLvlSelection.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

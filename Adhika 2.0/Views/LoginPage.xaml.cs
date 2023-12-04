@@ -220,5 +220,8 @@ WHERE
         }
     }
 
-
+    private void btnfgtpw_Clicked(object sender, EventArgs e)
+    {
+        MopupService.Instance.PushAsync(new ForgotPass());
+    }
 }

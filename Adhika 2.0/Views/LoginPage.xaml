@@ -27,6 +27,6 @@
         <!-- Login Button -->
         <Button Padding="0" HeightRequest="50" Margin="50,20,50,0" Clicked="btnLogin_Click" BackgroundColor="#114D97" x:Name="btnLogin" Text="LOGIN" BorderColor="White" />
         <!-- Forgot Password Button -->
-        <Button Padding="0" HeightRequest="50" Margin="50,10,50,0" BackgroundColor="Transparent" Text="Forgot Password?" TextColor="#114D97" />
+        <Button Padding="0" HeightRequest="50" Margin="50,10,50,0" BackgroundColor="Transparent" Text="Forgot Password?" TextColor="#114D97" x:Name="btnfgtpw" Clicked="btnfgtpw_Clicked" />
     </StackLayout>
 </ContentPage>
