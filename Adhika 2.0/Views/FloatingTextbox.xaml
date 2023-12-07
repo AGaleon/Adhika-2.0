@@ -8,7 +8,7 @@
         <Frame Padding="5" HeightRequest="330" CornerRadius="20">
             <StackLayout>
                 <Editor x:Name="editor" Margin="10"
-        Placeholder="Enter your response here"
+        Placeholder="Enter your Text here"
         HeightRequest="250"
         ></Editor>
                 <Button Text="Done" WidthRequest="200" Clicked="Button_Clicked"></Button>

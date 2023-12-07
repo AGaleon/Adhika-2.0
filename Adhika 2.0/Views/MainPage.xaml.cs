@@ -29,6 +29,7 @@ public partial class MainPage
         ViewModel = new Pagemodel();
         BindingContext = ViewModel;
         storyDatas = storyDatas_;
+        Profile.newpic += UpdatePic; 
         GradeLvlSelection.SelectedG += selectedchange;
         TopicSelection.Data += changedTopicstory;
         AddTopic.TopicGrade += updatedgrade;
@@ -39,6 +40,11 @@ public partial class MainPage
 
         Gradesel.IsVisible = isAdmin;
  
+    }
+
+    private void UpdatePic(object sender, byte[] e)
+    {
+        _studentInfo.StudentImageData = e;
     }
 
     private async void selectedchange(object sender, string e)
@@ -452,5 +458,10 @@ WHERE
     private async void about_Clicked(object sender, EventArgs e)
     {
         await MopupService.Instance.PushAsync(new About());
+    }
+
+    private async void Settings_Clicked(object sender, EventArgs e)
+    {
+        await MopupService.Instance.PushAsync(new Profile(_studentInfo.Id.ToString(),_studentInfo.StudentImageData));
     }
 }

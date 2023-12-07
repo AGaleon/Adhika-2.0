@@ -201,10 +201,12 @@ WHERE
                         // Map the data to the StudentInfo object
                         var studentInfo = new StudentInfo
                         {
+                            Id =(int) reader["Id"],
                             Lrn = reader["Lrn"].ToString(),
                             LName = reader["LName"].ToString(),
                             FName = reader["FName"].ToString(),
                             MName = reader["MName"].ToString(),
+                            StudentImageData = (byte[]) reader["StudentImageData"],
                             IsAdmin = reader["IsAdmin"].ToString() == "True",
                             Grade = Convert.ToInt32( reader["Grade"]),
                         };

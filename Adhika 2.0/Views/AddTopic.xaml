@@ -30,7 +30,7 @@
                     </Picker>
                     <HorizontalStackLayout Spacing="5" HorizontalOptions="Center" BackgroundColor="Transparent">
                         <StackLayout>
-                            <Label Text="TOPIC TITLE" x:Name="lblTitle" FontFamily="" IsVisible="true" WidthRequest="200" FontSize="25" HorizontalTextAlignment="Center"  FontAttributes="Bold">
+                            <Label Text="CATEGORY TITLE" x:Name="lblTitle" FontFamily="" IsVisible="true" WidthRequest="200" FontSize="25" HorizontalTextAlignment="Center"  FontAttributes="Bold">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="lblTitleClicked">
                                     </TapGestureRecognizer>
@@ -54,7 +54,7 @@
                         <ImageButton BackgroundColor="Transparent" x:Name="topicDescriptionimage"  Clicked="topicDescriptionimage_Clicked" Source="itemtopicedit" Padding="4" HeightRequest="35" WidthRequest="35" Opacity="0.5" ></ImageButton>
                     </HorizontalStackLayout>
                     <StackLayout Spacing="10"  VerticalOptions="EndAndExpand">
-                        <Button CornerRadius="30" Text="Add Topic" BackgroundColor="#114d97" x:Name="btnSave" Clicked="btnSave_Clicked"></Button>
+                        <Button CornerRadius="30" Text="Add Category" BackgroundColor="#114d97" x:Name="btnSave" Clicked="btnSave_Clicked"></Button>
                         <Button HeightRequest="30" BackgroundColor="Transparent" Text="Cancel" TextColor="Black" Padding="0"></Button>
                     </StackLayout>
                 </StackLayout>

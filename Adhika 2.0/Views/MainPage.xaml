@@ -134,7 +134,7 @@
                                 </Image.Source>
                             </Image>
                             <!-- Settings Button -->
-                            <Button Text="Settings" Grid.Column="2" CornerRadius="0" Padding="0,20,0,0" BackgroundColor="#022b5d"></Button>
+                            <Button Text="Settings" x:Name="Settings" Clicked="Settings_Clicked" Grid.Column="2" CornerRadius="0" Padding="0,20,0,0" BackgroundColor="#022b5d"></Button>
                             <Image Grid.Column="2" HeightRequest="20" HorizontalOptions="Center" Margin="0,10,0,0" VerticalOptions="Start" >
                                 <Image.Source>
                                     <FontImageSource FontFamily="Icons_" Glyph="&#xE803;" Size="30" Color="White"></FontImageSource>
