@@ -198,6 +198,15 @@ WHERE
                     // Check if any rows were returned
                     if (reader.Read())
                     {
+                        byte[] data_;
+                        try
+                        {
+                            data_ = (byte[])reader["StudentImageData"],
+                        }
+                        catch (Exception)
+                        {
+                            data_ = null;
+                        }
                         // Map the data to the StudentInfo object
                         var studentInfo = new StudentInfo
                         {
@@ -206,7 +215,7 @@ WHERE
                             LName = reader["LName"].ToString(),
                             FName = reader["FName"].ToString(),
                             MName = reader["MName"].ToString(),
-                            StudentImageData = (byte[]) reader["StudentImageData"],
+                            StudentImageData = data_,
                             IsAdmin = reader["IsAdmin"].ToString() == "True",
                             Grade = Convert.ToInt32( reader["Grade"]),
                         };
