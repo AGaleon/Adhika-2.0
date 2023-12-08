@@ -9,7 +9,7 @@ public partial class Profile
     ImageSource pfp_ = null;
     byte[] picData { get; set; }
     string userid;
-	public Profile( string userID, byte[] pfps , string fullname)
+	public Profile( string userID, byte[] pfps , string fullname ,string grade)
 	{
 		InitializeComponent();
         userid = userID;
