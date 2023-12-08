@@ -115,6 +115,9 @@
 	  <MauiXaml Update="Views\RegisterUser.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Splash.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\TopicSelection.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

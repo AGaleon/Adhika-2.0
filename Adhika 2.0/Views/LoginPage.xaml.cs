@@ -9,7 +9,7 @@ using System.Data;
 
 namespace Adhika_Final_Build.Views;
 
-public partial class LoginPage : ContentPage
+public partial class LoginPage 
 {
    
     string connectionString = "Server=mysql-156307-0.cloudclusters.net;Port=19890;Database=Adhika;Uid=admin;Password=NymIxFjs;SslMode=None;";
@@ -144,7 +144,6 @@ WHERE
                 }
             }
         }
-
         return stories;
     }
 

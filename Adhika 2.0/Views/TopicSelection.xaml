@@ -17,22 +17,34 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <StackLayout BackgroundColor="Transparent"    >
-                                        <Frame Padding="5" Margin="5"  BackgroundColor="White" HeightRequest="70">
-                                            <Grid ColumnDefinitions="60,*,20 " ColumnSpacing="10">
-                                                <Frame Padding="0" CornerRadius="30" WidthRequest="60" HeightRequest="60" >
-                                                    <Grid>
-                                                        <Image BackgroundColor="Red" Source="{Binding TopicImage}" Aspect="AspectFill" ></Image>
-                                                       
-                                                    </Grid>
-                                                </Frame>
-                                                <StackLayout Grid.Column="1" Grid.ColumnSpan="2" BackgroundColor="Transparent" ZIndex="1">
-                                                    <Label Text="{Binding TopicTitle}" FontAttributes="Bold" FontFamily="" TextColor="#022b5d" FontSize="20" />
-                                                    <Label Text="{Binding TopicDescription}" FontSize="13" TextColor="Gray"  FontAttributes="Bold" FontFamily="" />
-                                                </StackLayout>
-                                            </Grid>
-                                        </Frame>
-                                    </StackLayout>
+                                    <SwipeView>
+                                        <SwipeView.LeftItems>
+                                            <!-- Delete Story Swipe Item (Visible for Admin) -->
+                                            <SwipeItemView IsVisible="{Binding isAdminmode}" Invoked="SwipeItemView_Invoked">
+                                                <Grid BackgroundColor="Red"  Margin="5,5,0,5"  >
+                                                    <StackLayout Spacing="3" VerticalOptions="CenterAndExpand">
+                                                        <Label Text="Delete" FontAttributes="Bold" FontFamily="" VerticalOptions="Center" TextColor="White" HorizontalOptions="Center"></Label>
+                                                    </StackLayout>
+                                                </Grid>
+                                            </SwipeItemView>
+                                        </SwipeView.LeftItems>
+                                        <StackLayout BackgroundColor="Transparent"    >
+                                            <Frame Padding="5" Margin="5"  BackgroundColor="White" HeightRequest="70">
+                                                <Grid ColumnDefinitions="60,*,20 " ColumnSpacing="10">
+                                                    <Frame Padding="0" CornerRadius="30" WidthRequest="60" HeightRequest="60" >
+                                                        <Grid>
+                                                            <Image BackgroundColor="Red" Source="{Binding TopicImage}" Aspect="AspectFill" ></Image>
+
+                                                        </Grid>
+                                                    </Frame>
+                                                    <StackLayout Grid.Column="1" Grid.ColumnSpan="2" BackgroundColor="Transparent" ZIndex="1">
+                                                        <Label Text="{Binding TopicTitle}" FontAttributes="Bold" FontFamily="" TextColor="#022b5d" FontSize="20" />
+                                                        <Label Text="{Binding TopicDescription}" FontSize="13" TextColor="Gray"  FontAttributes="Bold" FontFamily="" />
+                                                    </StackLayout>
+                                                </Grid>
+                                            </Frame>
+                                        </StackLayout>
+                                    </SwipeView>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>

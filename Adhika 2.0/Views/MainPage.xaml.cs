@@ -17,6 +17,7 @@ public partial class MainPage
 
     ObservableCollection<Topic> preloadedTopic = new ObservableCollection<Topic>();
     StudentInfo _studentInfo = new StudentInfo();
+
     string connectionString = "Server=mysql-156307-0.cloudclusters.net;Port=19890;Database=Adhika;Uid=admin;Password=NymIxFjs;SslMode=None;";
     StoryData Selectedstory_ = new StoryData();
     private bool isLoadingImages = false;
@@ -29,7 +30,8 @@ public partial class MainPage
         ViewModel = new Pagemodel();
         BindingContext = ViewModel;
         storyDatas = storyDatas_;
-        Profile.newpic += UpdatePic; 
+        Profile.newpic += UpdatePic;
+        TopicSelection.DelItem += DeleteTopic;
         GradeLvlSelection.SelectedG += selectedchange;
         TopicSelection.Data += changedTopicstory;
         AddTopic.TopicGrade += updatedgrade;
@@ -37,9 +39,12 @@ public partial class MainPage
         header_.Text = storyDatas_[0].TopicTitle;
         isAdmin = storyDatas_[0].isAdminmode;
         ViewModel.storydataItemsSource = storyDatas;
-
         Gradesel.IsVisible = isAdmin;
- 
+    }
+
+    private void DeleteTopic(object sender, Topic e)
+    {
+        preloadedTopic.Remove(e);
     }
 
     private void UpdatePic(object sender, byte[] e)
@@ -216,15 +221,12 @@ WHERE
     public async Task<ObservableCollection<Topic>> GetTopicsWithClearedStatusAsync(string grade, string lrn)
     {
         ObservableCollection<Topic> topics = new ObservableCollection<Topic>();
-
         using (MySqlConnection connection = new MySqlConnection(connectionString))
         {
             await connection.OpenAsync();
-
             using (MySqlCommand command = new MySqlCommand())
             {
                 command.Connection = connection;
-
                 command.CommandText = @"
                 SELECT
                     Topic.*,
@@ -374,7 +376,6 @@ WHERE
         {
             storyConnection.Open();
             storyAssetsConnection.Open();
-
             // Delete from StoryAssets table
             using (MySqlCommand command = new MySqlCommand())
             {
@@ -459,9 +460,12 @@ WHERE
     {
         await MopupService.Instance.PushAsync(new About());
     }
-
     private async void Settings_Clicked(object sender, EventArgs e)
     {
         await MopupService.Instance.PushAsync(new Profile(_studentInfo.Id.ToString(),_studentInfo.StudentImageData, _studentInfo.FName+" "+_studentInfo.LName, _studentInfo.Grade.ToString()));
+    }
+    private void SwipeItemView_Invoked_1(object sender, EventArgs e)
+    {
+
     }
 }

@@ -17,8 +17,8 @@ public partial class TopicSelection
 	{
 		InitializeComponent();
        _studentInfo = studentInfo;
-      
-        TopicsList.ItemsSource = topics;
+        _topics = topics;
+        TopicsList.ItemsSource = _topics;
     }
     public static event EventHandler<ObservableCollection<StoryData>> Data;
     private async void PopupPage_Appearing(object sender, EventArgs e)
@@ -184,5 +184,40 @@ WHERE
 
         return stories;
     }
+    public async Task<bool> DeleteTopicAsync(int topicId)
+    {
+        using (MySqlConnection connection = new MySqlConnection(connectionString))
+        {
+            await connection.OpenAsync();
+            using (MySqlCommand command = new MySqlCommand())
+            {
+                // Delete associated records in TopicAssets table
+                command.Connection = connection;
+                command.CommandText = "DELETE FROM TopicAssets WHERE TopicId = @TopicId";
+                command.Parameters.AddWithValue("@TopicId", topicId);
+                await command.ExecuteNonQueryAsync();
 
+                // Delete the record in the Topic table
+                command.CommandText = "DELETE FROM Topic WHERE TopicId = @TopicId";
+                int rowsAffected = await command.ExecuteNonQueryAsync();
+
+                // If one or more rows were affected, the deletion was successful
+                return rowsAffected > 0;
+            }
+        }
+    }
+    public static event EventHandler<Topic> DelItem;
+    private async void SwipeItemView_Invoked(object sender, EventArgs e)
+    {
+        if (sender is SwipeItemView swipeItem)
+        {
+            if (swipeItem.BindingContext is Topic item)
+            {
+                await DeleteTopicAsync(item.TopicId);
+                _topics.Remove(item);
+                TopicsList.ItemsSource = _topics;
+                DelItem?.Invoke(this, item);
+            }
+        }
+    }
 }
