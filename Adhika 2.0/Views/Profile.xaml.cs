@@ -15,7 +15,7 @@ public partial class Profile
         userid = userID;
         Name.Text = fullname;
         picData = pfps;
-        Grade.Text = "Grade :"+ grade;
+        Grade.Text = "Grade "+ grade;
         pfp.Source = ImageSource.FromStream(() => new MemoryStream(picData));
         pfp_ = pfp.Source;
     }
