@@ -124,7 +124,7 @@ public partial class AddTopic
             default:
                 break;
         }
-        if (entDescriptions.Text != null && entTitle.Text != null && imagedata != null && pckLevel.SelectedItem != null|| imagedata!=null)
+        if (entDescriptions.Text != null && entTitle.Text != null && imagedata != null && pckLevel.SelectedItem != null|| imagedata!=null || picked)
         {
 ;
             if (InsertTopicWithAssets(Convert.ToInt32(grade),entTitle.Text,entDescriptions.Text,img))
@@ -184,7 +184,7 @@ public partial class AddTopic
         }
     }
 
-
+    bool picked;
 
     private async void AddImage_Tapped(object sender, TappedEventArgs e)
     {
@@ -200,6 +200,7 @@ public partial class AddTopic
             topicImage.Source = ImageSource.FromStream(() => stream);
             topicImage.IsVisible = true;
             tempImage.IsVisible = false;
+            picked = true;
         }
         else
         {
