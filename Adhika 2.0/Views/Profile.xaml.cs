@@ -15,6 +15,7 @@ public partial class Profile
         userid = userID;
         Name.Text = fullname;
         picData = pfps;
+        Grade.Text = grade;
         pfp.Source = ImageSource.FromStream(() => new MemoryStream(picData));
         pfp_ = pfp.Source;
     }
@@ -120,7 +121,6 @@ public partial class Profile
         Mainv.IsVisible = false;
         Checkpass.IsVisible = true;
     }
-
     private void currentpassbtn_Clicked(object sender, EventArgs e)
     {
         string currentPassword = CurrentPass.Text;
