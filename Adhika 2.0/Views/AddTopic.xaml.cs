@@ -124,7 +124,7 @@ public partial class AddTopic
             default:
                 break;
         }
-        if (entDescriptions.Text != null && entTitle.Text != null && imagedata != null && pckLevel.SelectedItem != null )
+        if (entDescriptions.Text != null && entTitle.Text != null && imagedata != null && pckLevel.SelectedItem != null|| imagedata!=null)
         {
 ;
             if (InsertTopicWithAssets(Convert.ToInt32(grade),entTitle.Text,entDescriptions.Text,img))
@@ -138,7 +138,7 @@ public partial class AddTopic
         }
         else
         {
-            await DisplayAlert("", "error", "ok");
+            await DisplayAlert("Incomplete input", "Error", "ok");
         }
         
     }
