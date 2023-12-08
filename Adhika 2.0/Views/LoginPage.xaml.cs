@@ -201,7 +201,7 @@ WHERE
                         byte[] data_;
                         try
                         {
-                            data_ = (byte[])reader["StudentImageData"],
+                            data_ = (byte[])reader["StudentImageData"];
                         }
                         catch (Exception)
                         {

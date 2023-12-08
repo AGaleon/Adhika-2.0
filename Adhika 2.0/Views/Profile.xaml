@@ -4,14 +4,15 @@
              xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"  BackgroundColor="#80000000"
              x:Class="Adhika_2._0.Profile"
              Title="Profile">
-    <Frame HeightRequest="500" Margin="50,0" Padding="0">
-        <Grid RowDefinitions="*,70,70,*" ColumnDefinitions="*,*">
+    <Frame HeightRequest="400" Margin="50,0" Padding="0">
+        <Grid RowDefinitions="*,*" ColumnDefinitions="*,*">
             <StackLayout BackgroundColor="#022b5d" Grid.RowSpan="2" Grid.ColumnSpan="2">
                 <ImageButton Aspect="AspectFill" x:Name="pfp" BorderColor="White" BackgroundColor="White" Source="logo" HeightRequest="100" WidthRequest="100" CornerRadius="50" Margin="0,20,0,0" ></ImageButton>
-                <Label HorizontalOptions="Center" FontFamily="" Text="Cardo Dalisay" FontSize="25" FontAttributes="Bold" TextColor="White"></Label>
+                <Label HorizontalOptions="Center" FontFamily="" x:Name="Name" FontSize="25" FontAttributes="Bold" TextColor="White"></Label>
                 <Label Text="Grade 10"  TextColor="White" HorizontalOptions="Center"></Label>
             </StackLayout>
-            <Frame Grid.Row="1" Grid.RowSpan="2" Margin="20,20,10,20" Grid.Column="0" BackgroundColor="CadetBlue" BorderColor="Transparent" Padding="10" >
+            <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="FillAndExpand" BackgroundColor="White" ></StackLayout>
+            <!--<Frame Grid.Row="1" Grid.RowSpan="2" Margin="20,20,10,20" Grid.Column="0" BackgroundColor="CadetBlue" BorderColor="Transparent" Padding="10" >
                 <StackLayout>
                     <Image Source="Quiz" HeightRequest="30" BackgroundColor="Transparent" WidthRequest="30"></Image>
                     <Label Text="Total Points" HorizontalOptions="Center" FontSize="15" FontAttributes="Bold" FontFamily="" TextColor="#022b5d"></Label>
@@ -24,23 +25,23 @@
                     <Label Text="Quizzes" HorizontalOptions="Center" FontSize="13" FontAttributes="Bold" FontFamily="" TextColor="#022b5d"></Label>
                     <Label Text="10" HorizontalOptions="Center" FontSize="15" FontAttributes="Bold" FontFamily="" TextColor="White"></Label>
                 </StackLayout>
-            </Frame>
-            <StackLayout x:Name="Mainv" Spacing="10" IsVisible="true" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,20,0,0" Grid.Row="3" BackgroundColor="Transparent" >
+            </Frame>-->
+            <StackLayout x:Name="Mainv" Spacing="10" IsVisible="true" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,20,0,0" Grid.Row="1" BackgroundColor="Transparent" >
                 <Button  Text="Change Profile Picture" x:Name="Changepfpbtn" Clicked="Changepfpbtn_Clicked"  BackgroundColor="#022b5d" TextColor="White" Margin="20,0" HeightRequest="50" FontAttributes="Bold" FontSize="18" ></Button>
                 <Button Text="Change Password" x:Name="changpassbtn" Clicked="changpassbtn_Clicked"  BackgroundColor="#022b5d" TextColor="White" Margin="20,0" HeightRequest="50" FontAttributes="Bold" FontSize="18" ></Button>
             </StackLayout>
-            <StackLayout x:Name="ChangeProfile" IsVisible="false" Spacing="10" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,20,0,0" Grid.Row="3" BackgroundColor="Transparent" >
+            <StackLayout x:Name="ChangeProfile" IsVisible="false" Spacing="10" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,20,0,0" Grid.Row="1" BackgroundColor="Transparent" >
                 <Button  Text="Pick Profile Picture" x:Name="pickImage" Clicked="pickImage_Clicked"  BackgroundColor="#022b5d" TextColor="White" Margin="20,0" HeightRequest="50" FontAttributes="Bold" FontSize="18" ></Button>
                 <Button Text="Cancel" BackgroundColor="#022b5d" Clicked="btncancelpic_Clicked"    x:Name="btncancelpic" TextColor="White" Margin="20,0" HeightRequest="50" FontAttributes="Bold" FontSize="18" ></Button>
             </StackLayout>
-            <StackLayout x:Name="Checkpass" Spacing="10" IsVisible="false" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.Row="3" BackgroundColor="Transparent" >
+            <StackLayout x:Name="Checkpass" Spacing="10" IsVisible="false" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.Row="1" BackgroundColor="Transparent" >
                 <Frame CornerRadius="10" Padding="0" HeightRequest="50" Margin="20,0">
                     <Entry  HorizontalTextAlignment="Center"  x:Name="CurrentPass"  BackgroundColor="#022b5d" TextColor="White" Placeholder="Input Current Password" HeightRequest="50" FontAttributes="Bold" FontSize="18" ></Entry>
                 </Frame>
                 <Button Text="Next" x:Name="currentpassbtn" Clicked="currentpassbtn_Clicked" BackgroundColor="#022b5d" TextColor="White" Margin="20,0" HeightRequest="50" FontAttributes="Bold" FontSize="18" ></Button>
                 <Button Text="Cancel" BackgroundColor="#022b5d" Clicked="btncancelpic_Clicked"     TextColor="White" Margin="20,0" HeightRequest="50" FontAttributes="Bold" FontSize="18" ></Button>
             </StackLayout>
-            <StackLayout x:Name="ChangePass" Spacing="10" IsVisible="false" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.Row="3" BackgroundColor="Transparent" >
+            <StackLayout x:Name="ChangePass" Spacing="10" IsVisible="false" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.Row="1" BackgroundColor="Transparent" >
                 <Frame CornerRadius="10" Padding="0" HeightRequest="50"  Margin="20,0">
                     <Entry  HorizontalTextAlignment="Center" x:Name="Pass"  IsPassword="True" BackgroundColor="#022b5d" TextColor="White" Placeholder="Input New Password" HeightRequest="50" FontAttributes="Bold" FontSize="18" ></Entry>
                 </Frame>

@@ -462,6 +462,6 @@ WHERE
 
     private async void Settings_Clicked(object sender, EventArgs e)
     {
-        await MopupService.Instance.PushAsync(new Profile(_studentInfo.Id.ToString(),_studentInfo.StudentImageData));
+        await MopupService.Instance.PushAsync(new Profile(_studentInfo.Id.ToString(),_studentInfo.StudentImageData, _studentInfo.FName+" "+_studentInfo.LName));
     }
 }

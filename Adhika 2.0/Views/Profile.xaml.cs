@@ -9,10 +9,11 @@ public partial class Profile
     ImageSource pfp_ = null;
     byte[] picData { get; set; }
     string userid;
-	public Profile( string userID, byte[] pfps)
+	public Profile( string userID, byte[] pfps , string fullname)
 	{
 		InitializeComponent();
         userid = userID;
+        Name.Text = fullname;
         picData = pfps;
         pfp.Source = ImageSource.FromStream(() => new MemoryStream(picData));
         pfp_ = pfp.Source;
