@@ -12,7 +12,7 @@ namespace Adhika_Final_Build.Views;
 public partial class LoginPage 
 {
    
-    string connectionString = "Server=mysql-156307-0.cloudclusters.net;Port=19890;Database=Adhika;Uid=admin;Password=NymIxFjs;SslMode=None;";
+    string connectionString = "Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=Adhika;Uid=admin;Password=lZknW95N;SslMode=None;";
     public LoginPage()
 	{
 		InitializeComponent();
@@ -20,7 +20,7 @@ public partial class LoginPage
 	}
     public async Task<ImageSource> GetImageForStoryAsync(int storyId)
     {
-        using (var connection = new MySqlConnection("Server=mysql-156307-0.cloudclusters.net;Port=19890;Database=AdhikaStoryAssests;Uid=admin;Password=NymIxFjs;SslMode=None;"))
+        using (var connection = new MySqlConnection("Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=AdhikaStoryAssests;Uid=admin;Password=lZknW95N;SslMode=None;"))
         {
             await connection.OpenAsync();
 

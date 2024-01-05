@@ -188,7 +188,7 @@ public partial class Assesment
             }
             else
             {
-                string connectionString = "Server=mysql-156307-0.cloudclusters.net;Port=19890;Database=Adhika;Uid=admin;Password=NymIxFjs;SslMode=None;";
+                string connectionString = "Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=Adhika;Uid=admin;Password=lZknW95N;SslMode=None;";
                 await DisplayAlert("Done", "Your Score is :" + corrects.ToString(), "OK");
                 await MopupService.Instance.PopAsync();
                 if (corrects > 6 )

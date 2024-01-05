@@ -22,7 +22,7 @@ public partial class ForgotPass
 	}
     public string GetStudentUserDataByEmail(string email)
     {
-        using (MySqlConnection connection = new MySqlConnection("Server=mysql-156307-0.cloudclusters.net;Port=19890;Database=Adhika;Uid=admin;Password=NymIxFjs;SslMode=None;"))
+        using (MySqlConnection connection = new MySqlConnection("Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=Adhika;Uid=admin;Password=lZknW95N;SslMode=None;"))
         {
             connection.Open();
 
@@ -176,7 +176,7 @@ Thank you,
 
     public void ChangePassword(string email, string newPassword)
     {
-        using (MySqlConnection connection = new MySqlConnection("Server=mysql-156307-0.cloudclusters.net;Port=19890;Database=Adhika;Uid=admin;Password=NymIxFjs;SslMode=None;"))
+        using (MySqlConnection connection = new MySqlConnection("Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=Adhika;Uid=admin;Password=lZknW95N;SslMode=None;"))
         {
             try
             {
