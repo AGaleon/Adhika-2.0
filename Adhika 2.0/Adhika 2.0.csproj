@@ -67,6 +67,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\QuizResponseview.xaml.cs">
+	    <DependentUpon>QuizResponseview.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\QuizResponseview.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Profile.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

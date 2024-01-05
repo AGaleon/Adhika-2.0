@@ -360,7 +360,7 @@ WHERE
                     break;
                 }
             }
-            await MopupService.Instance.PushAsync(new ExplorePop(currentitem, tounlocked));
+            await MopupService.Instance.PushAsync(new ExplorePop(currentitem, tounlocked,isAdmin));
         }
     }
     
