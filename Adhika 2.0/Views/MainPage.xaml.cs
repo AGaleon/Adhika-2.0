@@ -425,8 +425,10 @@ WHERE
             if (swipeItem.BindingContext is StoryData item)
             {
 
-                DeleteStoryWithAssets(item.StoryID);
-                ViewModel.DeleteItem(item);
+                if (isAdmin || )
+                {
+
+                }
 
             }
         }
