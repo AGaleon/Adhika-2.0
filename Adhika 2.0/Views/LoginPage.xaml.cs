@@ -13,6 +13,7 @@ public partial class LoginPage
 {
    
     string connectionString = "Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=Adhika;Uid=admin;Password=lZknW95N;SslMode=None;";
+    public string username;
     public LoginPage()
 	{
 		InitializeComponent();
@@ -146,7 +147,7 @@ WHERE
         }
         return stories;
     }
-
+    public bool alreadyloggedin = false;
     private async void btnLogin_Click(object sender, EventArgs e)
     {
         StudentInfo studentInfo = AuthenticateUser(txtEmail.Text, txtPassword.Text);
@@ -161,18 +162,27 @@ WHERE
                 data[i].ImageStory =await GetImageForStoryAsync(data[i].StoryID);
             }
             await MopupService.Instance.PopAsync();
-            await MopupService.Instance.PushAsync(new MainPage(data,studentInfo));
+            await MopupService.Instance.PushAsync(new Home(data,studentInfo));
             txtEmail.Text = ""; txtPassword.Text = "";
         }
         else
         {
-            // Login failed, display error message
-            await DisplayAlert("Login Failed", "Invalid email or password", "OK");
+            if (alreadyloggedin)
+            {
+                await DisplayAlert("Login Failed", "Account is active in other device", "OK");
+            }
+            else
+            {
+
+                // Login failed, display error message
+                await DisplayAlert("Login Failed", "Invalid email or password", "OK");
+            }
         }
     }
 
     public StudentInfo AuthenticateUser(string email, string password)
     {
+        alreadyloggedin = false;    
         using (var connection = new MySqlConnection(connectionString))
         {
             connection.Open();
@@ -197,6 +207,13 @@ WHERE
                     // Check if any rows were returned
                     if (reader.Read())
                     {
+                        if (reader["IsActive"].ToString() == "True")
+                        {
+                            alreadyloggedin = true;
+                            return null;
+                          
+                        }
+
                         byte[] data_;
                         try
                         {
@@ -218,7 +235,7 @@ WHERE
                             IsAdmin = reader["IsAdmin"].ToString() == "True",
                             Grade = Convert.ToInt32( reader["Grade"]),
                         };
-
+                        App.Updatestatus(studentInfo.Lrn, true);
                         return studentInfo;
                     }
                     else

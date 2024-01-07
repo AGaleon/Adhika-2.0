@@ -11,11 +11,13 @@ public partial class ExplorePop : PopupPage
     bool isAdmin = false;
     StoryData classStories;
     StoryData storyUnlock;
-    public ExplorePop(StoryData stories , StoryData storiestounlock, bool isadmin )
+    StoryData result;
+    public ExplorePop(StoryData stories , StoryData storiestounlock, StoryData _result, bool isadmin )
     {
 		InitializeComponent();
         isAdmin = isadmin;
         classStories = stories;
+        result = _result;
         storyUnlock = storiestounlock;
 	}
     private async  void readnow_Clicked(object sender, EventArgs e)
@@ -30,7 +32,7 @@ public partial class ExplorePop : PopupPage
         }
         else
         {
-            await MopupService.Instance.PushAsync(new Assesment(true, classStories.QuizData, storyUnlock));
+            await MopupService.Instance.PushAsync(new Assesment(true, classStories.QuizData, storyUnlock,result));
         }
     }
 

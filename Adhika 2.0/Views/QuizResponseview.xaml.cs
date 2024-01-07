@@ -17,6 +17,8 @@ public partial class QuizResponseview
         public string FName { get; set; }
         public string LName { get; set; }
         public string MName { get; set; }
+
+        public string  Attemps { get; set; }
     }
     public QuizResponseview( string story, string topic)
 	{
@@ -36,20 +38,54 @@ public partial class QuizResponseview
             {
                 command.Connection = connection;
                 command.CommandText = @"
-                   SELECT
-     SU.*,
-     SI.StudentImageData,
-     SI.FName,
-     SI.LName,
-     SI.MName
- FROM
-     StudentUserdata SU
- JOIN
-     StudentInfo SI ON SU.Lrn = SI.Lrn
- WHERE
-     SU.Stories = @Story AND SU.Topic = @topic;";
+WITH AttemptCounts AS (
+    SELECT
+        SU.Lrn,
+        COUNT(*) AS Attempts
+    FROM
+        StudentUserdata SU
+    WHERE
+        SU.QuizResult = @QuizResult AND SU.Topic = @topic
+    GROUP BY
+        SU.Lrn
+)
 
-                command.Parameters.AddWithValue("@Story", story);
+, RankedStudentData AS (
+    SELECT
+        SU.*,
+        SI.StudentImageData,
+        SI.FName,
+        SI.LName,
+        SI.MName,
+        ROW_NUMBER() OVER (PARTITION BY SU.Lrn ORDER BY SU.Points DESC) AS RowRank
+    FROM
+        StudentUserdata SU
+    JOIN
+        StudentInfo SI ON SU.Lrn = SI.Lrn
+    WHERE
+        SU.QuizResult = @QuizResult AND SU.Topic = @topic
+)
+
+SELECT
+    RSD.Lrn,
+    RSD.StudentImageData,
+    RSD.FName,
+    RSD.LName,
+    RSD.MName,
+    RSD.Points,
+    RSD.RowRank,
+    RSD.Passed,
+    AC.Attempts
+FROM
+    RankedStudentData RSD
+JOIN
+    AttemptCounts AC ON RSD.Lrn = AC.Lrn
+WHERE
+    RSD.RowRank = 1
+ORDER BY
+    RSD.Points DESC, RSD.Lrn";
+
+                command.Parameters.AddWithValue("@QuizResult", story);
                 command.Parameters.AddWithValue("@topic", topic);
 
                 using (MySqlDataReader reader = command.ExecuteReader())
@@ -61,12 +97,10 @@ public partial class QuizResponseview
                             Lrn = reader["Lrn"].ToString(),
                             Points = Convert.ToInt32(reader["Points"]),
                             Passed = Convert.ToBoolean(reader["Passed"]),
-                            Stories = reader["Stories"].ToString(),
-                            Topic = reader["Topic"].ToString(),
-                            Id = Convert.ToInt32(reader["Id"]),
                             FName = reader["FName"].ToString(),
                             LName = reader["LName"].ToString(),
                             MName = reader["MName"].ToString(),
+                            Attemps = reader["Attempts"].ToString()
                         };
 
                         // Handle StudentImageData conversion
@@ -75,6 +109,10 @@ public partial class QuizResponseview
                             byte[] imageData = (byte[])reader["StudentImageData"];
                             student._StudentImageData = imageData;
                             student.StudentImageData = ConvertToImageSource(imageData);
+                        }
+                        else
+                        {
+                            student.StudentImageData = "logo.png";
                         }
 
                         students.Add(student);

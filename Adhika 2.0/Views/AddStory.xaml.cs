@@ -18,7 +18,7 @@ public partial class AddStory
     FileResult img= null;
 
     string pdffilename;
-    string Type_, Text;
+   public static string Type_, Text;
     string quizjs;
     string gradedselected;
     string selectedTopic;
@@ -441,7 +441,7 @@ WHERE
 
     private async void assignquiz_Clicked(object sender, EventArgs e)
     {
-        await  MopupService.Instance.PushAsync(new Assesment(false,null,null));
+        await  MopupService.Instance.PushAsync(new Assesment(false,null,null,null));
     }
 
     private async void btnPreviewlumi_Clicked(object sender, EventArgs e)

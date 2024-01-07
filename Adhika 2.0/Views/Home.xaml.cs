@@ -2,7 +2,6 @@ using Adhika;
 using Adhika_2._0.Models;
 using Adhika_2._0.Views;
 using Adhika_Final_Build.Models;
-
 using Mopups.Services;
 using MySqlConnector;
 using System.Collections.ObjectModel;
@@ -10,20 +9,19 @@ using System.Collections.ObjectModel;
 
 namespace Adhika_2._0;
 
-public partial class MainPage
+public partial class Home
 {
     public Pagemodel ViewModel { get; }
     bool isTopicLoaded = false;
-
+    public static string _lrn;
     ObservableCollection<Topic> preloadedTopic = new ObservableCollection<Topic>();
-    StudentInfo _studentInfo = new StudentInfo();
-
+    public static StudentInfo _studentInfo = new StudentInfo();
     string connectionString = "Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=Adhika;Uid=admin;Password=lZknW95N;SslMode=None;";
     StoryData Selectedstory_ = new StoryData();
     private bool isLoadingImages = false;
     private bool isAdmin;
     ObservableCollection<StoryData> storyDatas { get; set; } = new ObservableCollection<StoryData>();
-    public MainPage(ObservableCollection<StoryData> storyDatas_ , StudentInfo studentInfo)
+    public Home(ObservableCollection<StoryData> storyDatas_ , StudentInfo studentInfo)
 	{
 		InitializeComponent();
         _studentInfo = studentInfo;
@@ -342,6 +340,7 @@ WHERE
         if (!currentitem.IsLocked)
         {
             StoryData tounlocked = new StoryData();
+            StoryData Result = new StoryData();
 
             for (int i = 0; i < ViewModel.storydataItemsSource.Count; i++)
             {
@@ -349,9 +348,10 @@ WHERE
                 {
                     try
                     {
-                        
+                        Result = ViewModel.storydataItemsSource[i];
                         tounlocked = ViewModel.storydataItemsSource[i + 1];
                         tounlocked.StudentLRN = _studentInfo.Lrn;
+                        Result.StudentLRN = _studentInfo.Lrn;
                     }
                     catch (Exception)
                     {
@@ -360,7 +360,7 @@ WHERE
                     break;
                 }
             }
-            await MopupService.Instance.PushAsync(new ExplorePop(currentitem, tounlocked,isAdmin));
+            await MopupService.Instance.PushAsync(new ExplorePop(currentitem, tounlocked,Result  ,isAdmin));
         }
     }
     
@@ -425,9 +425,10 @@ WHERE
             if (swipeItem.BindingContext is StoryData item)
             {
 
-                if (isAdmin || )
+                if (true)
                 {
-
+                    DeleteStoryWithAssets(item.StoryID);
+                    ViewModel.DeleteItem(item);
                 }
 
             }

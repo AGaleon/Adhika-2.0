@@ -17,9 +17,11 @@ public partial class Assesment
 	List<quizItems> quiz=new List<quizItems>();
 	int count = 0;
     StoryData unlocked = new StoryData();
-	public Assesment( bool qz , string jsn , StoryData unlocked_)
+    StoryData result = new StoryData();
+    public Assesment( bool qz , string jsn , StoryData unlocked_, StoryData _result)
 	{
 		InitializeComponent();
+        result = _result;
         unlocked = unlocked_;
         if (qz)
         {
@@ -198,9 +200,24 @@ public partial class Assesment
                         connection.Open();
 
                         string insertDataQuery = $@"
-INSERT INTO StudentUserdata (Lrn, Points, Passed, Stories, Topic)
-VALUES ('{unlocked.StudentLRN}', '{corrects.ToString()}', '1', '{unlocked.StoryTitle}', '{unlocked.TopicTitle}')";
+INSERT INTO StudentUserdata (Lrn, Points, Passed, Stories, Topic, QuizResult)
+VALUES ('{unlocked.StudentLRN}', '{corrects.ToString()}', '1', '{unlocked.StoryTitle}', '{unlocked.TopicTitle}' ,'{ result }')";
 
+                        using (MySqlCommand command = new MySqlCommand(insertDataQuery, connection))
+                        {
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                }
+                else
+                {
+                    using (MySqlConnection connection = new MySqlConnection(connectionString))
+                    {
+                        connection.Open();
+
+                        string insertDataQuery = $@"
+INSERT INTO StudentUserdata (Lrn, Points, Passed, Stories, Topic, QuizResult)
+VALUES ('{unlocked.StudentLRN}', '{corrects.ToString()}', '0', '{null}', '{unlocked.TopicTitle}' ,'{result.StoryTitle}')";
 
                         using (MySqlCommand command = new MySqlCommand(insertDataQuery, connection))
                         {

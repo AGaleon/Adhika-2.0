@@ -17,7 +17,7 @@
                         <DataTemplate>
                             <Grid HeightRequest="200"  Margin="10" BackgroundColor="Transparent">
                                 <BoxView Color="White"></BoxView>
-                                <Label Text="{Binding Points, StringFormat='Attemps : {0} ' }" FontSize="10" TextColor="Black" />
+                                <Label Text="{Binding Attemps, StringFormat='Attempts : {0} ' }" FontSize="10" TextColor="Black" />
                                 <StackLayout VerticalOptions="Center">
                                     <Frame Padding="0" HeightRequest="100" CornerRadius="50" WidthRequest="100" >
                                         <Image Source="{Binding StudentImageData}"></Image>
@@ -38,10 +38,10 @@
                                             </Label>
                                         </StackLayout>
                                     </Frame>
-                                    <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
-                                        <Label Text="{Binding FName}" FontSize="15" TextColor="Black" FontAttributes="Bold" FontFamily=""/>
-                                        <Label Text="{Binding LName}" FontSize="15" TextColor="Black" FontAttributes="Bold" FontFamily=""/>
-                                    </HorizontalStackLayout>
+                                    <StackLayout HorizontalOptions="Center">
+                                        <Label Text="{Binding FName}" HorizontalTextAlignment="Center" FontSize="15" TextColor="Black" FontAttributes="Bold" FontFamily=""/>
+                                        <Label Text="{Binding LName}" HorizontalTextAlignment="Center" FontSize="15" TextColor="Black" FontAttributes="Bold" FontFamily=""/>
+                                    </StackLayout>
                                     <Label Text="{Binding Points, StringFormat='{0} / 10 '}" HorizontalOptions="Center"/>
 
                                 </StackLayout>
