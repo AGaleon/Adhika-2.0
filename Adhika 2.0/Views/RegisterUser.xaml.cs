@@ -154,6 +154,11 @@ public partial class RegisterUser
                 await DisplayAlert("Password Confirmation Error", "Password and Confirmation Password Not Matched ", "Ok");
                 return;
             }
+            if (txtPassReg.Text.Count()<8)
+            {
+                await DisplayAlert("Password Error", "Password must be 8 characters", "Ok");
+                return;
+            }
             if (pckLevel.SelectedItem == null)
             {
                 await DisplayAlert("Please Complete the Form", "Please Select Grade Level", "Ok");

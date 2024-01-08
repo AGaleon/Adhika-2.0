@@ -10,11 +10,12 @@ namespace Adhika;
 
 public partial class Pdfview 
 {
-
+    string urls;
+    string downloadlink;
     public Pdfview(string url)
 	{
 		InitializeComponent();
-
+        downloadlink = url.Replace("https://drive.google.com/file/d/", "https://drive.google.com/uc?export=download&id=");
         if (url.Contains("lumi"))
         {
             webView1.IsVisible = false;
@@ -25,6 +26,7 @@ public partial class Pdfview
             webView.IsVisible = false;
             webView1.Source = url;
         }
+        urls = url;
     }
     
     private async void ContentPage_Appearing(object sender, EventArgs e)
@@ -38,5 +40,8 @@ public partial class Pdfview
 
     }
 
-   
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+        Launcher.OpenAsync(urls);
+    }
 }

@@ -52,25 +52,44 @@ public partial class Home
 
     private async void selectedchange(object sender, string e)
     {
-        isTopicLoaded = false;
-        _ = MopupService.Instance.PushAsync( new LoadingAnim());
-        var change = await GetStoriesForStudentAsync(_studentInfo.Lrn, int.Parse(e), _studentInfo.IsAdmin);
-        if (change.Count != 0)
+        retryagain:
+        try
         {
-            for (int i = 0; i < change.Count; i++)
+            isTopicLoaded = false;
+            _ = MopupService.Instance.PushAsync(new LoadingAnim());
+            var change = await GetStoriesForStudentAsync(_studentInfo.Lrn, int.Parse(e), _studentInfo.IsAdmin);
+            if (change.Count != 0)
             {
-                change[i].ImageStory = await GetImageForStoryAsync(change[i].StoryID);
+                for (int i = 0; i < change.Count; i++)
+                {
+                    change[i].ImageStory = await GetImageForStoryAsync(change[i].StoryID);
+                }
+                ViewModel.storydataItemsSource = change;
+                header_.Text = ViewModel.storydataItemsSource[0].TopicTitle;
             }
-            ViewModel.storydataItemsSource = change;
-            header_.Text = ViewModel.storydataItemsSource[0].TopicTitle;
+            else
+            {
+                header_.Text = "No Available Topic Yet";
+                ViewModel.storydataItemsSource = new ObservableCollection<StoryData>();
+            }
+            getPreloadedTopics(e, _studentInfo.Lrn);
+            await MopupService.Instance.PopAsync();
         }
-        else
+        catch (Exception)
         {
-            header_.Text = "No Available Topic Yet";
-            ViewModel.storydataItemsSource = new ObservableCollection<StoryData>();
+            bool retry = await DisplayAlert("Data Retrieval Error",
+      "Failed to load data. Please check your internet connection and try again.",
+      "Retry", "Cancel");
+
+            if (retry)
+            {
+                goto retryagain;
+            }
+            else
+            {
+                await MopupService.Instance.PopAsync();
+            }
         }
-        getPreloadedTopics(e, _studentInfo.Lrn);
-        await  MopupService.Instance.PopAsync();
     }
     public async Task<ObservableCollection<StoryData>> GetStoriesForStudentAsync(string lrn, int grade, bool isAdmin)
     {
