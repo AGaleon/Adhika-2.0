@@ -283,6 +283,7 @@ WHERE
             // User clicked "Yes", perform logout
             // You can add your logout logic here, such as clearing authentication tokens, navigating to login page, etc.
             // For demonstration purposes, I'm using the App.Current.MainPage.Navigation.PopToRootAsync() method
+            App.Updatestatus(_studentInfo.Lrn, false);
             await MopupService.Instance.PopAsync();
         }
       
@@ -417,7 +418,6 @@ WHERE
         preloadedTopic = await GetTopicsWithClearedStatusAsync(grade, lrn);
 
     }
-
     private void SwipeItemView_Invoked(object sender, EventArgs e)
     {
         if (sender is SwipeItemView swipeItem)
@@ -467,8 +467,5 @@ WHERE
     {
         await MopupService.Instance.PushAsync(new Profile(_studentInfo.Id.ToString(),_studentInfo.StudentImageData, _studentInfo.FName+" "+_studentInfo.LName, _studentInfo.Grade.ToString()));
     }
-    private void SwipeItemView_Invoked_1(object sender, EventArgs e)
-    {
 
-    }
 }

@@ -56,12 +56,9 @@ public partial class LoginPage
         return null;
     }
 
-    
-
     public async Task<ObservableCollection<StoryData>> GetStoriesForStudentAsync( string lrn, int grade, bool isAdmin)
     {
         var stories = new ObservableCollection<StoryData>();
-
         using (var connection = new MySqlConnection(connectionString))
         {
             await connection.OpenAsync();

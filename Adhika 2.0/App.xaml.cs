@@ -15,7 +15,6 @@ public partial class App : Application
 	}
     protected override void OnStart()
     {
-
     }
     public static void Updatestatus(string username, bool Activestatus)
     {
@@ -45,9 +44,6 @@ public partial class App : Application
 
         }
     }
-
-   
-
     protected override void OnResume()
     {
         try
@@ -56,8 +52,6 @@ public partial class App : Application
         }
         catch (Exception)
         {
-
-
         }
     }
 }
