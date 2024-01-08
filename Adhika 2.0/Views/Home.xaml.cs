@@ -319,7 +319,7 @@ WHERE
                 // Note: Exiting the app might not be allowed on all platforms
                 // On some platforms, you might navigate to the main page or minimize the app instead
                 // For demonstration purposes, I'm using the App.Current.MainPage.Navigation.PopToRootAsync() method
-                await App.Current.MainPage.Navigation.PopToRootAsync();
+                Application.Current.Quit();
             }
             // If user clicked "No", do nothing
         });
