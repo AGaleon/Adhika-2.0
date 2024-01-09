@@ -13,7 +13,7 @@ public partial class App : Application
         InitializeComponent();
         AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(App_OnException);
         Application.Current.UserAppTheme = AppTheme.Light;
-        MainPage = new Profile(null,null,null,null);
+        MainPage = new Splash();
        
     }
     private void App_OnException(object sender, UnhandledExceptionEventArgs e)
