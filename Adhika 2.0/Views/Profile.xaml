@@ -26,9 +26,10 @@
                     <Label Text="10" HorizontalOptions="Center" FontSize="15" FontAttributes="Bold" FontFamily="" TextColor="White"></Label>
                 </StackLayout>
             </Frame>-->
-            <StackLayout x:Name="Mainv" Spacing="10" IsVisible="true" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,20,0,0" Grid.Row="1" BackgroundColor="Transparent" >
+            <StackLayout x:Name="Mainv" Spacing="10" IsVisible="true" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,16,0,0" Grid.Row="1" BackgroundColor="Transparent" >
                 <Button  Text="Change Profile Picture" x:Name="Changepfpbtn" Clicked="Changepfpbtn_Clicked"  BackgroundColor="#022b5d" TextColor="White" Margin="20,0" HeightRequest="50" FontAttributes="Bold" FontSize="18" ></Button>
                 <Button Text="Change Password" x:Name="changpassbtn" Clicked="changpassbtn_Clicked"  BackgroundColor="#022b5d" TextColor="White" Margin="20,0" HeightRequest="50" FontAttributes="Bold" FontSize="18" ></Button>
+                <Button Text="Signout" Clicked="Button_Clicked"  BackgroundColor="IndianRed" TextColor="White" Margin="20,0" HeightRequest="50" FontAttributes="Bold" FontSize="18" ></Button>
             </StackLayout>
             <StackLayout x:Name="ChangeProfile" IsVisible="false" Spacing="10" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,20,0,0" Grid.Row="1" BackgroundColor="Transparent" >
                 <Button  Text="Pick Profile Picture" x:Name="pickImage" Clicked="pickImage_Clicked"  BackgroundColor="#022b5d" TextColor="White" Margin="20,0" HeightRequest="50" FontAttributes="Bold" FontSize="18" ></Button>
@@ -48,6 +49,7 @@
                 <Button Text="Next" x:Name="Next" Clicked="Next_Clicked" BackgroundColor="#022b5d" TextColor="White" Margin="20,0" HeightRequest="50" FontAttributes="Bold" FontSize="18" ></Button>
                 <Button Text="Cancel" BackgroundColor="#022b5d" Clicked="btncancelpic_Clicked"   TextColor="White" Margin="20,0" HeightRequest="50" FontAttributes="Bold" FontSize="18" ></Button>
             </StackLayout>
+
         </Grid>
     </Frame>
 </mopups:PopupPage>

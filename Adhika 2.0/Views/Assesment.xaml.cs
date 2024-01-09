@@ -60,10 +60,10 @@ public partial class Assesment
         return randomizedList;
     }
 
-  
     private static Random random = new Random();
    
     public static event EventHandler<string> topicquiz;
+    public static event EventHandler<bool> ispassed;
     private async void Next_Clicked(object sender, EventArgs e)
     {
         if (quizing_ )
@@ -195,6 +195,7 @@ public partial class Assesment
                 await MopupService.Instance.PopAsync();
                 if (corrects > 6 )
                 {
+                    ispassed.Invoke(this, true);
                     using (MySqlConnection connection = new MySqlConnection(connectionString))
                     {
                         connection.Open();

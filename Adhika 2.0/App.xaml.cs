@@ -11,8 +11,9 @@ public partial class App : Application
 	{
         Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NHaF1cWWhIfEx0QXxbf1xzZFZMZV1bRndPMyBoS35RdURiW3tedHVSRWNYUUV+");
         InitializeComponent();
+        AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(App_OnException);
         Application.Current.UserAppTheme = AppTheme.Light;
-        MainPage = new Splash();
+        MainPage = new Profile(null,null,null,null);
        
     }
     private void App_OnException(object sender, UnhandledExceptionEventArgs e)

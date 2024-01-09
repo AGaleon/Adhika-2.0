@@ -8,7 +8,6 @@
         <Image Aspect="Fill" Source="assesmentbg" Opacity="0.1"></Image>
         <StackLayout>
             <Grid ColumnDefinitions="50,*,50" Margin="10" HeightRequest="30" VerticalOptions="Start">
-                <Button Text="cancel" BackgroundColor="Transparent"  HeightRequest="30" TextColor="Red" WidthRequest="60" Padding="0"></Button>
                 <Label Text="TOPIC" HorizontalOptions="Center" Grid.Column="1" FontFamily="" FontSize="20" FontAttributes="Bold" TextColor="White" ></Label>
             </Grid>
             <HorizontalStackLayout  >
@@ -94,6 +93,6 @@
             </StackLayout>
             <Button HeightRequest="40" WidthRequest="100" Text="Next" Clicked="Next_Clicked"  x:Name="Next" Margin="30,0,30,30" BackgroundColor="#000375"></Button>
         </StackLayout>
-        <Label Text="Admin mode:"></Label>
+       
     </Grid>
 </mopups:PopupPage>

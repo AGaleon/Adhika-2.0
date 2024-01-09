@@ -1,4 +1,6 @@
 
+using Adhika_2._0.Views;
+using Mopups.Services;
 using MySqlConnector;
 using System.Data;
 
@@ -12,12 +14,12 @@ public partial class Profile
 	public Profile( string userID, byte[] pfps , string fullname ,string grade)
 	{
 		InitializeComponent();
-        userid = userID;
-        Name.Text = fullname;
-        picData = pfps;
-        Grade.Text = "Grade "+ grade;
-        pfp.Source = ImageSource.FromStream(() => new MemoryStream(picData));
-        pfp_ = pfp.Source;
+        //userid = userID;
+        //Name.Text = fullname;
+        //picData = pfps;
+        //Grade.Text = "Grade "+ grade;
+        //pfp.Source = ImageSource.FromStream(() => new MemoryStream(picData));
+        //pfp_ = pfp.Source;
     }
     public static event EventHandler<byte[]> newpic;
     private void Changepfpbtn_Clicked(object sender, EventArgs e)
@@ -232,5 +234,12 @@ public partial class Profile
                 Next.Text = "Next";
             }
         }
+    }
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+        MopupService.Instance.PopAllAsync();
+        Application.Current.MainPage = new Splash();
+       
     }
 }

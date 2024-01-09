@@ -28,6 +28,7 @@ public partial class Home
         ViewModel = new Pagemodel();
         BindingContext = ViewModel;
         storyDatas = storyDatas_;
+        Assesment.ispassed += updateunlocked;
         Profile.newpic += UpdatePic;
         TopicSelection.DelItem += DeleteTopic;
         GradeLvlSelection.SelectedG += selectedchange;
@@ -38,6 +39,18 @@ public partial class Home
         isAdmin = storyDatas_[0].isAdminmode;
         ViewModel.storydataItemsSource = storyDatas;
         Gradesel.IsVisible = isAdmin;
+    }
+
+    private void updateunlocked(object sender, bool e)
+    {
+        var a = storyDatas;
+        for (int i = 0; i < a.Count; i++)
+        {
+            if (a[i] == tounlocked )
+            {
+                storyDatas[i].IsLocked = false;
+            }
+        }
     }
 
     private void DeleteTopic(object sender, Topic e)
@@ -356,12 +369,13 @@ WHERE
             await MopupService.Instance.PushAsync(new Admintools(),true);
         }
     }
+    StoryData tounlocked = new StoryData();
+    StoryData Result = new StoryData();
     private async void ReadNow_tapped(object sender, EventArgs e)
     {
         if (!currentitem.IsLocked)
         {
-            StoryData tounlocked = new StoryData();
-            StoryData Result = new StoryData();
+            
 
             for (int i = 0; i < ViewModel.storydataItemsSource.Count; i++)
             {
