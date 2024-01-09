@@ -32,7 +32,6 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
@@ -49,6 +48,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\AppIcon\logo.png" />
 	  <None Remove="Resources\Fonts\fontello.ttf" />
 	  <None Remove="Resources\Images\bookview.png" />
 	  <None Remove="Resources\Images\Loading.png" />
@@ -57,6 +57,10 @@
 	  <None Remove="Resources\Images\logout.png" />
 	  <None Remove="Resources\Images\play.png" />
 	  <None Remove="Resources\Images\quiz.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiIcon Include="Resources\AppIcon\logo.png" Scale="0.4" ForegroundFile="Resources\AppIcon\logo.png" />
 	</ItemGroup>
 
 	<ItemGroup>
