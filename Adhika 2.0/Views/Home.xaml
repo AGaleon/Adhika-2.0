@@ -7,7 +7,7 @@
     <StackLayout x:Name="_home" IsVisible="true" BackgroundColor="LightBlue">
         <!-- Logout Label -->
         <Grid>
-           
+            <!-- Logout Label -->
             <StackLayout BackgroundColor="Black"></StackLayout>
             <Image x:Name="bg_item" Aspect="AspectFill" Opacity="0.2"></Image>
             <StackLayout>

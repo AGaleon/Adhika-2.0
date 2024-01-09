@@ -236,11 +236,15 @@ public partial class Profile
         }
     }
 
-    private void Button_Clicked(object sender, EventArgs e)
+    private async void Button_Clicked(object sender, EventArgs e)
     {
-        App.Updatestatus(Home._studentInfo.Lrn, false);
-        MopupService.Instance.PopAllAsync();
-        Application.Current.MainPage = new Splash();
-       
+        bool result = await DisplayAlert("Logout Confirmation", "Are you sure you want to log out?", "Yes", "No");
+
+        if (result)
+        {
+            App.Updatestatus(Home._studentInfo.Lrn, false);
+            MopupService.Instance.PopAllAsync();
+            Application.Current.MainPage = new Splash();
+        }
     }
 }
