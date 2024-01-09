@@ -14,7 +14,7 @@
         <WebView x:Name="webView1" Source="https://drive.google.com/file/d/18CdTGhQSZQvbcS7FTCWeG4-_2b2waQ68/view" BackgroundColor="Wheat">
         </WebView>
         <Grid BackgroundColor="DimGray" HeightRequest="60" VerticalOptions="Start" >
-            <Label Text="Save" HorizontalOptions="End" VerticalOptions="Center" Margin="20,0" FontSize="20" TextColor="White" FontFamily="" >
+            <Label Text="Save" HorizontalOptions="End" x:Name="Save" VerticalOptions="Center" Margin="20,0" FontSize="20" TextColor="White" FontFamily="" >
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
                 </Label.GestureRecognizers>

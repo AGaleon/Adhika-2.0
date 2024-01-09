@@ -12,9 +12,11 @@ public partial class Pdfview
 {
     string urls;
     string downloadlink;
-    public Pdfview(string url)
+    public Pdfview(string url,bool isSave)
 	{
 		InitializeComponent();
+
+        Save.IsVisible = isSave;
         downloadlink = url.Replace("https://drive.google.com/file/d/", "https://drive.google.com/uc?export=download&id=");
         if (url.Contains("lumi"))
         {

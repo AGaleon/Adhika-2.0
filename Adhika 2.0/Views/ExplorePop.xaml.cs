@@ -22,7 +22,7 @@ public partial class ExplorePop : PopupPage
 	}
     private async  void readnow_Clicked(object sender, EventArgs e)
     {
-        await MopupService.Instance.PushAsync(new Pdfview(classStories.StoryReadingUrl));
+        await MopupService.Instance.PushAsync(new Pdfview(classStories.StoryReadingUrl,true));
     }
     private async void Quiz_Clicked(object sender, EventArgs e)
     {
@@ -38,6 +38,6 @@ public partial class ExplorePop : PopupPage
 
     private async void Lumi_Clicked(object sender, EventArgs e)
     {
-        await MopupService.Instance.PushAsync(new Pdfview(classStories.StoryVideoUrl));
+        await MopupService.Instance.PushAsync(new Pdfview(classStories.StoryVideoUrl,false));
     }
 }
