@@ -446,7 +446,7 @@ WHERE
 
     private async void btnPreviewlumi_Clicked(object sender, EventArgs e)
     {
-        await MopupService.Instance.PushAsync(new Pdfview(LumiUrl.Text));
+        await MopupService.Instance.PushAsync(new Pdfview(LumiUrl.Text, false));
     }
 
     private void LumiUrl_TextChanged(object sender, TextChangedEventArgs e)
