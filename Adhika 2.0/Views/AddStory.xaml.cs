@@ -110,7 +110,7 @@ public partial class AddStory
 
     private async void btnPreviewPdf_Clicked(object sender, EventArgs e)
     {
-        await MopupService.Instance.PushAsync(new Pdfview(PdfUrl.Text));
+        await MopupService.Instance.PushAsync(new Pdfview(PdfUrl.Text, false));
     }
 
     private async void TitleTap(object sender, TappedEventArgs e)
