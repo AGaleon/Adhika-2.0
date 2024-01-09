@@ -7,11 +7,7 @@
     <StackLayout x:Name="_home" IsVisible="true" BackgroundColor="LightBlue">
         <!-- Logout Label -->
         <Grid>
-            <Label Text="Logout" FontSize="15" ZIndex="1" x:Name="logout" VerticalOptions="Start" HorizontalOptions="Start" VerticalTextAlignment="Center" FontAttributes="Bold" Margin="20" TextColor="Wheat" HeightRequest="50" WidthRequest="50">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="logout_Tapped" />
-                </Label.GestureRecognizers>
-            </Label>
+           
             <StackLayout BackgroundColor="Black"></StackLayout>
             <Image x:Name="bg_item" Aspect="AspectFill" Opacity="0.2"></Image>
             <StackLayout>

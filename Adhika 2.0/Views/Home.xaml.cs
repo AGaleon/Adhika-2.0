@@ -43,12 +43,14 @@ public partial class Home
 
     private void updateunlocked(object sender, bool e)
     {
+        ViewModel.storydataItemsSource = null;
         var a = storyDatas;
         for (int i = 0; i < a.Count; i++)
         {
             if (a[i] == tounlocked )
             {
                 storyDatas[i].IsLocked = false;
+                ViewModel.storydataItemsSource = storyDatas;
             }
         }
     }
