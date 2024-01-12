@@ -9,12 +9,24 @@
 
             <StackLayout x:Name="_frmregister" IsVisible="true">
                 <Label Text="Register" TextColor="#114D97" FontSize="50" Margin="50,10" ></Label>
+                <Frame Padding="0,10,0,10" HeightRequest="50"  HasShadow="True" >
+                    <StackLayout Grid.Column="0" VerticalOptions="Center" Margin=" 8,0,8,0">
+                        <Frame Padding="0,-10" BorderColor="Transparent" >
+                            <Picker x:Name="RolePicker" FontFamily="" SelectedIndexChanged="RolePicker_SelectedIndexChanged" FontAttributes="Bold" TitleColor="#D3D3D3"   Title="Select Role">
+                                <Picker.Items>
+                                    <x:String>Administrator</x:String>
+                                    <x:String>User</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Frame>
+                    </StackLayout>
+                </Frame>
                 <Grid Margin="0,30,0,0 " ColumnDefinitions="*,*" ColumnSpacing="10">
+                    
                     <Frame Padding="0,10,0,10" HeightRequest="50"  HasShadow="True" >
                         <StackLayout Grid.Column="0" VerticalOptions="Center" Margin=" 8,0,8,0" >
                             <Frame Padding="0,-10" BorderColor="Transparent" >
                                 <Picker Title="Select Grade Level" x:Name="pckLevel" FontFamily="" FontAttributes="Bold" TitleColor="#D3D3D3" SelectedIndexChanged="pckLevel_SelectedIndexChanged"  >
-
                                 </Picker>
                             </Frame>
                         </StackLayout>

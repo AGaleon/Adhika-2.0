@@ -135,6 +135,7 @@ public partial class RegisterUser
                 await DisplayAlert("Please Complete the Form", "Please Select Grade Level and " + Message + " is Empty Registration cant continue Please Try Again", "Ok");
                 pckLevel.TitleColor = Color.FromRgb(255, 0, 0);
             }
+
             else
             {
                 await DisplayAlert("Please Complete the Form", Message + " is Empty Registration cant continue Please Try Again", "Ok");
@@ -165,6 +166,12 @@ public partial class RegisterUser
                 pckLevel.TitleColor = Color.FromRgb(255, 0, 0);
                 return;
             }
+            if (RolePicker.SelectedItem == null)
+            {
+                await DisplayAlert("Please Complete the Form", "Please Select Role", "Ok");
+                RolePicker.TitleColor = Color.FromRgb(255, 0, 0);
+                return;
+            }
             StudentInfo student = new StudentInfo();
 
             string[] getlvl = pckLevel.SelectedItem.ToString().Split(" ");
@@ -175,7 +182,14 @@ public partial class RegisterUser
             student.MName = txtMiddlename.Text;
             student.Email = txtEmailReg.Text;
             student.Password = txtPassReg.Text;
-
+            if (true)
+            {
+                student.IsAdmin = RolePicker.SelectedIndex == 0;
+            }
+            else
+            {
+                student.IsAdmin = false;
+            }
             InsertResult result = await InsertAsync(student);
 
             switch (result)
@@ -190,6 +204,7 @@ public partial class RegisterUser
                     txtMiddlename.Text = "";
                     txtStudId.Text = "";
                     pckLevel.SelectedItem = null;
+                    RolePicker.SelectedItem = null;
                     break;
                 case InsertResult.DuplicateStudentId:
                     await DisplayAlert("Failed to insert student. Duplicate studentId.", "", "OK");
@@ -365,5 +380,10 @@ public partial class RegisterUser
         {
             return false;
         }
+    }
+
+    private void RolePicker_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        RolePicker.TitleColor = Color.FromRgb(211, 211, 211);
     }
 }
