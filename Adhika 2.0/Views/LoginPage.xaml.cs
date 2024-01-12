@@ -144,6 +144,28 @@ WHERE
         }
         return stories;
     }
+    protected override bool OnBackButtonPressed()
+    {
+        // Display exit confirmation when the back button is pressed
+        Device.BeginInvokeOnMainThread(async () =>
+        {
+            bool result = await DisplayAlert("Exit Confirmation", "Are you sure you want to exit the app?", "Yes", "No");
+
+            if (result)
+            {
+                // User clicked "Yes", exit the app
+                // Note: Exiting the app might not be allowed on all platforms
+                // On some platforms, you might navigate to the main page or minimize the app instead
+                // For demonstration purposes, I'm using the App.Current.MainPage.Navigation.PopToRootAsync() method
+                App.Updatestatus(null, false);
+                Application.Current.Quit();
+            }
+            // If user clicked "No", do nothing
+        });
+
+        // Return true to indicate that the back button press has been handled
+        return true;
+    }
     public bool alreadyloggedin = false;
     private async void btnLogin_Click(object sender, EventArgs e)
     {
