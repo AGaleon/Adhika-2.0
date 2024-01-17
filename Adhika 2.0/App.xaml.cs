@@ -40,7 +40,10 @@ public partial class App : Application
         {
             using MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
-            using MySqlCommand cmd = new MySqlCommand("UPDATE StudentInfo SET IsActive = @IsActive WHERE Lrn = @username", connection);
+            using MySqlCommand cmd = new MySqlCommand(@"
+        UPDATE StudentInfo SET IsActive = @IsActive WHERE Lrn = @username;
+        UPDATE StudentInfo SET LoginLog = CURRENT_TIMESTAMP WHERE Lrn = @username;
+    ");
             cmd.Parameters.AddWithValue("@IsActive", Activestatus);
             cmd.Parameters.AddWithValue("@username", username);
             cmd.ExecuteNonQuery();
