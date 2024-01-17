@@ -236,6 +236,9 @@ Best regards,
                 {
                     bool a = sendnotif(email, "adhikamobileapp@gmail.com", "jyxg idxz msmv zrlb");
                     DisplayAlert("Success", "Password changed successfully.", "OK");
+                    App.Updatestatus(Home._studentInfo.Lrn, false);
+                    MopupService.Instance.PopAllAsync();
+                    Application.Current.MainPage = new Splash();
                 }
                 else
                 {
