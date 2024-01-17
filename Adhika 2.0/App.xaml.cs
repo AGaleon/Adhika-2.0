@@ -38,15 +38,22 @@ public partial class App : Application
         string connectionString = "Server=mysql-161002-0.cloudclusters.net;Port=12808;Database=Adhika;Uid=admin;Password=3dqlDDv9;SslMode=None;";
         try
         {
-            using MySqlConnection connection = new MySqlConnection(connectionString);
-            connection.Open();
-            using MySqlCommand cmd = new MySqlCommand(@"
-        UPDATE StudentInfo SET IsActive = @IsActive WHERE Lrn = @username;
-        UPDATE StudentInfo SET LoginLog = CURRENT_TIMESTAMP WHERE Lrn = @username;
-    ");
-            cmd.Parameters.AddWithValue("@IsActive", Activestatus);
-            cmd.Parameters.AddWithValue("@username", username);
-            cmd.ExecuteNonQuery();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string combinedQuery = @"
+            UPDATE StudentInfo SET IsActive = @IsActive WHERE Lrn = @username;
+            UPDATE StudentInfo SET LoginLog = CURRENT_TIMESTAMP WHERE Lrn = @username;
+        ";
+
+                using (MySqlCommand cmd = new MySqlCommand(combinedQuery, connection))
+                {
+                    cmd.Parameters.AddWithValue("@IsActive", Activestatus);
+                    cmd.Parameters.AddWithValue("@username", username);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
         catch (Exception ex)
         {
