@@ -2,6 +2,7 @@ using Mopups.Services;
 using MySqlConnector;
 using System.Net;
 using System.Net.Mail;
+using static Java.Util.Jar.Attributes;
 
 namespace Adhika_2._0.Views;
 
@@ -22,7 +23,7 @@ public partial class ForgotPass
 	}
     public string GetStudentUserDataByEmail(string email)
     {
-        using (MySqlConnection connection = new MySqlConnection("Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=Adhika;Uid=admin;Password=lZknW95N;SslMode=None;"))
+        using (MySqlConnection connection = new MySqlConnection("Server=mysql-161002-0.cloudclusters.net;Port=12808;Database=Adhika;Uid=admin;Password=3dqlDDv9;SslMode=None;"))
         {
             connection.Open();
 
@@ -85,6 +86,46 @@ Thank you,
 		}
 
 	}
+    public bool sendnotif(string to, string from, string pass)
+    {
+        MailMessage message = new MailMessage();
+        message.To.Add(to);
+        message.Subject = "Adhika - One-Time Password (OTP) for Verification";
+        string user = Name  ; // Replace with the actual user's name
+        string companyName = "Adhika"; // Replace with your actual company name
+
+        string notificationMessage = $@"
+Hello {user},
+
+We wanted to inform you that your password has been successfully changed. If you initiated this change, no further action is required. However, if you did not authorize this update, please contact our support team immediately.
+
+For your security, we recommend regularly updating your password and enabling two-factor authentication.
+
+If you have any questions or concerns, feel free to reach out to us.
+
+Thank you for choosing {companyName}.
+
+Best regards,
+{companyName}
+";
+        message.Body = "Password Change";
+        message.From = new MailAddress(from);
+        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+        smtpClient.EnableSsl = true;
+        smtpClient.Port = 587;
+        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+        smtpClient.Credentials = new NetworkCredential(from, pass);
+        try
+        {
+            smtpClient.Send(message);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+
+    }
     static string GenerateRandomString(int length)
     {
         const string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -176,7 +217,7 @@ Thank you,
 
     public void ChangePassword(string email, string newPassword)
     {
-        using (MySqlConnection connection = new MySqlConnection("Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=Adhika;Uid=admin;Password=lZknW95N;SslMode=None;"))
+        using (MySqlConnection connection = new MySqlConnection("Server=mysql-161002-0.cloudclusters.net;Port=12808;Database=Adhika;Uid=admin;Password=3dqlDDv9;SslMode=None;"))
         {
             try
             {
@@ -193,6 +234,7 @@ Thank you,
 
                     if (rowsAffected > 0)
                     {
+                        bool a = sendnotif(txtemailrecovery.Text, "adhikamobileapp@gmail.com", "jyxg idxz msmv zrlb");
                         Console.WriteLine("Password updated successfully!");
                     }
                     else

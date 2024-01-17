@@ -29,7 +29,7 @@ public partial class QuizResponseview
     public List<StudentData> GetStudentsWithImageData(string story, string topic)
     {
         List<StudentData> students = new List<StudentData>();
-        string connectionString = "Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=Adhika;Uid=admin;Password=lZknW95N;SslMode=None;";
+        string connectionString = "Server=mysql-161002-0.cloudclusters.net;Port=12808;Database=Adhika;Uid=admin;Password=3dqlDDv9;SslMode=None;";
         using (MySqlConnection connection = new MySqlConnection(connectionString))
         {
             connection.Open();

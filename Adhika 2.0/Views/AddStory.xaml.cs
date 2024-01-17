@@ -266,7 +266,7 @@ public partial class AddStory
         }  
     }
     bool isTopicLoaded = false;
-    string connectionString = "Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=Adhika;Uid=admin;Password=lZknW95N;SslMode=None;";
+    string connectionString = "Server=mysql-161002-0.cloudclusters.net;Port=12808;Database=Adhika;Uid=admin;Password=3dqlDDv9;SslMode=None;";
     public async Task<ObservableCollection<Topic>> GetTopicsWithClearedStatusAsync(string grade)
     {
         ObservableCollection<Topic> topics = new ObservableCollection<Topic>();
@@ -316,8 +316,8 @@ WHERE
         return topics;
     }
 
-    string storyConnectionString = "Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=Adhika;Uid=admin;Password=lZknW95N;SslMode=None;";
-    private string storyAssetsConnectionString = "Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=AdhikaStoryAssests;Uid=admin;Password=lZknW95N;SslMode=None;";
+    string storyConnectionString = "Server=mysql-161002-0.cloudclusters.net;Port=12808;Database=Adhika;Uid=admin;Password=3dqlDDv9;SslMode=None;";
+    private string storyAssetsConnectionString = "Server=mysql-161002-0.cloudclusters.net;Port=12808;Database=AdhikaStoryAssests;Uid=admin;Password=3dqlDDv9;SslMode=None;";
 
     public bool InsertStoryWithAssets(string descriptions, string quizData, string storyReadingUrl, string storyTitle, string storyTopic, string storyVideoUrl, byte[] imageData)
     {

@@ -12,7 +12,7 @@ public partial class TopicSelection
     string selected;
     StudentInfo _studentInfo = new  StudentInfo();
     ObservableCollection<Topic> _topics = new ObservableCollection<Topic>();
-    string connectionString = "Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=Adhika;Uid=admin;Password=lZknW95N;SslMode=None;";
+    string connectionString = "Server=mysql-161002-0.cloudclusters.net;Port=12808;Database=Adhika;Uid=admin;Password=3dqlDDv9;SslMode=None;";
     public TopicSelection(ObservableCollection<Topic> topics , StudentInfo studentInfo ,string Seltopic)
 	{
 		InitializeComponent();
@@ -59,7 +59,7 @@ public partial class TopicSelection
     }
     public async Task<ImageSource> GetImageForStoryAsync(int storyId)
     {
-        using (var connection = new MySqlConnection("Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=AdhikaStoryAssests;Uid=admin;Password=lZknW95N;SslMode=None;"))
+        using (var connection = new MySqlConnection("Server=mysql-161002-0.cloudclusters.net;Port=12808;Database=AdhikaStoryAssests;Uid=admin;Password=3dqlDDv9;SslMode=None;"))
         {
             await connection.OpenAsync();
 

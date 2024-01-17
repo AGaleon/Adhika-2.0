@@ -12,7 +12,7 @@ namespace Adhika_Final_Build.Views;
 public partial class LoginPage 
 {
    
-    string connectionString = "Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=Adhika;Uid=admin;Password=lZknW95N;SslMode=None;";
+    string connectionString = "Server=mysql-161002-0.cloudclusters.net;Port=12808;Database=Adhika;Uid=admin;Password=3dqlDDv9;SslMode=None;";
     public string username;
     public LoginPage()
 	{
@@ -21,7 +21,7 @@ public partial class LoginPage
 	}
     public async Task<ImageSource> GetImageForStoryAsync(int storyId)
     {
-        using (var connection = new MySqlConnection("Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=AdhikaStoryAssests;Uid=admin;Password=lZknW95N;SslMode=None;"))
+        using (var connection = new MySqlConnection("Server=mysql-161002-0.cloudclusters.net;Port=12808;Database=AdhikaStoryAssests;Uid=admin;Password=3dqlDDv9;SslMode=None;"))
         {
             await connection.OpenAsync();
 
@@ -201,7 +201,7 @@ WHERE
 
     public StudentInfo AuthenticateUser(string email, string password)
     {
-        alreadyloggedin = false;    
+        alreadyloggedin = false;
         using (var connection = new MySqlConnection(connectionString))
         {
             connection.Open();
@@ -210,12 +210,16 @@ WHERE
             {
                 command.Connection = connection;
 
-                // Build your SQL query
+                // Build your SQL query with an update statement for LoginLog
                 command.CommandText = @"
-                    SELECT *
-                    FROM StudentInfo
-                    WHERE Email = @Email AND Password = @Password;
-                ";
+                SELECT *
+                FROM StudentInfo
+                WHERE Email = @Email AND Password = @Password;
+                
+                 UPDATE StudentInfo
+                SET LoginLog = CASE WHEN IsActive = 0 THEN CURRENT_TIMESTAMP ELSE LoginLog END
+                WHERE Email = @Email AND Password = @Password;
+            ";
 
                 // Add parameters
                 command.Parameters.AddWithValue("@Email", email);
@@ -230,7 +234,6 @@ WHERE
                         {
                             alreadyloggedin = true;
                             return null;
-                          
                         }
 
                         byte[] data_;
@@ -242,19 +245,24 @@ WHERE
                         {
                             data_ = null;
                         }
+
                         // Map the data to the StudentInfo object
                         var studentInfo = new StudentInfo
                         {
-                            Id =(int) reader["Id"],
+                            Id = (int)reader["Id"],
                             Lrn = reader["Lrn"].ToString(),
                             LName = reader["LName"].ToString(),
                             FName = reader["FName"].ToString(),
                             MName = reader["MName"].ToString(),
                             StudentImageData = data_,
+                            Email = reader["Email"].ToString(),
                             IsAdmin = reader["IsAdmin"].ToString() == "True",
-                            Grade = Convert.ToInt32( reader["Grade"]),
+                            Grade = Convert.ToInt32(reader["Grade"]),
                         };
+
+                        // Update LoginLog with the current timestamp
                         App.Updatestatus(studentInfo.Lrn, true);
+
                         return studentInfo;
                     }
                     else
@@ -265,6 +273,7 @@ WHERE
             }
         }
     }
+
 
     private void btnfgtpw_Clicked(object sender, EventArgs e)
     {

@@ -3,17 +3,23 @@ using Adhika_2._0.Views;
 using Mopups.Services;
 using MySqlConnector;
 using System.Data;
+using System.Net.Mail;
+using System.Net;
 
 namespace Adhika_2._0;
 
 public partial class Profile 
 {
+    string email;
+    string name;
     ImageSource pfp_ = null;
     byte[] picData { get; set; }
     string userid;
-	public Profile( string userID, byte[] pfps , string fullname ,string grade)
+	public Profile( string userID, byte[] pfps , string fullname ,string grade,string useremail)
 	{
 		InitializeComponent();
+        name = fullname;
+        email = useremail;
         userid = userID;
         Name.Text = fullname;
         picData = pfps;
@@ -117,7 +123,7 @@ public partial class Profile
         CurrentPass.Text = "";
         Pass.Text = "";
     }
-    string connectionString = "Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=Adhika;Uid=admin;Password=lZknW95N;SslMode=None;";
+    string connectionString = "Server=mysql-161002-0.cloudclusters.net;Port=12808;Database=Adhika;Uid=admin;Password=3dqlDDv9;SslMode=None;";
     private void changpassbtn_Clicked(object sender, EventArgs e)
     {
         Mainv.IsVisible = false;
@@ -171,6 +177,46 @@ public partial class Profile
 
         return isValid;
     }
+    public bool sendnotif(string to, string from, string pass)
+    {
+        MailMessage message = new MailMessage();
+        message.To.Add(to);
+        message.Subject = "Adhika - One-Time Password (OTP) for Verification";
+        string user = name; // Replace with the actual user's name
+        string companyName = "Adhika"; // Replace with your actual company name
+
+        string notificationMessage = $@"
+Hello {user},
+
+We wanted to inform you that your password has been successfully changed. If you initiated this change, no further action is required. However, if you did not authorize this update, please contact our support team immediately.
+
+For your security, we recommend regularly updating your password and enabling two-factor authentication.
+
+If you have any questions or concerns, feel free to reach out to us.
+
+Thank you for choosing {companyName}.
+
+Best regards,
+{companyName}
+";
+        message.Body = "Password Change";
+        message.From = new MailAddress(from);
+        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+        smtpClient.EnableSsl = true;
+        smtpClient.Port = 587;
+        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+        smtpClient.Credentials = new NetworkCredential(from, pass);
+        try
+        {
+            smtpClient.Send(message);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+
+    }
     public void ChangePassword(string userId, string newPassword)
     {
         using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -188,7 +234,7 @@ public partial class Profile
 
                 if (rowsAffected > 0)
                 {
-                    // Password changed successfully
+                    bool a = sendnotif(email, "adhikamobileapp@gmail.com", "jyxg idxz msmv zrlb");
                     DisplayAlert("Success", "Password changed successfully.", "OK");
                 }
                 else

@@ -16,7 +16,7 @@ public partial class Home
     public static string _lrn;
     ObservableCollection<Topic> preloadedTopic = new ObservableCollection<Topic>();
     public static StudentInfo _studentInfo = new StudentInfo();
-    string connectionString = "Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=Adhika;Uid=admin;Password=lZknW95N;SslMode=None;";
+    string connectionString = "Server=mysql-161002-0.cloudclusters.net;Port=12808;Database=Adhika;Uid=admin;Password=3dqlDDv9;SslMode=None;";
     StoryData Selectedstory_ = new StoryData();
     private bool isLoadingImages = false;
     private bool isAdmin;
@@ -198,7 +198,7 @@ WHERE
     }
     public async Task<ImageSource> GetImageForStoryAsync(int storyId)
     {
-        using (var connection = new MySqlConnection("Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=AdhikaStoryAssests;Uid=admin;Password=lZknW95N;SslMode=None;"))
+        using (var connection = new MySqlConnection("Server=mysql-161002-0.cloudclusters.net;Port=12808;Database=AdhikaStoryAssests;Uid=admin;Password=3dqlDDv9;SslMode=None;"))
         {
             await connection.OpenAsync();
 
@@ -403,8 +403,8 @@ WHERE
     
     // Event handler for the carousel view current item changed event
    
-    string storyConnectionString = "Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=Adhika;Uid=admin;Password=lZknW95N;SslMode=None;";
-    private string storyAssetsConnectionString = "Server=mysql-159972-0.cloudclusters.net;Port=10008;Database=AdhikaStoryAssests;Uid=admin;Password=lZknW95N;SslMode=None;";
+    string storyConnectionString = "Server=mysql-161002-0.cloudclusters.net;Port=12808;Database=Adhika;Uid=admin;Password=3dqlDDv9;SslMode=None;";
+    private string storyAssetsConnectionString = "Server=mysql-161002-0.cloudclusters.net;Port=12808;Database=AdhikaStoryAssests;Uid=admin;Password=3dqlDDv9;SslMode=None;";
 
     public bool DeleteStoryWithAssets(int storyId)
     {
@@ -501,7 +501,7 @@ WHERE
     }
     private async void Settings_Clicked(object sender, EventArgs e)
     {
-        await MopupService.Instance.PushAsync(new Profile(_studentInfo.Id.ToString(),_studentInfo.StudentImageData, _studentInfo.FName+" "+_studentInfo.LName, _studentInfo.Grade.ToString()));
+        await MopupService.Instance.PushAsync(new Profile(_studentInfo.Id.ToString(),_studentInfo.StudentImageData, _studentInfo.FName+" "+_studentInfo.LName, _studentInfo.Grade.ToString(),_studentInfo.Email));
     }
 
 }
