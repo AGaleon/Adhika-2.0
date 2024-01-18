@@ -43,14 +43,16 @@ public partial class App : Application
                 connection.Open();
 
                 string combinedQuery = @"
-            UPDATE StudentInfo SET IsActive = @IsActive WHERE Lrn = @username;
-            UPDATE StudentInfo SET LoginLog = CURRENT_TIMESTAMP WHERE Lrn = @username;
-        ";
+    UPDATE StudentInfo SET IsActive = @IsActive WHERE Lrn = @username;
+    UPDATE StudentInfo SET LoginLog = @date WHERE Lrn = @username;
+";
 
                 using (MySqlCommand cmd = new MySqlCommand(combinedQuery, connection))
                 {
                     cmd.Parameters.AddWithValue("@IsActive", Activestatus);
                     cmd.Parameters.AddWithValue("@username", username);
+                    cmd.Parameters.AddWithValue("@date", DateTime.Now.ToString());
+
                     cmd.ExecuteNonQuery();
                 }
             }
